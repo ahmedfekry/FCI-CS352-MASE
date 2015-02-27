@@ -5,4 +5,4 @@ Mahmoud Mohamed Hadad 20120364 G2
 
 Frontend environment  Web Application 
 
-Repository Link : https://github.com/ahmedfekry/FCI_SocialNetwork
+Repository Link : https://github.com/ahmedfekry/FCI-CS352-MASE
