@@ -111,7 +111,7 @@ public class UserEntity {
 				return returnedUser;
 			}
 		}
-
+		
 		return null;
 	}
 
@@ -136,5 +136,20 @@ public class UserEntity {
 
 		return true;
 
+	}
+	//////////////////////////////////////////////////////////////////////////
+	public static boolean isExist(String userName)
+	{
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		Query gaeQuery = new Query("users");
+		PreparedQuery pq = datastore.prepare(gaeQuery);
+		
+		for (Entity user: pq.asIterable()) {
+			if(user.getProperty("name").equals(userName))
+				return true;
+		}
+		
+		return false;
 	}
 }

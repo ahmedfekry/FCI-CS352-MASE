@@ -20,6 +20,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
+
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -97,5 +99,22 @@ public class Service {
 		return object.toString();
 
 	}
+	
+	//////////////////////////////////////////////////////////////////
+	/**
+	 * 
+	 * */
+	@POST
+	@Path("/DeleteFriendRequest")
+	public String deleteFriendRequest(@FormParam("uname") String uname,
+			@FormParam("password") String pass) {
+		JSONObject object = new JSONObject();
+		
+		
+		
+		
+		
+		return object.toString();
 
+	}
 }

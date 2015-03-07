@@ -26,6 +26,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.FCI.SWE.Models.UserEntity;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+
 
 /**
  * This class contains REST services, also contains action function for web
@@ -93,7 +100,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
-		String serviceUrl = "http://fci-swe-apps.appspot.com/rest/RegistrationService";
+		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&email=" + email
@@ -159,7 +166,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response home(@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
-		String serviceUrl = "http://fci-swe-apps.appspot.com/rest/LoginService";
+		String serviceUrl = "http://localhost:8888/rest/LoginService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&password=" + pass;
@@ -215,5 +222,58 @@ public class UserController {
 
 	}
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	@Produces(MediaType.TEXT_PLAIN)
+//	@Produces("text/html")
+	@Path("/FriendRequest")
+	@POST
+	public String  sendFriendRequest (@FormParam("friendUser") String fUser, 
+									@FormParam("senderUser")String sUser)
+	{
+		JSONObject object = new JSONObject();
+		if(fUser.equals(sUser))
+		{
+			object.put("Status", "Failed");
+			return object.toString();
+		}
+		boolean b = UserEntity.isExist(fUser);
+		//Map<String, String >m = new HashMap<String , String>();
+		if(!b)
+			object.put("Status", "Failed");
+			//m.put("Status", "Failed");
+		else
+		{
+			DatastoreService datastore = DatastoreServiceFactory
+					.getDatastoreService();
+			Query gaeQuery = new Query("friendRequest");
+			PreparedQuery pq = datastore.prepare(gaeQuery);
+			List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
+			
+			Entity fRequest = new Entity("friendRequest", l.size()+1);
+			fRequest.setProperty("sender", sUser);
+			fRequest.setProperty("receiver", fUser);
+			datastore.put(fRequest);
+			object.put("Status", "OK");
+			//m.put("Status", "OK");
+		}
+		
+		return object.toString();
+		//return Response.ok(new Viewable("/jsp/result", m)).build();
+	}
+	////////////////////////////////////////////////////////////////////////////////
+	
+	@Produces(MediaType.TEXT_PLAIN)
+//	@Produces("text/html")
+	@Path("/CancelFriendRequest")
+	@POST
+	public String  cancelFriendRequest (@FormParam("friendUser") String fUser, 
+									@FormParam("senderUser")String sUser)
+	{
+		JSONObject object = new JSONObject();
+		
+		
+		
+		return object.toString();
+	}
+	
 }
