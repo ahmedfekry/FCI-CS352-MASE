@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.soap.SOAPBinding.Use;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 
 
 
@@ -122,7 +124,7 @@ public class Service {
 	@Path("/FriendRequestService")
 	@POST
 	public String  sendFriendRequest (@FormParam("friendUser") String fUser, 
-									@FormParam("senderUser")String sUser)
+					@FormParam("senderUser")String sUser, @FormParam("senderPassword")String password)
 	{
 		JSONObject object = new JSONObject();
 		if(fUser.equals(sUser))
@@ -130,9 +132,10 @@ public class Service {
 			object.put("Status", "Failed");
 			return object.toString();
 		}
-		boolean b = UserEntity.isExist(fUser);
-		//Map<String, String >m = new HashMap<String , String>();
-		if(!b)
+		boolean exists = UserEntity.isExist(fUser);
+	
+		// check if friend is sent to exist user , check the access right of sender
+		if(!exists || UserEntity.getUser(sUser, password) == null)
 			object.put("Status", "Failed");
 			//m.put("Status", "Failed");
 		else
@@ -159,7 +162,7 @@ public class Service {
 			fRequest.setProperty("receiver", fUser);
 			datastore.put(fRequest);
 			object.put("Status", "OK");
-			//m.put("Status", "OK");
+
 		}
 		
 		return object.toString();
@@ -171,11 +174,17 @@ public class Service {
 	 * 
 	 * */
 	@POST
-	@Path("/DeleteFriendRequestService")
+	@Path("/CancelFriendRequestService")
 	public String deleteFriendRequest(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser) {
+			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
 		JSONObject object = new JSONObject();
 		
+		// check access right of sender 
+		if(UserEntity.getUser(sUser, password) == null)
+		{
+			object.put("Status", "Failed");
+			return object.toString();
+		}
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -199,77 +208,60 @@ public class Service {
 	@POST
 	@Path("/AddFriendService")
 	public String addFriend(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser) {
-		JSONObject object ;
-		JSONObject returnObject = new JSONObject();
-		String serviceUrl = "http://localhost:8888/rest/DeleteFriendRequestService";
+			@FormParam("friendUser") String fUser, @FormParam("receiverPassword")String password) {
 		
+		JSONObject object = new JSONObject();
 		
-		try {
-			URL url = new URL(serviceUrl);
-			String urlParameters = "senderUser=" + sUser + "&friendUser=" + fUser;
-			HttpURLConnection connection = (HttpURLConnection) url
-					.openConnection();
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			connection.setInstanceFollowRedirects(false);
-			connection.setRequestMethod("POST");
-			connection.setConnectTimeout(60000);  //60 Seconds
-			connection.setReadTimeout(60000);  //60 Seconds
-			connection.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded;charset=UTF-8");
-			OutputStreamWriter writer = new OutputStreamWriter(
-					connection.getOutputStream());
-			writer.write(urlParameters);
-			writer.flush();
-			String line, retJson = "";
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
-
-			while ((line = reader.readLine()) != null) {
-				retJson += line;
-			}
-			writer.close();
-			reader.close();
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(retJson);
-			object = (JSONObject) obj;
+		if(UserEntity.getUser(fUser, password) == null)
+		{
+			object.put("Status", "Failed");
+			return object.toString();
 			
-			if (object.get("Status").equals("Failed"))
-			{
-				returnObject.put("Status", "Failed");
-				return returnObject.toString();
-			}	
-			
-			DatastoreService datastore = DatastoreServiceFactory
-					.getDatastoreService();
-
-			Query gaeQuery = new Query("Friends");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
-			
-			Entity friend = new Entity("Friends", l.get(l.size()-1).getKey().getId()+1);
-			
-			friend.setProperty("user", sUser);
-			friend.setProperty("friendTo", fUser);
-			datastore.put(friend);
-			
-			object.put("Status", "OK");
-			
-			
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		// try to delete sent friend request from friendRequests table
+		
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
 
+		Query gaeQuery = new Query("friendRequests");
+		PreparedQuery pq = datastore.prepare(gaeQuery);
+		
+		boolean t = false;
+		for(Entity e : pq.asIterable())
+		{
+			if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
+			{
+				datastore.delete(e.getKey());
+				t = true;
+				break;
+			}	
+		}
+		
+		if(!t)
+		{
+			object.put("Status", "Failed");
+			return object.toString();
+			
+		}
+		
+		// add friend request in Friends entity
+		
 
-		return returnObject.toString();
+		Query gaeQuery2 = new Query("Friends");
+		PreparedQuery pq2 = datastore.prepare(gaeQuery2);
+		List<Entity> l = pq2.asList(FetchOptions.Builder.withDefaults());
+		
+		Entity friend = new Entity("Friends", l.get(l.size()-1).getKey().getId()+1);
+		
+		friend.setProperty("user", sUser);
+		friend.setProperty("friendTo", fUser);
+		datastore.put(friend);
+		
+		object.put("Status", "OK");
+		
+
+		return object.toString();
 	}
 	
 	//////////////////////////////////////////////////////

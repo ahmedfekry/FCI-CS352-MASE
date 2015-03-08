@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -228,11 +229,144 @@ public class UserController {
 
 	}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@POST
+	@Path("/FriendRequest")
+	public String sendFriendRequest(@FormParam("senderUser")String sUser,
+			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
+		JSONObject object ;
+		JSONObject returnObject = new JSONObject();
+		String serviceUrl = "http://localhost:8888/rest/FriendRequestService";
+		
+		try {
+			URL url = new URL(serviceUrl);
+			String urlParameters = "senderUser=" + sUser + "&friendUser=" + fUser
+					+ "&senderPassword=" + password;
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setConnectTimeout(60000);  //60 Seconds
+			connection.setReadTimeout(60000);  //60 Seconds
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			OutputStreamWriter writer = new OutputStreamWriter(
+					connection.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			String line, retJson = "";
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
 
+			while ((line = reader.readLine()) != null) {
+				retJson += line;
+			}
+			writer.close();
+			reader.close();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(retJson);
+			object = (JSONObject) obj;
+			
+			if (object.get("Status").equals("Failed"))
+			{
+				returnObject.put("Status", "Failed");
+				
+			}	
+			else 
+				object.put("Status", "OK");
+			
+			return returnObject.toString();
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		returnObject.put("Status", "Failed");
+		return returnObject.toString();
+		
+	}
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@POST
+	@Path("/AddFriend")
+	public String addFriend(@FormParam("senderUser")String sUser,
+			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
+		JSONObject object ;
+		JSONObject returnObject = new JSONObject();
+		String serviceUrl = "http://localhost:8888/rest/AddFriendService";
+		
+		try {
+			URL url = new URL(serviceUrl);
+			String urlParameters = "senderUser=" + sUser + "&friendUser=" + fUser
+					+ "&senderPassword=" + password;
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setConnectTimeout(60000);  //60 Seconds
+			connection.setReadTimeout(60000);  //60 Seconds
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			OutputStreamWriter writer = new OutputStreamWriter(
+					connection.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			String line, retJson = "";
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+
+			while ((line = reader.readLine()) != null) {
+				retJson += line;
+			}
+			writer.close();
+			reader.close();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(retJson);
+			object = (JSONObject) obj;
+			
+			if (object.get("Status").equals("Failed"))
+			{
+				returnObject.put("Status", "Failed");
+				
+			}	
+			else 
+				object.put("Status", "OK");
+			
+			return returnObject.toString();
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		returnObject.put("Status", "Failed");
+		return returnObject.toString();
+		
+	}
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/CancelFriendRequest")
 	@POST
