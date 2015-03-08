@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form action="/social/home" method="post">
   Name : <input type="text" name="uname" /> <br>
   Password : <input type="password" name="password" /> <br>

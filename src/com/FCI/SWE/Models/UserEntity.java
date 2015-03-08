@@ -126,8 +126,8 @@ public class UserEntity {
 		Query gaeQuery = new Query("users");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-
-		Entity employee = new Entity("users", list.size() + 1);
+		
+		Entity employee = new Entity("users", list.get(list.size()-1).getKey().getId()+ 1);
 
 		employee.setProperty("name", this.name);
 		employee.setProperty("email", this.email);

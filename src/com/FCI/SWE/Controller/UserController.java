@@ -167,7 +167,9 @@ public class UserController {
 	public Response home(@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
 		String serviceUrl = "http://localhost:8888/rest/LoginService";
-		try {
+		Map<String, String> map = new HashMap<String, String>();
+		try 
+		{
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&password=" + pass;
 			HttpURLConnection connection = (HttpURLConnection) url
@@ -198,8 +200,11 @@ public class UserController {
 			Object obj = parser.parse(retJson);
 			JSONObject object = (JSONObject) obj;
 			if (object.get("Status").equals("Failed"))
-				return null;
-			Map<String, String> map = new HashMap<String, String>();
+			{
+				map.put("Status", "Failed");
+				return Response.ok(new Viewable("/jsp/login", map)).build();				
+			}
+			
 			UserEntity user = UserEntity.getUser(object.toJSONString());
 			map.put("name", user.getName());
 			map.put("email", user.getEmail());
@@ -218,52 +223,17 @@ public class UserController {
 		 * UserEntity user = new UserEntity(uname, email, pass);
 		 * user.saveUser(); return uname;
 		 */
-		return null;
+		map.put("Status", "Failed");
+		return Response.ok(new Viewable("/jsp/login", map)).build();	
 
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	@Produces(MediaType.TEXT_PLAIN)
-//	@Produces("text/html")
-	@Path("/FriendRequest")
-	@POST
-	public String  sendFriendRequest (@FormParam("friendUser") String fUser, 
-									@FormParam("senderUser")String sUser)
-	{
-		JSONObject object = new JSONObject();
-		if(fUser.equals(sUser))
-		{
-			object.put("Status", "Failed");
-			return object.toString();
-		}
-		boolean b = UserEntity.isExist(fUser);
-		//Map<String, String >m = new HashMap<String , String>();
-		if(!b)
-			object.put("Status", "Failed");
-			//m.put("Status", "Failed");
-		else
-		{
-			DatastoreService datastore = DatastoreServiceFactory
-					.getDatastoreService();
-			Query gaeQuery = new Query("friendRequest");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
-			
-			Entity fRequest = new Entity("friendRequest", l.size()+1);
-			fRequest.setProperty("sender", sUser);
-			fRequest.setProperty("receiver", fUser);
-			datastore.put(fRequest);
-			object.put("Status", "OK");
-			//m.put("Status", "OK");
-		}
-		
-		return object.toString();
-		//return Response.ok(new Viewable("/jsp/result", m)).build();
-	}
-	////////////////////////////////////////////////////////////////////////////////
+
 	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
 	@Produces(MediaType.TEXT_PLAIN)
-//	@Produces("text/html")
 	@Path("/CancelFriendRequest")
 	@POST
 	public String  cancelFriendRequest (@FormParam("friendUser") String fUser, 
