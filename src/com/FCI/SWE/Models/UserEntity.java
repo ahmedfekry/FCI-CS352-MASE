@@ -111,7 +111,7 @@ public class UserEntity {
 				return returnedUser;
 			}
 		}
-
+		
 		return null;
 	}
 
@@ -126,8 +126,8 @@ public class UserEntity {
 		Query gaeQuery = new Query("users");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-
-		Entity employee = new Entity("users", list.size() + 1);
+		
+		Entity employee = new Entity("users", list.get(list.size()-1).getKey().getId()+ 1);
 
 		employee.setProperty("name", this.name);
 		employee.setProperty("email", this.email);
@@ -136,5 +136,20 @@ public class UserEntity {
 
 		return true;
 
+	}
+	//////////////////////////////////////////////////////////////////////////
+	public static boolean isExist(String userName)
+	{
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		Query gaeQuery = new Query("users");
+		PreparedQuery pq = datastore.prepare(gaeQuery);
+		
+		for (Entity user: pq.asIterable()) {
+			if(user.getProperty("name").equals(userName))
+				return true;
+		}
+		
+		return false;
 	}
 }
