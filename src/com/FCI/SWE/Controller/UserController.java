@@ -13,11 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,7 +37,9 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.urlfetch.HTTPRequest;
 
+import java.lang.String;
 
 /**
  * This class contains REST services, also contains action function for web
@@ -79,8 +85,14 @@ public class UserController {
 	 */
 	@GET
 	@Path("/login")
-	public Response login() {
-		return Response.ok(new Viewable("/jsp/login")).build();
+	public Response login( ) {
+		// @Context HttpServletRequest req
+//		HttpSession session= req.getSession(true);
+//		req.setAttribute("map", "123");
+//		session.setAttribute("map","123");
+		Map<String ,String>map = new HashMap<String ,String>();
+		map.put("message","");
+		return Response.ok(new Viewable("/jsp/login", null)).build();
 	}
 
 	/**
@@ -202,6 +214,8 @@ public class UserController {
 			JSONObject object = (JSONObject) obj;
 			if (object.get("Status").equals("Failed"))
 			{
+				map.put("message","Wrong email or password \n");
+				
 				map.put("Status", "Failed");
 				return Response.ok(new Viewable("/jsp/login", map)).build();				
 			}
@@ -224,7 +238,15 @@ public class UserController {
 		 * UserEntity user = new UserEntity(uname, email, pass);
 		 * user.saveUser(); return uname;
 		 */
+		 
+		
+//		HttpSession session= req.getSession(true);
+//		req.setAttribute("map", "123");
+//		session.setAttribute("map","123");
+		
 		map.put("Status", "Failed");
+		map.put("message","Wrong email or password \n");
+		
 		return Response.ok(new Viewable("/jsp/login", map)).build();	
 
 	}
