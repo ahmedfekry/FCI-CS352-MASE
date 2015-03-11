@@ -38,6 +38,7 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.urlfetch.HTTPRequest;
+import com.google.appengine.labs.repackaged.org.json.JSONArray;
 
 import java.lang.String;
 
@@ -177,7 +178,7 @@ public class UserController {
 	@POST
 	@Path("/home")
 	@Produces("text/html")
-	public Response home(@FormParam("uname") String uname,
+	public Response home(@Context HttpServletRequest req, @FormParam("uname") String uname,
 			@FormParam("password") String pass) {
 		String serviceUrl = "http://localhost:8888/rest/LoginService";
 		Map<String, String> map = new HashMap<String, String>();
@@ -224,6 +225,11 @@ public class UserController {
 			map.put("name", user.getName());
 			map.put("email", user.getEmail());
 			map.put("password", user.getPass());
+			HttpSession session= req.getSession(true);
+			req.getSession(true).setAttribute("name",user.getName());
+			req.getSession(true).setAttribute("email", user.getEmail());
+			req.getSession(true).setAttribute("password", user.getPass());
+			//session.setAttribute("1","2");
 			
 			return Response.ok(new Viewable("/jsp/home", map)).build();
 		} catch (MalformedURLException e) {
@@ -300,7 +306,7 @@ public class UserController {
 				
 			}	
 			else 
-				object.put("Status", "OK");
+				returnObject.put("Status", "OK");
 			
 			return returnObject.toString();
 			
@@ -403,5 +409,122 @@ public class UserController {
 		
 		return object.toString();
 	}
+	
+	///////////////////////////////////////////////////////////////
+	
+	@Path("/myFriends")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String getFriends(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		JSONArray object = new JSONArray();
+	
+		String serviceUrl = "http://localhost:8888/rest/getFriends";
+		
+		try {
+			URL url = new URL(serviceUrl);
+			String urlParameters = "uName=" + uName + "&password=" + password ;
+					
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setConnectTimeout(60000);  //60 Seconds
+			connection.setReadTimeout(60000);  //60 Seconds
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			OutputStreamWriter writer = new OutputStreamWriter(
+					connection.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			String line, retJson = "";
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+
+			while ((line = reader.readLine()) != null) {
+				retJson += line;
+			}
+			writer.close();
+			reader.close();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(retJson);
+			
+			//object = (JSONArray)obj;
+			//System.out.println(object.toString());
+			return retJson;
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		object.put("Failed");
+		return object.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+///////////////////////////////////////////////////////////////
+	@Path("/test")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String test ()
+	{
+		JSONArray jarray = new JSONArray();
+		
+		jarray.put("1");
+		jarray.put("2");
+		jarray.put("3");
+		jarray.put("4");
+		
+		return jarray.toString();
+	}
+	
+	@Path("/testArray")
+	@GET
+	public Response viewtest ()
+	{
+		JSONArray jarray = new JSONArray();
+		
+		jarray.put("1");
+		jarray.put("2");
+		jarray.put("3");
+		jarray.put("4");
+		
+		return Response.ok(new Viewable("/jsp/testJSONArray")).build();
+		
+	}
+	
+	
+
 	
 }
