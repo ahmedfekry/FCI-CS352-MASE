@@ -26,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -38,7 +39,6 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.urlfetch.HTTPRequest;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
 
 import java.lang.String;
 
@@ -412,10 +412,10 @@ public class UserController {
 	
 	///////////////////////////////////////////////////////////////
 	
-	@Path("/myFriends")
+	@Path("/MyFriends")
 	@Produces(MediaType.TEXT_PLAIN)
 	@POST
-	public String getFriends(@FormParam("uName")String uName, 
+	public String myFriends(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
@@ -452,7 +452,7 @@ public class UserController {
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(retJson);
 			
-			//object = (JSONArray)obj;
+			object = (JSONArray)obj;
 			//System.out.println(object.toString());
 			return retJson;
 			
@@ -471,9 +471,20 @@ public class UserController {
 		return object.toString();
 	}
 	
+	/////////////////////////////////////////////////////////
 	
 	
-	
+	@Path("/ReceivedFriendRequests")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String receivedFriendRequests(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		
+		
+		
+		
+	}
 	
 	
 	
@@ -494,35 +505,7 @@ public class UserController {
 	
 	
 ///////////////////////////////////////////////////////////////
-	@Path("/test")
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String test ()
-	{
-		JSONArray jarray = new JSONArray();
-		
-		jarray.put("1");
-		jarray.put("2");
-		jarray.put("3");
-		jarray.put("4");
-		
-		return jarray.toString();
-	}
 	
-	@Path("/testArray")
-	@GET
-	public Response viewtest ()
-	{
-		JSONArray jarray = new JSONArray();
-		
-		jarray.put("1");
-		jarray.put("2");
-		jarray.put("3");
-		jarray.put("4");
-		
-		return Response.ok(new Viewable("/jsp/testJSONArray")).build();
-		
-	}
 	
 	
 
