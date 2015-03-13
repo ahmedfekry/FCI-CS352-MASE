@@ -7,11 +7,25 @@
 <body>
 <% 
  
-request.getSession(true);
-	if(request.getSession().getAttribute("1") == null)
+	request.getSession(true);
+
+	if(request.getSession().getAttribute("name") == null)
 		out.print("null value");
 	else 
-		out.print(request.getSession().getAttribute("1"));
+		out.print(request.getSession().getAttribute("name"));
+	
+
+	if(request.getSession().getAttribute("email") == null)
+		out.print("null value");
+	else 
+		out.print(request.getSession().getAttribute("email"));
+
+	
+	if(request.getSession().getAttribute("password") == null)
+		out.print("null value");
+	else 
+		out.print(request.getSession().getAttribute("password"));
+	
 %>
 <p> Welcome b2a ya ${it.name} </p>
 <p> Mail ${it.email} </p>

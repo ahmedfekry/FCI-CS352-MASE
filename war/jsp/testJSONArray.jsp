@@ -1,3 +1,13 @@
+<%
+	request.getSession(true);
+	
+	if(request.getSession().getAttribute("param1") == null)
+		out.print("null value");
+	else 
+		out.print(request.getSession().getAttribute("param1"));
+		
+
+%>	
 <%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=windows-1256"
 	pageEncoding="windows-1256"%>
@@ -10,7 +20,7 @@ javax.ws.rs.client.ClientBuilder ,
 javax.ws.rs.client.WebTarget , 
 javax.ws.rs.core.MediaType , 
 javax.ws.rs.core.Response ,
-javax.ws.rs.core.UriBuilder , com.google.appengine.labs.repackaged.org.json.JSONArray, 
+javax.ws.rs.core.UriBuilder , org.json.simple.JSONArray, 
 org.glassfish.jersey.client.ClientConfig , org.json.simple.parser.*"%>
 <html>
 <head>
@@ -19,6 +29,8 @@ org.glassfish.jersey.client.ClientConfig , org.json.simple.parser.*"%>
 <title>Test</title>
 </head>
 <%
+
+	//out.println("param2 "+request.getSession().getAttribute("param2"));
 	JSONArray array = null;
 	try {
 		
@@ -27,7 +39,7 @@ org.glassfish.jersey.client.ClientConfig , org.json.simple.parser.*"%>
 		
 		WebTarget target = client.target(UriBuilder.fromUri(
 				"http://localhost:8888").build());
-		
+		//out.print("test");
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(target.path("social").path("test")
 				.request()
@@ -35,12 +47,12 @@ org.glassfish.jersey.client.ClientConfig , org.json.simple.parser.*"%>
 				.toString());
 	
 		
-		out.println("obj->"+obj.toString());
-		out.println("array0->"+array);
+		out.print("test " + obj.toString());
 		array=(JSONArray)obj;
+		out.println("array ->"+array);
 		
-		out.println("array->"+array);
-		for(int i=0;i < array.length();i++)
+
+		for(int i=0;i < array.size();i++)
 			out.println(array.get(i));
 		
 		
@@ -49,7 +61,7 @@ org.glassfish.jersey.client.ClientConfig , org.json.simple.parser.*"%>
 	}
 %>
 <body>
-	
+
 	
 	
 	
