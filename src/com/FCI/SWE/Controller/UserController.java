@@ -33,6 +33,7 @@ import org.json.simple.parser.ParseException;
 
 import sun.tools.jar.resources.jar;
 
+import com.FCI.SWE.Models.User;
 import com.FCI.SWE.Models.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -555,13 +556,20 @@ public class UserController {
 
 	
 ///////////////////////////////////////////////////////////////
+	@Path("/signout")
+	@GET
+
+	public Response signout (@Context HttpServletRequest request)
+	{
+		User.signOut();
+		request.getSession().invalidate();
+		
+		return Response.ok(new Viewable("/jsp/entryPoint")).build();
+	}
 	
 	
 	
-	
-	
-	
-	
+///////////////////////////////////////////////////////////////////////////////////////////	
 	@Path("/test")
 	@Produces(MediaType.TEXT_PLAIN)
 	@GET
