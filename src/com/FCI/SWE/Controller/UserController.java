@@ -264,7 +264,13 @@ public class UserController {
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * 
+	 * @param sUser username of the user who send the request
+	 * @param fUser username of the user who accept the request
+	 * @param password is the password of the user who sent the request
+	 * @return status of service OK or Failed
+	 */
 	@POST
 	@Path("/FriendRequest")
 	public String sendFriendRequest(@FormParam("senderUser")String sUser,
@@ -332,7 +338,13 @@ public class UserController {
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * accept friend request and make the 2 users friends and delete the request
+	 * @param sUser username of the user who send the request
+	 * @param fUser username of the user who accept the request
+	 * @param password is the password of the user who accept the request
+	 * @return status of service OK or Failed
+	 */
 	@POST
 	@Path("/AddFriend")
 	public String addFriend(@FormParam("senderUser")String sUser,
@@ -556,6 +568,11 @@ public class UserController {
 
 	
 ///////////////////////////////////////////////////////////////
+	/**
+	 * signout the user and close the session and send him to entry page 
+	 * @param request
+	 * @return
+	 */
 	@Path("/signout")
 	@GET
 
