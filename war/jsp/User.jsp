@@ -11,7 +11,7 @@
 		public String name = null;
 		public String email = null;
 		public String password = null;
-		public static User currentActive = null;
+		public static User currentActive= null;
 		
 		public User(String name , String email , String password){
 			this.name = name;

@@ -1,22 +1,3 @@
-<%@page import = "java.util.* " %>
-<%@include file="User.jsp" %>
-<%!
-Map <String , String> map = new HashMap(
-%>
-	<%=
-	request.getAttribute("map")
-	%>
-<%!
-); 
-%>
-
-<%!
-	String name =map.get("name");
-	String email=map.get("email");		
-	String password = map.get("password");
-	User user = new User(name,email,password);
-
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,15 +5,64 @@ Map <String , String> map = new HashMap(
 <title>Insert title here</title>
 </head>
 <body>
-<p> Welcome b2a ya <%=user.name %> </p>
-<p> Mail <%=user.email %> </p>
+
+
+<%@page import="com.FCI.SWE.Models.User
+				,org.json.simple.*
+				,org.json.simple.parser.JSONParser
+				,org.json.simple.parser.ParseException
+				,java.util.*"
+ %>
+<%--
+ 
+request.getSession(true);
+	if(request.getSession().getAttribute("1") == null)
+		out.print("null value");
+	else 
+		out.print(request.getSession().getAttribute("1"));
+--%>
+<%
+	request.getSession(true);
+	if(request.getSession().getAttribute("name") == null)
+		response.sendRedirect("/entryPoint");
+	
+	if(request.getSession().getAttribute("email") == null)
+		response.sendRedirect("/entryPoint");
+	
+	if(request.getSession().getAttribute("password") == null)
+		response.sendRedirect("/entryPoint");
+	
+	String name = "" , email = "" , password = "";
+	name += request.getSession().getAttribute("name");
+	email += request.getSession().getAttribute("email");
+	password += request.getSession().getAttribute("password");
+	
+	
+	
+	Map<String , String> map = new HashMap<String,String>();
+	map.put("name",(String)request.getSession().getAttribute("name"));
+	map.put("email",(String)request.getSession().getAttribute("email"));
+	map.put("password",(String)request.getSession().getAttribute("password"));
+	JSONObject object = new JSONObject();
+	object.putAll(map);
+	User.getUser(object.toString());
+%>
+
+
+<p> Welcome b2a ya ${it.name} </p>
+<p> Mail ${it.email} </p>
 <P><B>Send Friend Request <B><P><br>
 
 <form action="/social/FriendRequest" method="post">
-	<input type="hidden" name="senderUser"  value = <%=user.name %> /> <br>
+	<input type="hidden" name="senderUser"  value = "s" />
+	<input type="hidden" name="senderPassword"  value = "123" />
  	TO : <input type="text" name="friendUser" /> <br>
   	<input type="submit" value="Send Request">
 </form>
-<input type="button" name="Sign out" onClick=<%=user.signout() %> />
+<br>
+<br>
+<form action="/social/signout" method="get">
+	<input type ="submit" value="Sign out">
+</form>
 </body>
 </html>

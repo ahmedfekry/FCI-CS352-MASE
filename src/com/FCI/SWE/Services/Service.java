@@ -23,19 +23,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-
-
-
-
-
-
-
-
-
-
-
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -46,6 +36,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+
 
 /**
  * This class contains REST services, also contains action function for web
@@ -123,8 +114,8 @@ public class Service {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/FriendRequestService")
 	@POST
-	public String  sendFriendRequest (@FormParam("friendUser") String fUser, 
-					@FormParam("senderUser")String sUser, @FormParam("senderPassword")String password)
+	public String  sendFriendRequest (@FormParam("senderUser") String sUser, 
+					@FormParam("friendUser")String fUser, @FormParam("senderPassword")String password)
 	{
 		JSONObject object = new JSONObject();
 		if(fUser.equals(sUser))
@@ -157,7 +148,11 @@ public class Service {
 				}	
 			}
 			
-			Entity fRequest = new Entity("friendRequests", l.get(l.size()-1).getKey().getId()+1);
+			long id = 1;
+			if(l.size()>0)
+				id = l.get(l.size()-1).getKey().getId()+1 ;
+				
+			Entity fRequest = new Entity("friendRequests", id);
 			fRequest.setProperty("sender", sUser);
 			fRequest.setProperty("receiver", fUser);
 			datastore.put(fRequest);
@@ -172,7 +167,11 @@ public class Service {
 	////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * 
-	 * */
+	 * @param sUser
+	 * @param fUser
+	 
+	 * @return
+	 */
 	@POST
 	@Path("/CancelFriendRequestService")
 	public String deleteFriendRequest(@FormParam("senderUser")String sUser,
@@ -265,6 +264,88 @@ public class Service {
 	}
 	
 	//////////////////////////////////////////////////////
+	// first element of the array is the status
+	/**
+	 * Get all friends for a user 
+	 * @param uName  username of a user
+	 * @param password user account password
+	 * 
+	 * */
+	@POST
+	@Path("/GetFriends")
+	public String getFriends(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		JSONArray object = new JSONArray();
+		
+		if(UserEntity.getUser(uName, password) == null)
+		{
+			object.add( "Failed");
+			return object.toString();
+			
+		}
+		
+		object.add( "OK");
+		
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
 
+		Query gaeQuery = new Query("Friends");
+		PreparedQuery pq = datastore.prepare(gaeQuery);	
+		
+		for(Entity e : pq.asIterable())
+		{
+			if(e.getProperty("sender").equals(uName)  )
+			{
+				object.add(e.getProperty("friendTo"));
+			}	
+			else if(e.getProperty("friendTo").equals(uName) )
+			{
+				object.add(e.getProperty("sender") );
+			}
+		}
+
+		return object.toString();
+	}
+	//////////////////////////////////////////////////////////////////
+	/**
+	 * Get all received friend requests for a user 
+	 * @param uName  username of a user
+	 * @param password user account password
+	 * */
+	@POST
+	@Path("/GetFriendRequests")
+	public String getFriendRequests(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		JSONArray object = new JSONArray();
+		
+		if(UserEntity.getUser(uName, password) == null)
+		{
+			object.add( "Failed");
+			return object.toString();
+			
+		}
+		
+		object.add( "OK");
+		
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query gaeQuery = new Query("friendRequests");
+		PreparedQuery pq = datastore.prepare(gaeQuery);	
+		
+		for(Entity e : pq.asIterable())
+		{
+			if(e.getProperty("receiver").equals(uName)  )
+			{
+				object.add(e.getProperty("sender"));
+			}	
+			
+		}
+
+		return object.toString();
+	}
 	
+	 
 }
