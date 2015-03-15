@@ -26,10 +26,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import sun.tools.jar.resources.jar;
+
+import com.FCI.SWE.Models.User;
 import com.FCI.SWE.Models.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -177,7 +181,7 @@ public class UserController {
 	@POST
 	@Path("/home")
 	@Produces("text/html")
-	public Response home(@FormParam("uname") String uname,
+	public Response home(@Context HttpServletRequest req, @FormParam("uname") String uname,
 			@FormParam("password") String pass) {
 		String serviceUrl = "http://localhost:8888/rest/LoginService";
 		Map<String, String> map = new HashMap<String, String>();
@@ -224,6 +228,12 @@ public class UserController {
 			map.put("name", user.getName());
 			map.put("email", user.getEmail());
 			map.put("password", user.getPass());
+			req.getSession(true).setAttribute("1", 2);
+			HttpSession session= req.getSession(true);
+			req.getSession(true).setAttribute("name",user.getName());
+			req.getSession(true).setAttribute("email", user.getEmail());
+			req.getSession(true).setAttribute("password", user.getPass());
+			
 			
 			return Response.ok(new Viewable("/jsp/home", map)).build();
 		} catch (MalformedURLException e) {
@@ -254,7 +264,13 @@ public class UserController {
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * 
+	 * @param sUser username of the user who send the request
+	 * @param fUser username of the user who accept the request
+	 * @param password is the password of the user who sent the request
+	 * @return status of service OK or Failed
+	 */
 	@POST
 	@Path("/FriendRequest")
 	public String sendFriendRequest(@FormParam("senderUser")String sUser,
@@ -300,7 +316,7 @@ public class UserController {
 				
 			}	
 			else 
-				object.put("Status", "OK");
+				returnObject.put("Status", "OK");
 			
 			return returnObject.toString();
 			
@@ -322,7 +338,13 @@ public class UserController {
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * accept friend request and make the 2 users friends and delete the request
+	 * @param sUser username of the user who send the request
+	 * @param fUser username of the user who accept the request
+	 * @param password is the password of the user who accept the request
+	 * @return status of service OK or Failed
+	 */
 	@POST
 	@Path("/AddFriend")
 	public String addFriend(@FormParam("senderUser")String sUser,
@@ -390,12 +412,18 @@ public class UserController {
 	
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * to cancel a sent friend 
+	 * @param sUser : username that send the request 
+	 * @param fUser : username of the request receiver 
+	 * @param password: password of sender user 
+	 * @return
+	 */
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/CancelFriendRequest")
 	@POST
 	public String  cancelFriendRequest (@FormParam("friendUser") String fUser, 
-									@FormParam("senderUser")String sUser)
+								@FormParam("senderUser")String sUser,  @FormParam("senderPassword")String password)
 	{
 		JSONObject object = new JSONObject();
 		
@@ -403,5 +431,217 @@ public class UserController {
 		
 		return object.toString();
 	}
+	
+	///////////////////////////////////////////////////////////////
+	/**
+	 * get all friends of specific user 
+	 * @param uName username 
+	 * @param password his password
+	 * @return JSONArray carrying status and friends list 
+	 */
+	@Path("/MyFriends")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String myFriends(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		JSONArray object = new JSONArray();
+		
+		
+		String serviceUrl = "http://localhost:8888/rest/GetFriends";
+		
+		try {
+			URL url = new URL(serviceUrl);
+			String urlParameters = "uName=" + uName + "&password=" + password ;
+					
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setConnectTimeout(60000);  //60 Seconds
+			connection.setReadTimeout(60000);  //60 Seconds
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			OutputStreamWriter writer = new OutputStreamWriter(
+					connection.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			String line, retJson = "";
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+
+			while ((line = reader.readLine()) != null) {
+				retJson += line;
+			}
+			writer.close();
+			reader.close();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(retJson);
+			
+			object = (JSONArray)obj;
+			//System.out.println(object.toString());
+			return retJson;
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		object.add("Failed");
+		return object.toString();
+	}
+	
+	/////////////////////////////////////////////////////////
+	/**
+	 * get all received friend requests
+	 * @param uName
+	 * @param password
+	 * @return
+	 */
+	
+	@Path("/ReceivedFriendRequests")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String receivedFriendRequests(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+		
+		JSONArray object = new JSONArray();
+		String serviceUrl = "http://localhost:8888/rest/GetFriendRequests";
+		
+		try {
+			URL url = new URL(serviceUrl);
+			String urlParameters = "uName=" + uName + "&password=" + password ;
+					
+			HttpURLConnection connection = (HttpURLConnection) url
+					.openConnection();
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setInstanceFollowRedirects(false);
+			connection.setRequestMethod("POST");
+			connection.setConnectTimeout(60000);  //60 Seconds
+			connection.setReadTimeout(60000);  //60 Seconds
+			connection.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded;charset=UTF-8");
+			OutputStreamWriter writer = new OutputStreamWriter(
+					connection.getOutputStream());
+			writer.write(urlParameters);
+			writer.flush();
+			String line, retJson = "";
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+
+			while ((line = reader.readLine()) != null) {
+				retJson += line;
+			}
+			writer.close();
+			reader.close();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(retJson);
+			
+			object = (JSONArray)obj;
+			//System.out.println(object.toString());
+			return retJson;
+			
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		object.add("Failed");
+		return object.toString();
+		
+	}
+
+	
+///////////////////////////////////////////////////////////////
+	/**
+	 * signout the user and close the session and send him to entry page 
+	 * @param request
+	 * @return
+	 */
+	@Path("/signout")
+	@GET
+
+	public Response signout (@Context HttpServletRequest request)
+	{
+		User.signOut();
+		request.getSession().invalidate();
+		
+		return Response.ok(new Viewable("/jsp/entryPoint")).build();
+	}
+	
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////	
+	@Path("/test")
+	@Produces(MediaType.TEXT_PLAIN)
+	@GET
+	public String test()
+	{
+		// here we declare the JSONArray and put some data to send it 
+		JSONArray jArray  = new JSONArray();
+		jArray.add("OK");
+		jArray.add("1");
+		jArray.add("2");
+		jArray.add("3");
+		System.out.println(jArray.toString());
+		return jArray.toString();
+	}
+	
+	
+	@Path("/viewtest")
+	@GET
+	public Response viewtest(@Context HttpServletRequest req) {
+		// now we will send data using sessions firstly we have to send HTTPRequest request as a parameter
+				//@Context HttpServletRequest request
+				HttpSession session= req.getSession(true);
+				
+				req.getSession(true).setAttribute("param1","1");
+				req.getSession(true).setAttribute("param2", "2");
+				
+				
+		return Response.ok(new Viewable("/jsp/testJSONArray")).build();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }
