@@ -40,6 +40,7 @@
 	JSONObject object = new JSONObject();
 	object.putAll(map);
 	User.getUser(object.toString());
+	
 %>
 
 
@@ -60,6 +61,14 @@
 <br>
 <form action="/social/signout" method="get">
 	<input type ="submit" value="Signout">
+</form>
+<br>
+
+<form action="/social/ReceivedFriendRequests/" method="POST">
+	<input type ="submit" value="View Friend Requests">
+	<input type = "hidden"  value = <%User.getCurrentActiveUser().getName(); %> name = "uName" >
+	<input type = "hidden"  value = <%User.getCurrentActiveUser().getPass(); %> name = "password" >
+	
 </form>
 
 </body>

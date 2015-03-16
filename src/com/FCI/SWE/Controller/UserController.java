@@ -349,7 +349,7 @@ public class UserController {
 	@POST
 	@Path("/AddFriend")
 	public String addFriend(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
+			@FormParam("friendUser") String fUser, @FormParam("friendPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
 		String serviceUrl = "http://localhost:8888/rest/AddFriendService";
@@ -567,13 +567,17 @@ public class UserController {
 			}
 			
 			map.put("myFriends", v);
-			
+			System.out.println("Vector");
+			for (int i = 0; i <v.size(); i++) {
+				System.out.println(v.get(i));
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			object.add("Failed");
 			
 		}
+		
 		return Response.ok(new Viewable("/jsp/FriendRequests",map)).build();
 
 	}

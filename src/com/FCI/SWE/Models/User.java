@@ -79,6 +79,7 @@ public class User {
 		return null;
 
 	}
+		
 	public static void signOut(){
 		currentActiveUser = null;
 	}

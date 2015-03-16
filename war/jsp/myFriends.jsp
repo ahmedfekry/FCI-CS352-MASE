@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>myFriends</title>
+<title>Friends List</title>
 </head>
 <body>
 
