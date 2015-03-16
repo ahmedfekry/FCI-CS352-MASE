@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -440,16 +441,16 @@ public class UserController {
 	 * @return JSONArray carrying status and friends list 
 	 */
 	@Path("/MyFriends")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces("text/html")
 	@POST
-	public String myFriends(@FormParam("uName")String uName, 
+	public Response myFriends(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
 		
 		
 		String serviceUrl = "http://localhost:8888/rest/GetFriends";
-		
+		Map<String , Vector<String>>map = null;
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uName=" + uName + "&password=" + password ;
@@ -482,7 +483,14 @@ public class UserController {
 			
 			object = (JSONArray)obj;
 			//System.out.println(object.toString());
-			return retJson;
+			Vector<String> v = new Vector<>();
+			 map = new HashMap<String , Vector<String>>();
+			for (int i = 1; i < object.size(); i++) {
+				v.add((String) object.get(i));
+			}
+			
+			map.put("myFriends", v);
+			return Response.ok(new Viewable("/jsp/myFriends",map)).build();
 			
 		} catch (ProtocolException e) {
 			// TODO Auto-generated catch block
@@ -496,7 +504,10 @@ public class UserController {
 		}
 
 		object.add("Failed");
-		return object.toString();
+		
+		return Response.ok(new Viewable("/jsp/myFriends",map)).build();
+		
+
 	}
 	
 	/////////////////////////////////////////////////////////
@@ -504,17 +515,18 @@ public class UserController {
 	 * get all received friend requests
 	 * @param uName
 	 * @param password
-	 * @return
+	 * @returnk8
 	 */
 	
 	@Path("/ReceivedFriendRequests")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces("text/html")
 	@POST
-	public String receivedFriendRequests(@FormParam("uName")String uName, 
+	public Response receivedFriendRequests(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
 		String serviceUrl = "http://localhost:8888/rest/GetFriendRequests";
+		Map<String , Vector<String>>map = null;
 		
 		try {
 			URL url = new URL(serviceUrl);
@@ -548,22 +560,22 @@ public class UserController {
 			
 			object = (JSONArray)obj;
 			//System.out.println(object.toString());
-			return retJson;
+			Vector<String> v = new Vector<>();
+			 map = new HashMap<String , Vector<String>>();
+			for (int i = 1; i < object.size(); i++) {
+				v.add((String) object.get(i));
+			}
 			
-		} catch (ProtocolException e) {
+			map.put("myFriends", v);
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			object.add("Failed");
+			
 		}
+		return Response.ok(new Viewable("/jsp/FriendRequests",map)).build();
 
-		object.add("Failed");
-		return object.toString();
-		
 	}
 
 	

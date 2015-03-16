@@ -281,7 +281,7 @@ public class Service {
 		if(UserEntity.getUser(uName, password) == null)
 		{
 			object.add( "Failed");
-			return object.toString();
+			return object.toJSONString();
 			
 		}
 		
@@ -305,7 +305,7 @@ public class Service {
 			}
 		}
 
-		return object.toString();
+		return object.toJSONString();
 	}
 	//////////////////////////////////////////////////////////////////
 	/**
@@ -323,7 +323,7 @@ public class Service {
 		if(UserEntity.getUser(uName, password) == null)
 		{
 			object.add( "Failed");
-			return object.toString();
+			return object.toJSONString();
 			
 		}
 		
@@ -344,7 +344,7 @@ public class Service {
 			
 		}
 
-		return object.toString();
+		return object.toJSONString();
 	}
 	
 	 
