@@ -49,8 +49,8 @@
 <P><B>Send Friend Request <B><P><br>
 
 <form action="/social/FriendRequest" method="post">
-	<input type="hidden" name="senderUser"  value = "s" />
-	<input type="hidden" name="senderPassword"  value = "123" />
+	<input type="hidden" name="senderUser"  value = <%User.getCurrentActiveUser().getName(); %> />
+	<input type="hidden" name="senderPassword"  value = <%User.getCurrentActiveUser().getPass(); %> />
  	TO : <input type="text" name="friendUser" /> <br>
   	<input type="submit" value="Send Request">
 </form>

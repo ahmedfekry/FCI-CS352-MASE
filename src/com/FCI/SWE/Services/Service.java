@@ -22,7 +22,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -34,6 +33,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
@@ -110,7 +110,15 @@ public class Service {
 	}
 	
 	//////////////////////////////////////////////////////////////////
-
+	/**
+	 * send friend request from user to another one using their username 
+	 * first it checks if they are different users and check access and
+	 *  the request doesn't sent before 
+	 * @param sUser username of the request sender user
+	 * @param fUser username of the request receiver user
+	 * @param password password of the request sender user to check access rights 
+	 * @return OK if request approved or Failed and reason of failure 
+	 */
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/FriendRequestService")
 	@POST
@@ -120,14 +128,14 @@ public class Service {
 		JSONObject object = new JSONObject();
 		if(fUser.equals(sUser))
 		{
-			object.put("Status", "Failed");
+			object.put("Status", "Failed, two users are the same");
 			return object.toString();
 		}
 		boolean exists = UserEntity.isExist(fUser);
 	
 		// check if friend is sent to exist user , check the access right of sender
 		if(!exists || UserEntity.getUser(sUser, password) == null)
-			object.put("Status", "Failed");
+			object.put("Status", "Failed, incorrect data");
 			//m.put("Status", "Failed");
 		else
 		{
@@ -143,11 +151,25 @@ public class Service {
 			{
 				if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
 				{
-					object.put("Status", "Failed");
+					object.put("Status", "Failed, the request is already sent");
 					return object.toString();
 				}	
 			}
+			// check if they are friends 
+			Query guery = new Query("Friends");
+			PreparedQuery pq2 = datastore.prepare(gaeQuery);
 			
+			for(Entity e : pq2.asIterable())
+			{
+				if((e.getProperty("user").equals(sUser) && e.getProperty("friendTo").equals(fUser) ) || 
+				(e.getProperty("friendTo").equals(sUser) && e.getProperty("user").equals(fUser) ) )
+				
+				{
+					object.put("Status", "Failed, they are already friends");
+					return object.toString();
+				}
+			}
+			//////////////
 			long id = 1;
 			if(l.size()>0)
 				id = l.get(l.size()-1).getKey().getId()+1 ;
@@ -161,16 +183,16 @@ public class Service {
 		}
 		
 		return object.toString();
-		//return Response.ok(new Viewable("/jsp/result", m)).build();
+		
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////
 	/**
-	 * 
-	 * @param sUser
-	 * @param fUser
-	 
-	 * @return
+	 * cancel and delete sent friend request, search database for that request if found delete it  
+	 * @param sUser username of the request sender user
+	 * @param fUser username of the request receiver user
+	 * @param password password of the request sender user to check access rights 
+	 * @return OK if request approved or Failed and reason of failure 
 	 */
 	@POST
 	@Path("/CancelFriendRequestService")
@@ -181,7 +203,7 @@ public class Service {
 		// check access right of sender 
 		if(UserEntity.getUser(sUser, password) == null)
 		{
-			object.put("Status", "Failed");
+			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
 		DatastoreService datastore = DatastoreServiceFactory
@@ -190,7 +212,7 @@ public class Service {
 		Query gaeQuery = new Query("friendRequests");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		
-		object.put("Status", "Failed");
+		object.put("Status", "Failed, no request is sent");
 		for(Entity e : pq.asIterable())
 		{
 			if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
@@ -204,16 +226,24 @@ public class Service {
 
 	}
 	////////////////////////////////////////////////////////////////////
+	/**
+	 * cancel and delete sent friend request, search database for that request if found delete it  
+	 * @param sUser username of the friend request sender user
+	 * @param fUser username of the friend request receiver user (who accepts the request)
+	 * @param password password of the request accepter user to check access rights 
+	 * @return OK if request approved or Failed and reason of failure 
+	 */
+	@Produces(MediaType.TEXT_PLAIN)
 	@POST
 	@Path("/AddFriendService")
 	public String addFriend(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser, @FormParam("receiverPassword")String password) {
+		@FormParam("friendUser") String fUser, @FormParam("receiverPassword")String password) {
 		
 		JSONObject object = new JSONObject();
 		
 		if(UserEntity.getUser(fUser, password) == null)
 		{
-			object.put("Status", "Failed");
+			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 			
 		}
@@ -227,11 +257,12 @@ public class Service {
 		PreparedQuery pq = datastore.prepare(gaeQuery);
 		
 		boolean t = false;
+		Key deletedE = null;
 		for(Entity e : pq.asIterable())
 		{
 			if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
 			{
-				datastore.delete(e.getKey());
+				deletedE = e.getKey();
 				t = true;
 				break;
 			}	
@@ -239,9 +270,8 @@ public class Service {
 		
 		if(!t)
 		{
-			object.put("Status", "Failed");
+			object.put("Status", "Failed, there is no sent friendrequest ");
 			return object.toString();
-			
 		}
 		
 		// add friend request in Friends entity
@@ -251,12 +281,17 @@ public class Service {
 		PreparedQuery pq2 = datastore.prepare(gaeQuery2);
 		List<Entity> l = pq2.asList(FetchOptions.Builder.withDefaults());
 		
-		Entity friend = new Entity("Friends", l.get(l.size()-1).getKey().getId()+1);
+		long id = 1;
+		if(l.size()>0)
+			id = l.get(l.size()-1).getKey().getId()+1 ;
+		
+		Entity friend = new Entity("Friends", id);
 		
 		friend.setProperty("user", sUser);
 		friend.setProperty("friendTo", fUser);
 		datastore.put(friend);
 		
+		datastore.delete(deletedE);
 		object.put("Status", "OK");
 		
 
@@ -271,40 +306,44 @@ public class Service {
 	 * @param password user account password
 	 * 
 	 * */
+	@Produces(MediaType.TEXT_PLAIN)
 	@POST
 	@Path("/GetFriends")
 	public String getFriends(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
-		
+		System.out.println("test");
 		if(UserEntity.getUser(uName, password) == null)
 		{
-			object.add( "Failed");
-			return object.toJSONString();
-			
+			object.add( "Failed, wrong username or password");
+			return object.toJSONString();			
 		}
 		
 		object.add( "OK");
-		
+		System.out.println("user exists");
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		Query gaeQuery = new Query("Friends");
 		PreparedQuery pq = datastore.prepare(gaeQuery);	
-		
-		for(Entity e : pq.asIterable())
+		System.out.println("before search");
+		List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
+		System.out.println("size" + l.size());
+		for(int i=0;i<l.size();i++)
 		{
-			if(e.getProperty("sender").equals(uName)  )
+			Entity e = l.get(i).clone();
+			System.out.println("entity" + e + " get user " +e.getProperty("user") );
+			if(e.getProperty("user").equals(uName)  )
 			{
 				object.add(e.getProperty("friendTo"));
 			}	
 			else if(e.getProperty("friendTo").equals(uName) )
 			{
-				object.add(e.getProperty("sender") );
+				object.add(e.getProperty("user") );
 			}
 		}
-
+		System.out.println("obj" + object);
 		return object.toJSONString();
 	}
 	//////////////////////////////////////////////////////////////////

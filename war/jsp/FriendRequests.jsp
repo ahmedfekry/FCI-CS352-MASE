@@ -20,7 +20,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<p>  ${it.FriendRequests}</p>
 <c:forEach items="${it.FriendRequests}" var = "user">
 
 <form action="/social/AddFriend">
