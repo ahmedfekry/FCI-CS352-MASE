@@ -12,8 +12,8 @@
 </head>
 <body>
 
-<c:forEach items="${it.myFriends}">
-<p> Friends <c:out value="${myFriends.uName }"></c:out> </p>
+<c:forEach items="${it.myFriends}" var="user">
+<p> Friends <c:out value="${user }"><br></c:out> </p>
 <br></br> 
 </c:forEach>
 </body>

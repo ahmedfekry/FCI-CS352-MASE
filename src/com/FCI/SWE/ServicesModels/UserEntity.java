@@ -1,4 +1,4 @@
-package com.FCI.SWE.Models;
+package com.FCI.SWE.ServicesModels;
 
 import java.util.Date;
 import java.util.List;

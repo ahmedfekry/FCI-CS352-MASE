@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.jws.soap.SOAPBinding.Use;
 import javax.ws.rs.FormParam;
@@ -28,7 +29,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.FCI.SWE.Models.UserEntity;
+import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -356,14 +357,13 @@ public class Service {
 	@Path("/GetFriendRequests")
 	public String getFriendRequests(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
-		
+		System.out.println("F R S username_"+ uName + "_pass "+ password);
 		JSONArray object = new JSONArray();
 		
 		if(UserEntity.getUser(uName, password) == null)
 		{
 			object.add( "Failed");
 			return object.toJSONString();
-			
 		}
 		
 		object.add( "OK");
@@ -386,5 +386,37 @@ public class Service {
 		return object.toJSONString();
 	}
 	
-	 
+	///////////////////////////////////////////////////////////////////////
+	
+	@GET
+	@Path("/TestConversation")
+	public String createTable()
+	{
+		JSONObject o = new JSONObject();
+		o.put("users", "OK");
+		
+		
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query gaeQuery = new Query("Conversation");
+		PreparedQuery pq = datastore.prepare(gaeQuery);	
+		List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
+
+		long id = 1;
+		if(l.size()>0)
+			id = l.get(l.size()-1).getKey().getId()+1 ;
+			
+		Entity conv = new Entity("Conversation", id);
+		conv.setProperty("ID", id);
+		Vector<String>users = new Vector<String>();
+		users.add("u1");
+		users.add("u2");
+		users.add("u3");
+		
+		conv.setProperty("users", users);
+		datastore.put(conv);
+		
+		return o.toJSONString();
+	}
 }

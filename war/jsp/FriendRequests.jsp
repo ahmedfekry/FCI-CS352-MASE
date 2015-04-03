@@ -17,20 +17,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Friend Requests</title>
 </head>
 <body>
-<p>  ${it.FriendRequests}</p>
+
 <c:forEach items="${it.FriendRequests}" var = "user">
-
-<form action="/social/AddFriend">
-<input type = "text"  value="${FriendRequests}" name = "senderUser" >
-<input type = "hidden"  value = <%User.getCurrentActiveUser().getName(); %> name = "friendUser" >
-<input type = "hidden"  value = <%User.getCurrentActiveUser().getPass(); %> name = "friendPassword" >
-<input type ="submit" value="Accept">
-
-</form>
-
+<fieldset>
+	<form action="/social/AddFriend" method = "POST">
+	<input type = "text"  value="${user}" name = "senderUser" readonly="readonly">
+  	<input type = "hidden"  value="<%User.getCurrentActiveUser().getName(); %>" name = "friendUser" >
+	<input type = "hidden"  value="<%User.getCurrentActiveUser().getPass(); %>" name = "friendPassword" >
+	
+	<input type ="submit" value="Accept">
+		
+	</form>
+	</fieldset>
 </c:forEach>
+
+
 </body>
-</html>
+</htsssssssssssssssssssssssssss                                                                                                ml>
