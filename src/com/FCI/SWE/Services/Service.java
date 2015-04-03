@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,10 +175,15 @@ public class Service {
 			long id = 1;
 			if(l.size()>0)
 				id = l.get(l.size()-1).getKey().getId()+1 ;
-				
+			Date d = new Date();
+			System.out.println(d.toString());
 			Entity fRequest = new Entity("friendRequests", id);
 			fRequest.setProperty("sender", sUser);
 			fRequest.setProperty("receiver", fUser);
+			fRequest.setProperty("seen", "false");
+			fRequest.setProperty("date", d.toString());
+			
+			
 			datastore.put(fRequest);
 			object.put("Status", "OK");
 
@@ -357,7 +363,7 @@ public class Service {
 	@Path("/GetFriendRequests")
 	public String getFriendRequests(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
-		System.out.println("F R S username_"+ uName + "_pass "+ password);
+	//	System.out.println("F R S username_"+ uName + "_pass "+ password);
 		JSONArray object = new JSONArray();
 		
 		if(UserEntity.getUser(uName, password) == null)
@@ -378,7 +384,10 @@ public class Service {
 		{
 			if(e.getProperty("receiver").equals(uName)  )
 			{
+				
 				object.add(e.getProperty("sender"));
+				e.setProperty("seen", "true");
+				datastore.put(e);
 			}	
 			
 		}

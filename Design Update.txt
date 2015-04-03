@@ -1,0 +1,13 @@
+class Notification
+class Message extends Notification
+class FriendRequest extends Notification
+
+
+
+DB 
+friendRequests  added
+seen  false / true when vied
+date  date of request
+
+Messages 
+will be implemented as friendRequests  

@@ -573,10 +573,10 @@ public class UserController {
 			Vector<String> v = new Vector<String>();
 			
 			 map = new HashMap<String , Vector<String>>();
-			for (int i = 0; i < object.size(); i++) {
+			for (int i = 1; i < object.size(); i++) {
 				v.add((String) object.get(i));
 			}
-			System.out.println("Size " + v.size() + "  status" + v.get(0));
+			System.out.println("Size " + v.size() + "  status" + object.get(0));
 			
 			map.put("FriendRequests", v);
 			System.out.println("Vector");
