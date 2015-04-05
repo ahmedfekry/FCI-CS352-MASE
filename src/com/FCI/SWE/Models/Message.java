@@ -6,13 +6,13 @@ public class Message extends Notification{
 	
 	String message;
 	
+	
 	public Message(String sender, String receiver, String commandUrl,
-			Date date, boolean seen, String message) {
-		super(sender, receiver, commandUrl, date, seen);
-		
+			Date date, boolean seen, int id, String message) {
+		super(sender, receiver, commandUrl, date, seen, id);
 		this.message = message;
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Insert title here</title>
+<title>Home</title>
 </head>
 <body>
 
@@ -45,12 +45,14 @@
 
 <br>
 <br>
-<!-- create function destroyes session then redirect to entry point -->
+<fieldset>
 <form action="/social/signout" method="get">
 	<input type ="submit" value="Signout">
 </form>
 <br>
+</fieldset>
 
+<fieldset>
 <form action="/social/MyFriends" method="POST">
 	<input type ="submit" value="View Friends ">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
@@ -58,15 +60,16 @@
 	
 </form>
 
+</fieldset>
 
 <fieldset>
 	<form action="/social/ReceivedFriendRequests" method = "POST">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
 	<input type ="submit" value="view Requests">
-	</form>
+</form>
 
-
-	<a href="/social/test">Test</a>
+</fieldset>
+	<a href="/social/viewMessagePage">Send Message</a>
 </body>
 </html>

@@ -9,14 +9,17 @@ public class Notification {
 	String commandUrl;
 	Date date;
 	boolean seen;
+	int id;
+	
 	public Notification(String sender, String receiver, String commandUrl,
-			Date date, boolean seen) {
+			Date date, boolean seen, int id) {
 		super();
 		this.sender = sender;
 		this.receiver = receiver;
 		this.commandUrl = commandUrl;
 		this.date = date;
 		this.seen = seen;
+		this.id = id;
 	}
 	public String getSender() {
 		return sender;
@@ -49,6 +52,12 @@ public class Notification {
 		this.seen = seen;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	
 	
