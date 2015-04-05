@@ -384,7 +384,6 @@ public class Service {
 		{
 			if(e.getProperty("receiver").equals(uName)  )
 			{
-				
 				object.add(e.getProperty("sender"));
 				e.setProperty("seen", "true");
 				datastore.put(e);
