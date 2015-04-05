@@ -176,12 +176,13 @@ public class Service {
 			if(l.size()>0)
 				id = l.get(l.size()-1).getKey().getId()+1 ;
 			Date d = new Date();
-			System.out.println(d.toString());
+			
 			Entity fRequest = new Entity("friendRequests", id);
 			fRequest.setProperty("sender", sUser);
 			fRequest.setProperty("receiver", fUser);
 			fRequest.setProperty("seen", "false");
 			fRequest.setProperty("date", d.toString());
+			fRequest.setProperty("id", id);
 			
 			
 			datastore.put(fRequest);

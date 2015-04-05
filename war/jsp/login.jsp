@@ -5,7 +5,7 @@ ${it.message}
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Insert title here</title>
+<title>Login</title>
 </head>
 <body>
 
