@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +35,7 @@ import org.json.simple.parser.ParseException;
 import sun.tools.jar.resources.jar;
 
 import com.FCI.SWE.Models.User;
-import com.FCI.SWE.Models.UserEntity;
+import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -68,6 +69,12 @@ public class UserController {
 	public Response signUp() {
 		return Response.ok(new Viewable("/jsp/register")).build();
 	}
+	@GET
+	@Path("/test")
+	public Response t() {
+		return Response.ok(new Viewable("/jsp/test")).build();
+	}
+
 
 	/**
 	 * Action function to render home page of application, home page contains
@@ -224,11 +231,14 @@ public class UserController {
 				return Response.ok(new Viewable("/jsp/login", map)).build();				
 			}
 			
-			UserEntity user = UserEntity.getUser(object.toJSONString());
+			
+			User user = User.getUser(object.toJSONString());
+			System.out.println("username "+ User.getCurrentActiveUser().getName());
 			map.put("name", user.getName());
 			map.put("email", user.getEmail());
 			map.put("password", user.getPass());
 			req.getSession(true).setAttribute("1", 2);
+			
 			HttpSession session= req.getSession(true);
 			req.getSession(true).setAttribute("name",user.getName());
 			req.getSession(true).setAttribute("email", user.getEmail());
@@ -347,8 +357,8 @@ public class UserController {
 	 */
 	@POST
 	@Path("/AddFriend")
-	public String addFriend(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
+	public String addFriend(@FormParam("senderUser")String sUser, @FormParam("friendUser") String fUser,
+			@FormParam("friendPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
 		String serviceUrl = "http://localhost:8888/rest/AddFriendService";
@@ -440,16 +450,16 @@ public class UserController {
 	 * @return JSONArray carrying status and friends list 
 	 */
 	@Path("/MyFriends")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces("text/html")
 	@POST
-	public String myFriends(@FormParam("uName")String uName, 
+	public Response myFriends(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
 		
 		
 		String serviceUrl = "http://localhost:8888/rest/GetFriends";
-		
+		Map<String , Vector<String>>map = null;
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uName=" + uName + "&password=" + password ;
@@ -482,7 +492,14 @@ public class UserController {
 			
 			object = (JSONArray)obj;
 			//System.out.println(object.toString());
-			return retJson;
+			Vector<String> v = new Vector<String>();
+			 map = new HashMap<String , Vector<String>>();
+			for (int i = 1; i < object.size(); i++) {
+				v.add((String) object.get(i));
+			}
+			
+			map.put("myFriends", v);
+			return Response.ok(new Viewable("/jsp/myFriends",map)).build();
 			
 		} catch (ProtocolException e) {
 			// TODO Auto-generated catch block
@@ -496,7 +513,10 @@ public class UserController {
 		}
 
 		object.add("Failed");
-		return object.toString();
+		
+		return Response.ok(new Viewable("/jsp/myFriends",map)).build();
+		
+
 	}
 	
 	/////////////////////////////////////////////////////////
@@ -504,18 +524,20 @@ public class UserController {
 	 * get all received friend requests
 	 * @param uName
 	 * @param password
-	 * @return
+	 * @returnk8
 	 */
 	
 	@Path("/ReceivedFriendRequests")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces("text/html")
 	@POST
-	public String receivedFriendRequests(@FormParam("uName")String uName, 
+	public Response receivedFriendRequests(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
 		String serviceUrl = "http://localhost:8888/rest/GetFriendRequests";
-		
+		Map<String , Vector<String>>map = null;
+			
+		System.out.println("User " +uName + " pass " + password);
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uName=" + uName + "&password=" + password ;
@@ -548,22 +570,28 @@ public class UserController {
 			
 			object = (JSONArray)obj;
 			//System.out.println(object.toString());
-			return retJson;
+			Vector<String> v = new Vector<String>();
 			
-		} catch (ProtocolException e) {
+			 map = new HashMap<String , Vector<String>>();
+			for (int i = 1; i < object.size(); i++) {
+				v.add((String) object.get(i));
+			}
+			System.out.println("Size " + v.size() + "  status" + object.get(0));
+			
+			map.put("FriendRequests", v);
+			System.out.println("Vector");
+			for (int i = 0; i <v.size(); i++) {
+				System.out.println(v.get(i));
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			object.add("Failed");
+			
 		}
-
-		object.add("Failed");
-		return object.toString();
 		
+		return Response.ok(new Viewable("/jsp/FriendRequests",map)).build();
+
 	}
 
 	

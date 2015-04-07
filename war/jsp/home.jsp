@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Insert title here</title>
+<title>Home</title>
 </head>
 <body>
 
@@ -25,21 +25,8 @@
 	
 	if(request.getSession().getAttribute("password") == null)
 		response.sendRedirect("/entryPoint");
+		
 	
-	String name = "" , email = "" , password = "";
-	name += request.getSession().getAttribute("name");
-	email += request.getSession().getAttribute("email");
-	password += request.getSession().getAttribute("password");
-	
-	
-	
-	Map<String , String> map = new HashMap<String,String>();
-	map.put("name",(String)request.getSession().getAttribute("name"));
-	map.put("email",(String)request.getSession().getAttribute("email"));
-	map.put("password",(String)request.getSession().getAttribute("password"));
-	JSONObject object = new JSONObject();
-	object.putAll(map);
-	User.getUser(object.toString());
 %>
 
 
@@ -48,19 +35,41 @@
 <P><B>Send Friend Request <B><P><br>
 
 <form action="/social/FriendRequest" method="post">
-	<input type="hidden" name="senderUser"  value = "s" />
-	<input type="hidden" name="senderPassword"  value = "123" />
- 	TO : <input type="text" name="friendUser" /> <br>
+	<input type="hidden" name="senderUser"  value = "<%= request.getSession(true).getAttribute("name")%>" >
+	<input type="hidden" name="senderPassword"  value = "<%= request.getSession(true).getAttribute("password")%>" >
+ 	TO : <input type="text" name="friendUser" > <br>
   	<input type="submit" value="Send Request">
 </form>
 
-<Button  name="Sign out" onClick="" /> Signout </Button>
+
 
 <br>
 <br>
+<fieldset>
 <form action="/social/signout" method="get">
 	<input type ="submit" value="Signout">
 </form>
+<br>
+</fieldset>
 
+<fieldset>
+<form action="/social/MyFriends" method="POST">
+	<input type ="submit" value="View Friends ">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	
+</form>
+
+</fieldset>
+
+<fieldset>
+	<form action="/social/ReceivedFriendRequests" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="view Requests">
+</form>
+
+</fieldset>
+	<a href="/social/viewMessagePage">Send Message</a>
 </body>
 </html>

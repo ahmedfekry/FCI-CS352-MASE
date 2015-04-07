@@ -8,13 +8,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Friends List</title>
+<title>viewMessages</title>
 </head>
 <body>
 
-<c:forEach items="${it.myFriends}" var="user">
-<p> Friends <c:out value="${user }"><br></c:out> </p>
-<br></br> 
+<c:forEach items="${it.Message}" var="user">
+<p>sender name  <c:out value="${ sender }"><br></c:out>			</p>
+<p>message		<c:out value="${ message }"><br></c:out> 		</p>
+<p>at date		<c:out value="${ date }"><br></c:out> 			</p>
 </c:forEach>
 </body>
 </html>
