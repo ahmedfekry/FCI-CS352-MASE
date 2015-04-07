@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 import com.FCI.SWE.Models.Notification;
 import com.google.appengine.labs.repackaged.org.json.JSONArray;
-import com.google.appengine.repackaged.com.google.gson.JsonArray;
+//import com.google.appengine.repackaged.com.google.gson.JsonArray;
 // connection 
 // link
 //String serviceUrl = "http://fci-swe-apps.appspot.com/rest/RegistrationService";
