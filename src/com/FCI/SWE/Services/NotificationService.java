@@ -83,7 +83,12 @@ public class NotificationService {
 
 	///////////////////////////////////////////////////////////////////////////
 	
-	
+	@Path("/getUnseenMessages")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public getUnseenMessages(){
+		
+	}
 	
 	
 	

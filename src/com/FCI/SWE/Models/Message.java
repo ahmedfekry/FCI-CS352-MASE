@@ -21,7 +21,4 @@ public class Message extends Notification{
 		this.message = message;
 	}
 	
-	
-	
-	
 }

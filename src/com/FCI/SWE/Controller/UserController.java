@@ -69,12 +69,20 @@ public class UserController {
 	public Response signUp() {
 		return Response.ok(new Viewable("/jsp/register")).build();
 	}
+	
 	@GET
 	@Path("/test")
 	public Response t() {
 		return Response.ok(new Viewable("/jsp/test")).build();
 	}
+	
+	
 
+//	@GET
+//	@Path("/test2")
+//	public Response t2(){
+//		return Response.ok(new Viewable("/jsp/test2")).build();
+//	}
 
 	/**
 	 * Action function to render home page of application, home page contains
