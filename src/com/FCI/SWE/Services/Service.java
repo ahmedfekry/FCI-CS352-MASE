@@ -180,8 +180,8 @@ public class Service {
 			Entity fRequest = new Entity("friendRequests", id);
 			fRequest.setProperty("sender", sUser);
 			fRequest.setProperty("receiver", fUser);
-			fRequest.setProperty("seen", "false");
-			fRequest.setProperty("date", d.toString());
+			fRequest.setProperty("seen", false);
+			fRequest.setProperty("date", d);
 			fRequest.setProperty("id", id);
 			
 			
