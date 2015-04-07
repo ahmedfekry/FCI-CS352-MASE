@@ -93,13 +93,16 @@ public class NotificationService {
 			@FormParam("password")String password	)
 	{
 		JSONArray array = new JSONArray();
-		
+		JSONObject ob = new JSONObject();
 		if(UserEntity.getUser(username, password) == null)
 		{
-			array.add("Failed, wrong username or password");
+			ob.put("Status", "Failed, wrong username or password");
+			array.add(ob);
 			return array.toString();
 		}
-		array.add("OK");
+		ob.put("Status", "OK");
+		array.add(ob);
+
 		
 		DatastoreService dataStore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -118,9 +121,9 @@ public class NotificationService {
 				
 				JSONObject obj = new JSONObject();
 				obj.put("sender",entity.getProperty("sender") );
-				obj.put("reciver",reciver );
-				obj.put("commandurl", "social"+"/"+"viewMessageByID");
-				obj.put("date", (Date)entity.getProperty("date"));
+				obj.put("receiver",reciver );
+				obj.put("commandurl", "social/viewMessageByID");
+				obj.put("date", "date");
 				obj.put("seen",seen );
 				obj.put("id",entity.getProperty("id").toString() );
 				obj.put("message", entity.getProperty("message").toString());
@@ -142,13 +145,15 @@ public class NotificationService {
 			@FormParam("password")String password	)
 	{
 		JSONArray array = new JSONArray();
-		
+		JSONObject ob = new JSONObject();
 		if(UserEntity.getUser(username, password) == null)
 		{
-			array.add("Failed, wrong username or password");
+			ob.put("Status", "Failed, wrong username or password");
+			array.add(ob);
 			return array.toString();
 		}
-		array.add("OK");
+		ob.put("Status", "OK");
+		array.add(ob);
 		
 		DatastoreService dataStore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -167,7 +172,7 @@ public class NotificationService {
 				
 				JSONObject obj = new JSONObject();
 				obj.put("sender",entity.getProperty("sender") );
-				obj.put("reciver",reciver );
+				obj.put("receiver",reciver );
 				obj.put("commandurl", "social//viewFriendRequestByID");
 				obj.put("date", (Date)entity.getProperty("date"));
 				obj.put("seen",seen );
@@ -190,14 +195,15 @@ public class NotificationService {
 			@FormParam("password")String password	)
 	{
 		JSONArray array = new JSONArray();
-		
+		JSONObject ob = new JSONObject();
 		if(UserEntity.getUser(username, password) == null)
 		{
-			array.add( "Failed");
-			return array.toJSONString();
+			ob.put("Status", "Failed, wrong username or password");
+			array.add(ob);
+			return array.toString();
 		}
-		
-		array.add( "OK");
+		ob.put("Status", "OK");
+		array.add(ob);
 		
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -219,7 +225,7 @@ public class NotificationService {
 				JSONObject obj = new JSONObject();
 				
 				obj.put("sender",entity.getProperty("sender") );
-				obj.put("reciver",reciver );
+				obj.put("receiver",reciver );
 				obj.put("commandurl", "social/viewMessageByID");
 				obj.put("date", (Date)entity.getProperty("date"));
 				obj.put("seen",seen );
@@ -233,4 +239,7 @@ public class NotificationService {
 		
 		return array .toJSONString();
 	}
+	///////////////////////////////////////////////////////////
+	
+	
 }
