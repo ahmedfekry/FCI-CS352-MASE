@@ -167,7 +167,7 @@ public class NotificationService {
 				
 				JSONObject obj = new JSONObject();
 				obj.put("sender",entity.getProperty("sender") );
-				obj.put("reciver",reciver );
+				obj.put("receiver",reciver );
 				obj.put("commandurl", "social//viewFriendRequestByID");
 				obj.put("date", (Date)entity.getProperty("date"));
 				obj.put("seen",seen );
@@ -219,7 +219,7 @@ public class NotificationService {
 				JSONObject obj = new JSONObject();
 				
 				obj.put("sender",entity.getProperty("sender") );
-				obj.put("reciver",reciver );
+				obj.put("receiver",reciver );
 				obj.put("commandurl", "social/viewMessageByID");
 				obj.put("date", (Date)entity.getProperty("date"));
 				obj.put("seen",seen );

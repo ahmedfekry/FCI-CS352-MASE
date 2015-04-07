@@ -11,6 +11,9 @@ public class Notification {
 	boolean seen;
 	int id;
 	
+	public Notification(){
+		
+	}
 	public Notification(String sender, String receiver, String commandUrl,
 			Date date, boolean seen, int id) {
 		super();
