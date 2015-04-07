@@ -1,15 +1,10 @@
 package com.FCI.SWE.Models;
-import java.util.*;
-import javax.ws.rs.*;
-import org.glassfish.jersey.server.mvc.Viewable;
+
+import java.util.Date;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import com.FCI.SWE.Models.Message;
-import com.FCI.SWE.Models.Notification;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
-import com.google.appengine.labs.repackaged.org.json.JSONException;
 
 public class FriendRequest extends Notification{
 
@@ -18,8 +13,9 @@ public class FriendRequest extends Notification{
 		super(sender, receiver, commandUrl, date, seen, id);
 		
 	}
+
 	
-	public static FriendRequest parseFriendRequest (String json) throws org.json.simple.parser.ParseException
+	public static FriendRequest parseMessage (String json)
 	{
 		JSONParser parser = new JSONParser();
 		FriendRequest m = null;
@@ -28,8 +24,8 @@ public class FriendRequest extends Notification{
 			
 			m = new FriendRequest(object.get("sender").toString(),
 					object.get("receiver").toString(),
-					object.get("commandUrl").toString(),
-					(Date)object.get("date"),
+					object.get("commandurl").toString(),
+					new Date(),
 					(boolean)object.get("seen"),
 					Integer.parseInt(object.get("id").toString())	
 					
@@ -44,6 +40,5 @@ public class FriendRequest extends Notification{
 		
 		
 	}
-	
 
 }

@@ -2,7 +2,6 @@ package com.FCI.SWE.Models;
 
 import java.util.Date;
 
-import org.glassfish.jersey.server.JSONP;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -11,9 +10,7 @@ public class Message extends Notification{
 	
 	String message;
 	
-	public Message() {
-		
-	}
+	
 	public Message(String sender, String receiver, String commandUrl,
 			Date date, boolean seen, int id, String message) {
 		super(sender, receiver, commandUrl, date, seen, id);
@@ -37,19 +34,23 @@ public class Message extends Notification{
 			
 			m = new Message(object.get("sender").toString(),
 					object.get("receiver").toString(),
-					object.get("commandUrl").toString(),
-					(Date)object.get("date"),
+					object.get("commandurl").toString(),
+					new Date(),
 					(boolean)object.get("seen"),
 					Integer.parseInt(object.get("id").toString()),
 					object.get("message").toString()
+					
 					);
+			//currentActiveUser.setId(Long.parseLong(object.get("id").toString()));
 			return m;
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 		
 		
 	}
+	
 	
 }
