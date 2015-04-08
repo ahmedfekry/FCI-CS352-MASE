@@ -27,6 +27,8 @@ import org.json.simple.parser.ParseException;
 
 
 
+
+import com.FCI.SWE.Models.FriendRequest;
 import com.FCI.SWE.Models.Message;
 
 
@@ -123,7 +125,7 @@ public class NotificationController {
 	
 	/////////////////////////////////////
 	
-	@Path("/getMessagesByID")
+	@Path("/getMessageByID")
 	@POST
 	public Response getMessagesByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
@@ -154,5 +156,48 @@ public class NotificationController {
 		map.put("messages", messages);
 		return Response.ok(new Viewable("/jsp/viewMessages",map)).build();
 	}
+	
+	//////////////////////////////////////////
+	
+	@Path("/getFriendRequestByID")
+	@POST
+	public Response getFriendRequestByID(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String id	)
+	{
+		Vector<FriendRequest>requsts = new Vector<FriendRequest>();
+		Map<String, Vector<FriendRequest> >map = new HashMap<String, Vector<FriendRequest> >();
+		
+		String serviceUrl = "http://localhost:8888/rest/getFriendRequestByID";
+		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONObject object = new JSONObject();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			object= (JSONObject)parser.parse(retJson);
+			
+			requsts.add(FriendRequest.parseMessage(object.toJSONString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("FriendRequests", requsts);
+		return Response.ok(new Viewable("/jsp/FriendRequests",map)).build();
+	}
+	//////////////////////////////////////////////////////////////////////////////
+	// Get Notifications 
+	
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
 	
 }
