@@ -174,7 +174,7 @@ public class NotificationService {
 				obj.put("sender",entity.getProperty("sender") );
 				obj.put("receiver",reciver );
 				obj.put("commandurl", "social//viewFriendRequestByID");
-				obj.put("date", (Date)entity.getProperty("date"));
+				obj.put("date", "date");
 				obj.put("seen",seen );
 				obj.put("id",entity.getProperty("id").toString() );
 				obj.put("message", entity.getProperty("message").toString());
@@ -227,7 +227,7 @@ public class NotificationService {
 				obj.put("sender",entity.getProperty("sender") );
 				obj.put("receiver",reciver );
 				obj.put("commandurl", "social/viewMessageByID");
-				obj.put("date", (Date)entity.getProperty("date"));
+				obj.put("date", "date");
 				obj.put("seen",seen );
 				obj.put("id",entity.getProperty("id").toString() );				
 				
@@ -241,5 +241,51 @@ public class NotificationService {
 	}
 	///////////////////////////////////////////////////////////
 	
+	@Path("/getMessagesByID")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String getMessagesByID(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String id	)
+	{
+		
+		JSONObject object = new JSONObject();
+		if(UserEntity.getUser(username, password) == null)
+		{
+			object.put("Status", "Failed, wrong username or password");
+			return object.toString();
+		}
+		object.put("Status", "OK");
+		
+		DatastoreService dataStore = DatastoreServiceFactory
+				.getDatastoreService();
+		Query geo = new Query("Messages");
+		PreparedQuery prepare = dataStore.prepare(geo);
+		
+		
+		for(Entity entity: prepare.asIterable()){
+			
+			String ID = entity.getProperty("id").toString();
+			String reciver = entity.getProperty("receiver").toString();
+			String sender = entity.getProperty("sender").toString();
+			
+			if( (reciver.equals(username) || sender.equals(username) ) && ID.equals(id) ){
+			
+				boolean seen = true;
+				entity.setProperty("seen", seen);
+				
+				object.put("sender",entity.getProperty("sender") );
+				object.put("receiver",reciver );
+				object.put("commandurl", "social//viewFriendRequestByID");
+				object.put("date", "date");
+				object.put("seen",seen );
+				object.put("id",entity.getProperty("id").toString() );
+				object.put("message", entity.getProperty("message").toString());
+				
+				dataStore.put(entity);
+			}
+		}
+		
+		return object.toString();
+	}
 	
 }

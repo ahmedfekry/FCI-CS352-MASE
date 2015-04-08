@@ -26,6 +26,7 @@ import org.json.simple.parser.ParseException;
 //		"application/x-www-form-urlencoded;charset=UTF-8");
 
 
+
 import com.FCI.SWE.Models.Message;
 
 
@@ -104,9 +105,9 @@ public class NotificationController {
 			
 			
 			for (int i = 1; i < array.size(); i++) {
-				System.out.println("i " + i);
+			//	System.out.println("i " + i);
 				JSONObject o = (JSONObject)array.get(i);
-				System.out.println(o);
+			//	System.out.println(o);
 				messages.add(Message.parseMessage(o.toJSONString()));
 			}
 			
@@ -120,5 +121,38 @@ public class NotificationController {
 		return Response.ok(new Viewable("/jsp/viewMessages",map)).build();
 	}
 	
+	/////////////////////////////////////
+	
+	@Path("/getMessagesByID")
+	@POST
+	public Response getMessagesByID(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String id	)
+	{
+		Vector<Message>messages = new Vector<Message>();
+		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		
+		String serviceUrl = "http://localhost:8888/rest/getMessagesByID";
+		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONObject object = new JSONObject();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			object= (JSONObject)parser.parse(retJson);
+			
+			messages.add(Message.parseMessage(object.toJSONString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("messages", messages);
+		return Response.ok(new Viewable("/jsp/viewMessages",map)).build();
+	}
 	
 }
