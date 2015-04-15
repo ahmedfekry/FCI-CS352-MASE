@@ -42,3 +42,4 @@ public class FriendRequest extends Notification{
 	}
 
 }
+
