@@ -75,7 +75,7 @@
 <form action="/social/getAllNotifications" method = "POST">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
-	<input type ="submit" value="View All Messages">
+	<input type ="submit" value="View All Notifications">
 </form>
 </fieldset>
 

@@ -15,7 +15,7 @@ public class FriendRequest extends Notification{
 	}
 
 	
-	public static FriendRequest parseMessage (String json)
+	public static FriendRequest parseFriendRequest (String json)
 	{
 		JSONParser parser = new JSONParser();
 		FriendRequest m = null;
@@ -42,4 +42,3 @@ public class FriendRequest extends Notification{
 	}
 
 }
-
