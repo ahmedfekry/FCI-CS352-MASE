@@ -13,7 +13,7 @@ public class FriendRequest extends Notification{
 		super(sender, receiver, commandUrl, date, seen, id);
 		
 	}
-
+	
 	
 	public static FriendRequest parseFriendRequest (String json)
 	{
