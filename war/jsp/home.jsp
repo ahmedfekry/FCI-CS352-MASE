@@ -70,17 +70,15 @@
 </form>
 
 </fieldset>
-	<a href="/social/viewMessagePage">Send Message</a><br>
-	
-
+	<a href="/social/viewMessagePage">Send Message</a>
 <fieldset>
-	<form action="/social/getAllMessages" method = "POST">
+<form action="/social/getAllNotifications" method = "POST">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
 	<input type ="submit" value="View All Messages">
 </form>
-
 </fieldset>
-	
+
+
 </body>
 </html>
