@@ -12,13 +12,16 @@
 </head>
 <body>
 
-<c:forEach items="${it.messages}" var="message">
-<fieldset>
-<p> <c:out value="${ message.sender }"> </c:out>	has sent you <br></p>
-<p>	<c:out value="${ message.message }"><br></c:out> 		</p>
-<p>at <c:out value="${ message.date }"><br></c:out> 	<br><br></p>
-</fieldset>
+<c:forEach items="${it.notifications}" var="notification">
+	<fieldset>
+		<p>sender name  <c:out value="${ notification.sender }"><br></c:out>	</p>
+		<form action="${notification.commandUrl}" method = "POST">
+			<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+			<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+			<input type = "hidden"  value="${notification.id}" name = "id" >
+			<input type ="submit" value="View">
+		</form>
+	</fieldset>
 </c:forEach>
-
 </body>
 </html>

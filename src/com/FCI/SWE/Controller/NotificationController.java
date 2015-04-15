@@ -26,7 +26,14 @@ import org.json.simple.parser.ParseException;
 //		"application/x-www-form-urlencoded;charset=UTF-8");
 
 
+
+
+
+
+import com.FCI.SWE.Models.FriendRequest;
 import com.FCI.SWE.Models.Message;
+import com.FCI.SWE.Models.Notification;
+import com.google.appengine.labs.repackaged.org.json.JSONException;
 
 
 
@@ -104,9 +111,9 @@ public class NotificationController {
 			
 			
 			for (int i = 1; i < array.size(); i++) {
-				System.out.println("i " + i);
+			//	System.out.println("i " + i);
 				JSONObject o = (JSONObject)array.get(i);
-				System.out.println(o);
+			//	System.out.println(o);
 				messages.add(Message.parseMessage(o.toJSONString()));
 			}
 			
@@ -119,6 +126,119 @@ public class NotificationController {
 		map.put("messages", messages);
 		return Response.ok(new Viewable("/jsp/viewMessages",map)).build();
 	}
+	
+	/////////////////////////////////////
+	
+	@Path("/getMessageByID")
+	@POST
+	public Response getMessagesByID(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String id	)
+	{
+		Vector<Message>messages = new Vector<Message>();
+		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		
+		String serviceUrl = "http://localhost:8888/rest/getMessagesByID";
+		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONObject object = new JSONObject();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			object= (JSONObject)parser.parse(retJson);
+			
+			messages.add(Message.parseMessage(object.toJSONString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("messages", messages);
+		return Response.ok(new Viewable("/jsp/viewMessages",map)).build();
+	}
+	
+	//////////////////////////////////////////
+	
+	@Path("/getFriendRequestByID")
+	@POST
+	public Response getFriendRequestByID(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String id	)
+	{
+		Vector<FriendRequest>requsts = new Vector<FriendRequest>();
+		Map<String, Vector<FriendRequest> >map = new HashMap<String, Vector<FriendRequest> >();
+		
+		String serviceUrl = "http://localhost:8888/rest/getFriendRequestByID";
+		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONObject object = new JSONObject();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			object= (JSONObject)parser.parse(retJson);
+			
+			requsts.add(FriendRequest.parseFriendRequest(object.toJSONString()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("FriendRequests", requsts);
+		return Response.ok(new Viewable("/jsp/FriendRequests",map)).build();
+	}
+	//////////////////////////////////////////////////////////////////////////////
+	// Get Notifications 
+	@POST
+	@Path("/getAllNotifications")
+	public Response viewAllNotification(@FormParam("username")String username,@FormParam("password") String password) throws JSONException{
+		String serviceUrl = "http://localhost:8888/rest/getUnseenMessages";
+		String urlParameters = "username=" + username + "&password=" + password;
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		JSONParser parser = new JSONParser();
+		Map<String, Vector<Notification>> result = new HashMap<String, Vector<Notification>>();
+		Vector<Notification> notifications = new Vector<Notification>();
+		try {
+			JSONArray array = (JSONArray)parser.parse(retJson);
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject obj = (JSONObject)array.get(i);
+				notifications.add(Message.parseMessage(obj.toJSONString()));
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		serviceUrl = "http://localhost:8888/rest/getUnseenFriendRequests";
+		retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		parser = new JSONParser();
+		try {
+			JSONArray array = (JSONArray)parser.parse(retJson);
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject obj = (JSONObject)array.get(i);
+				notifications.add(FriendRequest.parseFriendRequest(obj.toJSONString()));
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		result.put("notifications", notifications);
+		return Response.ok(new Viewable("/jsp/ViewNotifications",result)).build();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	
+	
 	
 	
 }
