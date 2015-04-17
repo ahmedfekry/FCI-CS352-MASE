@@ -31,7 +31,7 @@ public class Message extends Notification{
 		Message m = null;
 		try {
 			JSONObject object = (JSONObject) parser.parse(json);
-			
+			System.out.println("json object_"+ object);
 			m = new Message(object.get("sender").toString(),
 					object.get("receiver").toString(),
 					object.get("commandurl").toString(),

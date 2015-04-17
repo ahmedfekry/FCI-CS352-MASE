@@ -216,7 +216,7 @@ public class NotificationController {
 		Vector<Notification> notifications = new Vector<Notification>();
 		try {
 			JSONArray array = (JSONArray)parser.parse(retJson);
-			for (int i = 0; i < array.size(); i++) {
+			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
 				notifications.add(Message.parseMessage(obj.toJSONString()));
 			}
@@ -231,7 +231,7 @@ public class NotificationController {
 		parser = new JSONParser();
 		try {
 			JSONArray array = (JSONArray)parser.parse(retJson);
-			for (int i = 0; i < array.size(); i++) {
+			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
 				notifications.add(FriendRequest.parseFriendRequest(obj.toJSONString()));
 			}
