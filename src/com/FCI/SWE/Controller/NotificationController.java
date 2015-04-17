@@ -30,6 +30,8 @@ import org.json.simple.parser.ParseException;
 
 
 
+
+
 import com.FCI.SWE.Models.FriendRequest;
 import com.FCI.SWE.Models.Message;
 import com.FCI.SWE.Models.Notification;
@@ -238,7 +240,78 @@ public class NotificationController {
 	///////////////////////////////////////////////////////////////////////////
 	
 	
+	/**
+	 * 
+	 * @param username username of user wants to create conversation 
+	 * @param password password of user
+	 * @param name conversation name
+	 * @return
+	 */
+	@Path("/createConversation")
+
+	@POST
+	public Response createConversation( @FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("name")String name	)
+	{
+		
+		String serviceUrl = "http://localhost:8888/rest/createConversation";
+		String urlParameters = "username=" + username + "&password=" + password + "&name=" + name ;
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONParser parser = new JSONParser();
+		Map<String, String > result = new HashMap<String, String>();
+		
+		try {
+			JSONObject object = (JSONObject)parser.parse(retJson);
+			
+			result.put("Status", object.get("Status").toString());
+			if(!object.get("Status").toString().equals("OK"))
+				return Response.ok(new Viewable("/jsp/Error" ,result) ).build();
+			
+			result.put("id", object.get("id").toString());
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
+	}
+	////////////////////////////////////////////////////////////////////////////
 	
+	@Path("/addToConversation")
+	@POST
+	public Response addToConversation(@FormParam("username")String owner, 
+			@FormParam("password")String password, @FormParam("id")String id, @FormParam("friend")String friend	)
+	{
+		
+		String serviceUrl = "http://localhost:8888/rest/addToConversation";
+		String urlParameters = "username=" + owner + "&password=" + password +
+				"&id=" + id + "&friend=" + friend;
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONParser parser = new JSONParser();
+		Map<String, String > result = new HashMap<String, String>();
+		
+		try {
+			JSONObject object = (JSONObject)parser.parse(retJson);
+			
+			result.put("Status", object.get("Status").toString());
+			if(!object.get("Status").toString().equals("OK"))
+				return Response.ok(new Viewable("/jsp/Error" ,result) ).build();
+			
+			result.put("id", object.get("id").toString());
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
 	
 	
 }

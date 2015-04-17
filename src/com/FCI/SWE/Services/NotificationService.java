@@ -429,7 +429,7 @@ public class NotificationService {
 	@Path("/addToConversation")
 	@Produces(MediaType.TEXT_PLAIN)
 	@POST
-	public String getFriendRequestByID(@FormParam("username")String owner, 
+	public String addToConversation(@FormParam("username")String owner, 
 			@FormParam("password")String password, @FormParam("id")String id, @FormParam("friend")String friend	)
 	{
 		JSONObject object = new JSONObject();

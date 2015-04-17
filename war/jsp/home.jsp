@@ -70,8 +70,22 @@
 </form>
 
 </fieldset>
+
+<fieldset>
 	<a href="/social/viewMessagePage">Send Message</a><br>
-	
+</fieldset>	
+
+<fieldset>
+CreateConversation
+	<form action="social/createConversation" method = "POST">
+	<input type="hidden" name="username"  value = "<%= request.getSession(true).getAttribute("name")%>" >
+	<input type="hidden" name="password"  value = "<%= request.getSession(true).getAttribute("password")%>" >
+ 	
+	Conversation Name : <input type="text" name="name" >
+	<input type="submit" value="Create">
+	</form>
+</fieldset>	
+
 
 <fieldset>
 	<form action="/social/getAllMessages" method = "POST">
