@@ -84,6 +84,10 @@
 </fieldset>	
 
 <fieldset>
+	<a href="/social/timeline">Go to Timeline</a><br>
+</fieldset>	
+
+<fieldset>
 CreateConversation
 	<form action="/social/CreateConversation" method = "POST">
 	<input type="hidden" name="username"  value = "<%= request.getSession(true).getAttribute("name")%>" >

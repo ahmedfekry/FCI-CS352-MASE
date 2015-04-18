@@ -2,6 +2,7 @@ package com.FCI.SWE.ServicesModels;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -156,4 +157,10 @@ public class UserEntity {
 		
 		return false;
 	}
+	///////////////////////////////////////////////
+	public static void addPostToUsers(Vector<String>IDs)
+	{
+		
+	}
+	
 }
