@@ -32,6 +32,7 @@ import org.json.simple.parser.ParseException;
 
 
 
+
 import com.FCI.SWE.Models.FriendRequest;
 import com.FCI.SWE.Models.Message;
 import com.FCI.SWE.Models.Notification;
@@ -164,7 +165,12 @@ public class NotificationController {
 	}
 	
 	//////////////////////////////////////////
-	
+	/**
+	 * @param username user wants to get friend request
+	 * @param password user password
+	 * @param id friend request id
+	 * @return response to FriendRequests jsp page with the friend request
+	 */
 	@Path("/getFriendRequestByID")
 	@POST
 	public Response getFriendRequestByID(@FormParam("username")String username, 
@@ -210,7 +216,7 @@ public class NotificationController {
 		Vector<Notification> notifications = new Vector<Notification>();
 		try {
 			JSONArray array = (JSONArray)parser.parse(retJson);
-			for (int i = 0; i < array.size(); i++) {
+			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
 				notifications.add(Message.parseMessage(obj.toJSONString()));
 			}
@@ -225,7 +231,7 @@ public class NotificationController {
 		parser = new JSONParser();
 		try {
 			JSONArray array = (JSONArray)parser.parse(retJson);
-			for (int i = 0; i < array.size(); i++) {
+			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
 				notifications.add(FriendRequest.parseFriendRequest(obj.toJSONString()));
 			}
@@ -247,7 +253,7 @@ public class NotificationController {
 	 * @param name conversation name
 	 * @return
 	 */
-	@Path("/createConversation")
+	@Path("/CreateConversation")
 
 	@POST
 	public Response createConversation( @FormParam("username")String username, 
@@ -275,15 +281,23 @@ public class NotificationController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		result.put("name", name);
 		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
 	}
 	////////////////////////////////////////////////////////////////////////////
-	
-	@Path("/addToConversation")
+	/**
+	 * 
+	 * @param owner username of user wants to add afriend to conversation
+	 * @param password password of owner
+	 * @param id conversation id
+	 * @param friend username of a friend to be added to conversation
+	 * @return JSON object represents Status OK, Failed & reason
+	 */
+	@Path("/AddToConversation")
 	@POST
 	public Response addToConversation(@FormParam("username")String owner, 
-			@FormParam("password")String password, @FormParam("id")String id, @FormParam("friend")String friend	)
+			@FormParam("password")String password, @FormParam("id")String id,
+			@FormParam("friend")String friend, @FormParam("conversationName")String conversationName)
 	{
 		
 		String serviceUrl = "http://localhost:8888/rest/addToConversation";
@@ -302,12 +316,14 @@ public class NotificationController {
 			if(!object.get("Status").toString().equals("OK"))
 				return Response.ok(new Viewable("/jsp/Error" ,result) ).build();
 			
-			result.put("id", object.get("id").toString());
+			result.put("id", id);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		result.put("Status", "Friend has been added successfully");
+		result.put("name", conversationName);
 		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
 	}
 	

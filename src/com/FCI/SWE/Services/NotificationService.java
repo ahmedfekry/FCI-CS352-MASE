@@ -420,7 +420,7 @@ public class NotificationService {
 	/////////////////////////////////////////////////////////////
 	/**
 	 * 
-	 * @param owner username of conversation owner
+	 * @param owner username of user wants to add afriend to conversation
 	 * @param password password of owner
 	 * @param id conversation id
 	 * @param friend username of a friend to be added to conversation
@@ -456,10 +456,10 @@ public class NotificationService {
 			
 			String ID = entity.getProperty("id").toString();
 			String ownerUser = entity.getProperty("owner").toString();
+			Vector<String>members = (Vector<String>)entity.getProperty("members");
 			
 			
-			if( (ownerUser.equals(owner) ) && ID.equals(id) ){
-				Vector<String>members = (Vector<String>)entity.getProperty("members");
+			if( (members.contains(ownerUser) ) && ID.equals(id) ){
 				members.add(friend);
 				entity.setProperty("members", members);
 				

@@ -30,6 +30,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.FCI.SWE.Models.User;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -96,7 +97,7 @@ public class Service {
 	public String loginService(@FormParam("uname") String uname,
 			@FormParam("password") String pass) {
 		JSONObject object = new JSONObject();
-		UserEntity user = UserEntity.getUser(uname, pass);
+		User user = UserEntity.getUser(uname, pass);
 		if (user == null) {
 			object.put("Status", "Failed");
 

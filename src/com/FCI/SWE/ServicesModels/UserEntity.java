@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.FCI.SWE.Models.User;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -95,7 +96,7 @@ public class UserEntity {
 	 * @return Constructed user entity
 	 */
 
-	public static UserEntity getUser(String name, String pass) {
+	public static User getUser(String name, String pass) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
@@ -105,9 +106,10 @@ public class UserEntity {
 			System.out.println(entity.getProperty("name").toString());
 			if (entity.getProperty("name").toString().equals(name)
 					&& entity.getProperty("password").toString().equals(pass)) {
-				UserEntity returnedUser = new UserEntity(entity.getProperty(
+				User returnedUser = new User(entity.getProperty(
 						"name").toString(), entity.getProperty("email")
 						.toString(), entity.getProperty("password").toString());
+				
 				return returnedUser;
 			}
 		}

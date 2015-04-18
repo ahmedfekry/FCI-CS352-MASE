@@ -63,6 +63,14 @@
 </fieldset>
 
 <fieldset>
+<form action="/social/getAllNotifications" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="View All Notifications">
+</form>
+</fieldset>
+
+<fieldset>
 	<form action="/social/ReceivedFriendRequests" method = "POST">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
@@ -77,7 +85,7 @@
 
 <fieldset>
 CreateConversation
-	<form action="social/createConversation" method = "POST">
+	<form action="/social/CreateConversation" method = "POST">
 	<input type="hidden" name="username"  value = "<%= request.getSession(true).getAttribute("name")%>" >
 	<input type="hidden" name="password"  value = "<%= request.getSession(true).getAttribute("password")%>" >
  	
