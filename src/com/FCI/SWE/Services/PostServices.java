@@ -82,7 +82,7 @@ public class PostServices {
 		
 		Query geo = new Query("users");
 		PreparedQuery prepare = datastore.prepare(geo);
-		List<Entity> usersList = pq.asList(FetchOptions.Builder.withDefaults());
+		List<Entity> usersList = prepare.asList(FetchOptions.Builder.withDefaults());
 		
 		for(Entity entity: usersList){
 			

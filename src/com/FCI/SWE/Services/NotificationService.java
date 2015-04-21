@@ -9,10 +9,12 @@ import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.FCI.SWE.Models.Conversation;
 import com.FCI.SWE.Models.Message;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -432,13 +434,18 @@ public class NotificationService {
 	public String addToConversation(@FormParam("username")String owner, 
 			@FormParam("password")String password, @FormParam("id")String id, @FormParam("friend")String friend	)
 	{
+		System.out.println("conv service: username= "+owner + "   password= "+password);
 		JSONObject object = new JSONObject();
-		if(UserEntity.getUser(owner, password) == null || UserEntity.isExist(friend))
+		if(UserEntity.getUser(owner, password) == null )
 		{
 			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
-		
+		if( ! UserEntity.isExist(friend))
+		{
+			object.put("Status", "Failed, wrong friend username");
+			return object.toString();
+		}
 		// if(! UserEntity.areFriends(String owner, String friend)
 //		{
 //			object.put("Status", "Failed, You are not friends");
@@ -456,16 +463,24 @@ public class NotificationService {
 			
 			String ID = entity.getProperty("id").toString();
 			String ownerUser = entity.getProperty("owner").toString();
-			Vector<String>members = (Vector<String>)entity.getProperty("members");
+			ArrayList<String>members = (ArrayList<String>)entity.getProperty("members");
 			
 			
 			if( (members.contains(ownerUser) ) && ID.equals(id) ){
-				members.add(friend);
-				entity.setProperty("members", members);
-				
-				dataStore.put(entity);
-				
-				object.put("Status", "OK");
+				if(members.contains(friend))
+				{
+					object.put("Status", "Failed, this username is already member in the conversation");
+				}
+				else
+				{
+					members.add(friend);
+					entity.setProperty("members", members);
+					
+					dataStore.put(entity);
+					
+					object.put("Status", "OK");
+					
+				}
 				return object.toString();
 			}
 		}
@@ -473,4 +488,67 @@ public class NotificationService {
 		return object.toString();
 	}
 	/////////////////////////////////////////////////////////////
+	@Path("/SendConversationMessage")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String SendConversationMessage(@FormParam("sender")String sender, @FormParam("password")String password,
+			 @FormParam("message")String message,@FormParam("conversationID")int conversationID){
+		JSONObject object = new JSONObject();
+		System.out.println("message in service = "+ message);
+		Conversation c = Conversation.getConversation(conversationID);
+		
+		if(c == null)
+		{
+			object.put("Status", "Failed, no conversation with this ID");
+			return object.toString();
+		}
+		if(UserEntity.getUser(sender, password) == null)
+		{
+			object.put("Status", "Failed, no such user");
+			return object.toString();
+		}
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		Query gaeQuery = new Query("ConversationMessages");
+		
+		PreparedQuery pq = datastore.prepare(gaeQuery);
+		
+		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
+		long id =1;
+		if(list.size()!=0)
+			id =list.get(list.size()-1).getKey().getId()+ 1;
+		
+		
+		Vector<String>members = c.getMembers();
+		
+		for(int i=0;i<members.size();i++)
+		{
+			String reciver = members.get(i);
+			if(reciver.equals(sender))
+				continue;
+			
+			Entity mes = new Entity("ConversationMessages", id);
+			
+			mes.setProperty("sender", sender);
+			mes.setProperty("reciver", reciver);
+			mes.setProperty("seen", false);
+			mes.setProperty("date", new Date());
+			mes.setProperty("message", message);
+			mes.setProperty("id", id);
+			mes.setProperty("commendUrl", "ssssss");
+			mes.setProperty("conversationID", conversationID);
+			
+			datastore.put(mes);
+			id++;
+		}
+		
+		
+		
+		
+		object.put("Status", "OK");
+		object.put("id", conversationID);
+		
+		return object.toString();
+	}
+	//////////////////////////////////////////////////////////
 }

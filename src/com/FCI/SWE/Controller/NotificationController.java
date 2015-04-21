@@ -303,6 +303,7 @@ public class NotificationController {
 		String serviceUrl = "http://localhost:8888/rest/addToConversation";
 		String urlParameters = "username=" + owner + "&password=" + password +
 				"&id=" + id + "&friend=" + friend;
+		System.out.println("conv controller: username= "+owner + "   password= "+password);
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		
@@ -328,6 +329,46 @@ public class NotificationController {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////
+	@Path("/SendConversationMessage")
+
+	@POST
+	public Response sendConversationMessage( @FormParam("sender")String sender, @FormParam("password")String password,
+			 @FormParam("message")String message,@FormParam("conversationID")int conversationID,
+			 @FormParam("conversationName")String conversationName)
+	{
+			
+
+		String serviceUrl = "http://localhost:8888/rest/SendConversationMessage";
+		String urlParameters = "sender=" + sender + "&password=" + password +
+				"&message=" + message + "&conversationID=" + conversationID ;
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		System.out.println("message in controller = "+message);
+		JSONParser parser = new JSONParser();
+		Map<String, String > result = new HashMap<String, String>();
+		
+		try {
+			JSONObject object = (JSONObject)parser.parse(retJson);
+			
+			result.put("Status", object.get("Status").toString());
+			
+			if(!object.get("Status").toString().equals("OK"))
+				return Response.ok(new Viewable("/jsp/Error" ,result) ).build();
+			
+			System.out.println("conv name= "+conversationName);
+			
+			result.put("id", object.get("id").toString());
+			result.put("name", conversationName);
+			result.put("Status", "Message has been sent correctly");
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
+	}
+///////////////////////////////////////////////////////////////////////////////
 	
 	
 }
