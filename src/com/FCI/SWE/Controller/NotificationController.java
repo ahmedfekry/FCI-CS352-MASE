@@ -369,6 +369,53 @@ public class NotificationController {
 		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
 	}
 ///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @param conversationID
+	 * @return
+	 */
+	@Path("/getCoversationMessages")
+	@POST
+	public Response getCoversationMessages(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String conversationID	)
+	{
+		Vector<Message>conversarionMssages = new Vector<Message>();
+		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		
+		String serviceUrl = "http://localhost:8888/rest/getCoversationMessages";
+		String urlParameters = "username=" + username + "&password=" + password + "&id=" + conversationID;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONArray array = new JSONArray();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			array= (JSONArray)parser.parse(retJson);
+			
+			
+			for (int i = 1; i < array.size(); i++) {
+			//	System.out.println("i " + i);
+				JSONObject o = (JSONObject)array.get(i);
+			//	System.out.println(o);
+				conversarionMssages.add(Message.parseMessage(o.toJSONString()));
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("messages", conversarionMssages);
+		return Response.ok(new Viewable("/jsp/conversationMessages",map)).build();
+	}
 	
+
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////
 }

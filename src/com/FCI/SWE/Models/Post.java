@@ -3,17 +3,22 @@ package com.FCI.SWE.Models;
 import java.util.Date;
 import java.util.Vector;
 
+import org.datanucleus.query.expression.PrimaryExpression;
+
 public class Post {
-	private String owner;
-	private int id;
-	private String post;
-	private Date date;
-	private String privacy;
-	private PostType type;
-	private Vector<String>likes;
-	private Vector<Comment>comments;
+	public String owner;
+	public int id;
+	public String post;
+	public Date date;
+	public String privacy;
+	public PostType type;
+	public String feeling;
+	public Vector<String>likes;
+	public Vector<Comment>comments;
+	
+	
 	public Post(String owner, int id, String post, Date date, String privacy,
-			PostType type) {
+			PostType type, String feeling) {
 		super();
 		this.owner = owner;
 		this.id = id;
@@ -21,6 +26,7 @@ public class Post {
 		this.date = date;
 		this.privacy = privacy;
 		this.type = type;
+		this.feeling = feeling;
 		
 		likes = new  Vector<String>();
 		comments = new Vector<Comment>();

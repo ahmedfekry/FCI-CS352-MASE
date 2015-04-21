@@ -34,6 +34,7 @@ import org.json.simple.parser.ParseException;
 
 import sun.tools.jar.resources.jar;
 
+import com.FCI.SWE.Models.Post;
 import com.FCI.SWE.Models.User;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -75,10 +76,21 @@ public class UserController {
 		return Response.ok(new Viewable("/jsp/test")).build();
 	}
 	
-	@GET
+	@POST
 	@Path("/timeline")
-	public Response timeline() {
-		return Response.ok(new Viewable("/jsp/timeline")).build();
+	public Response timeline(@FormParam("username")String owner, @FormParam("password")String password) {
+		System.out.println("Timeline controller");
+		Map<String, Vector<Post> >map = new HashMap<String, Vector<Post> >();
+		
+		Vector<Post> posts = PostController.getUserPosts(owner, password);
+		System.out.println("number of posts " + posts.size());
+		for(Post p : posts)
+		{
+			System.out.println("p "+ p.getPost());
+		
+		}
+		map.put("Posts_", posts);
+		return Response.ok(new Viewable("/jsp/timeline",map)).build();
 	}
 
 	/**

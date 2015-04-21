@@ -84,8 +84,15 @@
 </fieldset>	
 
 <fieldset>
-	<a href="/social/timeline">Go to Timeline</a><br>
-</fieldset>	
+	<form action="/social/timeline" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="Timeline"><br>
+
+	
+	</form>
+
+</fieldset>
 
 <fieldset>
 CreateConversation
