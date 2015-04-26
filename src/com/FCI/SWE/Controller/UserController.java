@@ -74,7 +74,12 @@ public class UserController {
 	public Response t() {
 		return Response.ok(new Viewable("/jsp/test")).build();
 	}
-
+	
+	@GET
+	@Path("/timeline")
+	public Response timeline() {
+		return Response.ok(new Viewable("/jsp/timeline")).build();
+	}
 
 	/**
 	 * Action function to render home page of application, home page contains

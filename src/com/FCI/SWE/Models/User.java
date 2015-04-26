@@ -1,5 +1,7 @@
 package com.FCI.SWE.Models;
 
+import java.util.Vector;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,7 +12,32 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private Vector<Integer>postsIDs;
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Vector<Integer> getPostsIDs() {
+		return postsIDs;
+	}
+
+	public void setPostsIDs(Vector<Integer> postsIDs) {
+		this.postsIDs = postsIDs;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	private static User currentActiveUser;
 
 	/**
@@ -23,7 +50,7 @@ public class User {
 	 * @param password
 	 *            user provided password
 	 */
-	private User(String name, String email, String password) {
+	public User(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
