@@ -42,7 +42,7 @@ public class PostController {
 			@FormParam("post")String post, @FormParam("privacy")String privacy,
 			@FormParam("feeling")String feeling)
 	{
-		String serviceUrl = "http://localhost:8888/rest/createUserPost";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/createUserPost";
 		String urlParameters = "owner=" + owner + "&password=" + password +
 				"&post=" + post  + "&privacy=" + privacy + "&feeling=" + feeling;
 		
@@ -82,7 +82,7 @@ public class PostController {
 	
 	public static Vector<Post> getUserPosts(String owner,String password)
 	{
-		String serviceUrl = "http://localhost:8888/rest/getUserPosts";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUserPosts";
 		String urlParameters = "owner=" + owner + "&password=" + password ;
 		
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",

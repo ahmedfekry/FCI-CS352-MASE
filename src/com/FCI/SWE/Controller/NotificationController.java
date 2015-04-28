@@ -64,7 +64,7 @@ public class NotificationController {
 
 		Map<String, String> map = new HashMap<String, String>();
 		
-		String serviceUrl = "http://localhost:8888/rest/createMessage";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/createMessage";
 		String urlParameters = "sender=" + sender + "&password=" + senderPassword
 				+ "&receiver=" + receiver + "&message=" + message;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -99,7 +99,7 @@ public class NotificationController {
 		Vector<Message>messages = new Vector<Message>();
 		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getAllMessages";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getAllMessages";
 		String urlParameters = "username=" + username + "&password=" + password;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -140,7 +140,7 @@ public class NotificationController {
 		Vector<Message>messages = new Vector<Message>();
 		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getMessagesByID";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getMessagesByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -179,7 +179,7 @@ public class NotificationController {
 		Vector<FriendRequest>requsts = new Vector<FriendRequest>();
 		Map<String, Vector<FriendRequest> >map = new HashMap<String, Vector<FriendRequest> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getFriendRequestByID";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getFriendRequestByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -207,7 +207,7 @@ public class NotificationController {
 	@POST
 	@Path("/getAllNotifications")
 	public Response viewAllNotification(@FormParam("username")String username,@FormParam("password") String password) throws JSONException{
-		String serviceUrl = "http://localhost:8888/rest/getUnseenMessages";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUnseenMessages";
 		String urlParameters = "username=" + username + "&password=" + password;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -225,7 +225,7 @@ public class NotificationController {
 			e.printStackTrace();
 		}
 		
-		serviceUrl = "http://localhost:8888/rest/getUnseenFriendRequests";
+		serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUnseenFriendRequests";
 		retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		parser = new JSONParser();
@@ -260,7 +260,7 @@ public class NotificationController {
 			@FormParam("password")String password, @FormParam("name")String name	)
 	{
 		
-		String serviceUrl = "http://localhost:8888/rest/createConversation";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/createConversation";
 		String urlParameters = "username=" + username + "&password=" + password + "&name=" + name ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -300,7 +300,7 @@ public class NotificationController {
 			@FormParam("friend")String friend, @FormParam("conversationName")String conversationName)
 	{
 		
-		String serviceUrl = "http://localhost:8888/rest/addToConversation";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/addToConversation";
 		String urlParameters = "username=" + owner + "&password=" + password +
 				"&id=" + id + "&friend=" + friend;
 		System.out.println("conv controller: username= "+owner + "   password= "+password);
@@ -338,7 +338,7 @@ public class NotificationController {
 	{
 			
 
-		String serviceUrl = "http://localhost:8888/rest/SendConversationMessage";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/SendConversationMessage";
 		String urlParameters = "sender=" + sender + "&password=" + password +
 				"&message=" + message + "&conversationID=" + conversationID ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -384,7 +384,7 @@ public class NotificationController {
 		Vector<Message>conversarionMssages = new Vector<Message>();
 		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getCoversationMessages";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getCoversationMessages";
 		String urlParameters = "username=" + username + "&password=" + password + "&id=" + conversationID;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",

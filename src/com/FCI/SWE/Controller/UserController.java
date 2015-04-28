@@ -141,7 +141,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
-		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/RegistrationService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&email=" + email
@@ -207,7 +207,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response home(@Context HttpServletRequest req, @FormParam("uname") String uname,
 			@FormParam("password") String pass) {
-		String serviceUrl = "http://localhost:8888/rest/LoginService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/LoginService";
 		Map<String, String> map = new HashMap<String, String>();
 		try 
 		{
@@ -304,7 +304,7 @@ public class UserController {
 			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
-		String serviceUrl = "http://localhost:8888/rest/FriendRequestService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/FriendRequestService";
 		
 		try {
 			URL url = new URL(serviceUrl);
@@ -378,7 +378,7 @@ public class UserController {
 			@FormParam("friendPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
-		String serviceUrl = "http://localhost:8888/rest/AddFriendService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/AddFriendService";
 		
 		try {
 			URL url = new URL(serviceUrl);
@@ -475,7 +475,7 @@ public class UserController {
 		JSONArray object = new JSONArray();
 		
 		
-		String serviceUrl = "http://localhost:8888/rest/GetFriends";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/GetFriends";
 		Map<String , Vector<String>>map = null;
 		try {
 			URL url = new URL(serviceUrl);
@@ -551,7 +551,7 @@ public class UserController {
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
-		String serviceUrl = "http://localhost:8888/rest/GetFriendRequests";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/GetFriendRequests";
 		Map<String , Vector<String>>map = null;
 			
 		System.out.println("User " +uName + " pass " + password);

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
-<title>Insert title here</title>
+<title>Welcome To FCI Social Media</title>
 </head>
 <body>
 <a href="/social/signup/">Sign up</a> <br>
