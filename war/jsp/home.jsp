@@ -114,6 +114,17 @@ CreateConversation
 </form>
 
 </fieldset>
+
+<fieldset>
+	<form action="/social/createPage" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "ownerName" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	Page Name <input type = "text" name="pageName">
+	<input type ="submit" value="Create Page">
+</form>
+
+</fieldset>
+
 	
 </body>
 </html>
