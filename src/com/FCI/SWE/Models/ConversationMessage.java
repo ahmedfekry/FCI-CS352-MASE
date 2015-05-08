@@ -2,7 +2,9 @@ package com.FCI.SWE.Models;
 
 import java.util.Date;
 
-public class ConversationMessage extends Message {
+import com.FCI.SWE.ServicesModels.MessageEntity;
+
+public class ConversationMessage extends MessageEntity {
 	private int conversationID;
 	
 	public ConversationMessage(String sender, String receiver,

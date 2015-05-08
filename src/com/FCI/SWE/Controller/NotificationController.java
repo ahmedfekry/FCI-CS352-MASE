@@ -34,9 +34,10 @@ import org.json.simple.parser.ParseException;
 
 
 
-import com.FCI.SWE.Models.Message;
+
 import com.FCI.SWE.Models.Notification;
 import com.FCI.SWE.ServicesModels.FriendRequestEntity;
+import com.FCI.SWE.ServicesModels.MessageEntity;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 
 
@@ -97,8 +98,8 @@ public class NotificationController {
 	public Response getAllMessages(@FormParam("username")String username, 
 			@FormParam("password")String password	)
 	{
-		Vector<Message>messages = new Vector<Message>();
-		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		Vector<MessageEntity>messages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
 		
 		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getAllMessages";
 		String urlParameters = "username=" + username + "&password=" + password;
@@ -118,7 +119,7 @@ public class NotificationController {
 			//	System.out.println("i " + i);
 				JSONObject o = (JSONObject)array.get(i);
 			//	System.out.println(o);
-				messages.add(Message.parseMessage(o.toJSONString()));
+				messages.add(MessageEntity.parseMessage(o.toJSONString()));
 			}
 			
 		} catch (ParseException e) {
@@ -138,8 +139,8 @@ public class NotificationController {
 	public Response getMessagesByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		Vector<Message>messages = new Vector<Message>();
-		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		Vector<MessageEntity>messages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
 		
 		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getMessagesByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
@@ -154,7 +155,7 @@ public class NotificationController {
 			//System.out.println(retJson);
 			object= (JSONObject)parser.parse(retJson);
 			
-			messages.add(Message.parseMessage(object.toJSONString()));
+			messages.add(MessageEntity.parseMessage(object.toJSONString()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -219,7 +220,7 @@ public class NotificationController {
 			JSONArray array = (JSONArray)parser.parse(retJson);
 			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
-				notifications.add(Message.parseMessage(obj.toJSONString()));
+				notifications.add(MessageEntity.parseMessage(obj.toJSONString()));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -382,8 +383,8 @@ public class NotificationController {
 	public Response getCoversationMessages(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String conversationID	)
 	{
-		Vector<Message>conversarionMssages = new Vector<Message>();
-		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		Vector<MessageEntity>conversarionMssages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
 		
 		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getCoversationMessages";
 		String urlParameters = "username=" + username + "&password=" + password + "&id=" + conversationID;
@@ -403,7 +404,7 @@ public class NotificationController {
 			//	System.out.println("i " + i);
 				JSONObject o = (JSONObject)array.get(i);
 			//	System.out.println(o);
-				conversarionMssages.add(Message.parseMessage(o.toJSONString()));
+				conversarionMssages.add(MessageEntity.parseMessage(o.toJSONString()));
 			}
 			
 		} catch (ParseException e) {

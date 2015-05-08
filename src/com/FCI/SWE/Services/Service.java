@@ -113,76 +113,7 @@ public class Service {
 
 	}
 	
-	//////////////////////////////////////////////////////////////////
-	/**
-	 * send friend request from user to another one using their username 
-	 * first it checks if they are different users and check access and
-	 *  the request doesn't sent before 
-	 * @param sUser username of the request sender user
-	 * @param fUser username of the request receiver user
-	 * @param password password of the request sender user to check access rights 
-	 * @return OK if request approved or Failed and reason of failure 
-	 */
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/FriendRequestService")
-	@POST
-	public String  sendFriendRequest (@FormParam("senderUser") String sUser, 
-					@FormParam("friendUser")String fUser, @FormParam("senderPassword")String password)
-	{
-		JSONObject object = new JSONObject();
-		if(fUser.equals(sUser))
-		{
-			object.put("Status", "Failed, two users are the same");
-			return object.toString();
-		}
-		boolean exists = UserEntity.isExist(fUser);
 	
-		// check if friend is sent to exist user , check the access right of sender
-		if(!exists || UserEntity.getUser(sUser, password) == null)
-			object.put("Status", "Failed, incorrect data");
-			//m.put("Status", "Failed");
-		else
-		{
-			if(FriendRequestEntity.saveRequest(sUser, fUser) == true)			
-				object.put("Status", "OK");
-			else
-				object.put("Status", "Failed, they are already friends or "
-						+ "request has been sent befor.");
-		}
-		
-		return object.toString();
-		
-	}
-	
-	////////////////////////////////////////////////////////////////////////////////
-	/**
-	 * cancel and delete sent friend request, search database for that request if found delete it  
-	 * @param sUser username of the request sender user
-	 * @param fUser username of the request receiver user
-	 * @param password password of the request sender user to check access rights 
-	 * @return OK if request approved or Failed and reason of failure 
-	 */
-	@POST
-	@Path("/CancelFriendRequestService")
-	public String deleteFriendRequest(@FormParam("senderUser")String sUser,
-			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
-		JSONObject object  = new JSONObject();
-		
-		// check access right of sender 
-		if(UserEntity.getUser(sUser, password) == null)
-		{
-			object.put("Status", "Failed, wrong username or password");
-			return object.toString();
-		}
-		
-		if (FriendRequestEntity.deleteRequest(sUser, fUser))
-			object.put("Status", "OK");
-		else
-			object.put("Status", "Failed, no request is sent");
-		
-		return object.toString();
-
-	}
 	////////////////////////////////////////////////////////////////////
 	/**
 	 * cancel and delete sent friend request, search database for that request if found delete it  
