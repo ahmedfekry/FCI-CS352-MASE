@@ -33,9 +33,10 @@ import org.json.simple.parser.ParseException;
 
 
 
-import com.FCI.SWE.Models.FriendRequest;
+
 import com.FCI.SWE.Models.Message;
 import com.FCI.SWE.Models.Notification;
+import com.FCI.SWE.ServicesModels.FriendRequestEntity;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 
 
@@ -176,8 +177,8 @@ public class NotificationController {
 	public Response getFriendRequestByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		Vector<FriendRequest>requsts = new Vector<FriendRequest>();
-		Map<String, Vector<FriendRequest> >map = new HashMap<String, Vector<FriendRequest> >();
+		Vector<FriendRequestEntity>requsts = new Vector<FriendRequestEntity>();
+		Map<String, Vector<FriendRequestEntity> >map = new HashMap<String, Vector<FriendRequestEntity> >();
 		
 		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getFriendRequestByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
@@ -192,7 +193,7 @@ public class NotificationController {
 			//System.out.println(retJson);
 			object= (JSONObject)parser.parse(retJson);
 			
-			requsts.add(FriendRequest.parseFriendRequest(object.toJSONString()));
+			requsts.add(FriendRequestEntity.parseFriendRequest(object.toJSONString()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,7 +234,7 @@ public class NotificationController {
 			JSONArray array = (JSONArray)parser.parse(retJson);
 			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
-				notifications.add(FriendRequest.parseFriendRequest(obj.toJSONString()));
+				notifications.add(FriendRequestEntity.parseFriendRequest(obj.toJSONString()));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -260,7 +261,7 @@ public class NotificationController {
 			@FormParam("password")String password, @FormParam("name")String name	)
 	{
 		
-		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/createConversation";
+		String serviceUrl = "http://localhost:8888/rest/createConversation";
 		String urlParameters = "username=" + username + "&password=" + password + "&name=" + name ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -300,7 +301,7 @@ public class NotificationController {
 			@FormParam("friend")String friend, @FormParam("conversationName")String conversationName)
 	{
 		
-		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/addToConversation";
+		String serviceUrl = "http://localhost:8888/rest/addToConversation";
 		String urlParameters = "username=" + owner + "&password=" + password +
 				"&id=" + id + "&friend=" + friend;
 		System.out.println("conv controller: username= "+owner + "   password= "+password);
@@ -338,7 +339,7 @@ public class NotificationController {
 	{
 			
 
-		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/SendConversationMessage";
+		String serviceUrl = "http://localhost:8888/rest/SendConversationMessage";
 		String urlParameters = "sender=" + sender + "&password=" + password +
 				"&message=" + message + "&conversationID=" + conversationID ;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",

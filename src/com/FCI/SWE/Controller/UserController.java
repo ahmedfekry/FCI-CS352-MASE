@@ -207,7 +207,7 @@ public class UserController {
 	@Produces("text/html")
 	public Response home(@Context HttpServletRequest req, @FormParam("uname") String uname,
 			@FormParam("password") String pass) {
-		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/LoginService";
+		String serviceUrl = "http://localhost:8888/rest/LoginService";
 		Map<String, String> map = new HashMap<String, String>();
 		try 
 		{

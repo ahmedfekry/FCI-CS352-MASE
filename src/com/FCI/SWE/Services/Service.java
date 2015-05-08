@@ -31,6 +31,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.FCI.SWE.Models.User;
+import com.FCI.SWE.ServicesModels.FriendRequestEntity;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -142,53 +143,11 @@ public class Service {
 			//m.put("Status", "Failed");
 		else
 		{
-			DatastoreService datastore = DatastoreServiceFactory
-					.getDatastoreService();
-			Query gaeQuery = new Query("friendRequests");
-			PreparedQuery pq = datastore.prepare(gaeQuery);
-			List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
-		
-			// check if Friend request is sent before
-			
-			for(Entity e : l)
-			{
-				if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
-				{
-					object.put("Status", "Failed, the request is already sent");
-					return object.toString();
-				}	
-			}
-			// check if they are friends 
-			Query guery = new Query("Friends");
-			PreparedQuery pq2 = datastore.prepare(gaeQuery);
-			
-			for(Entity e : pq2.asIterable())
-			{
-				if((e.getProperty("user").equals(sUser) && e.getProperty("friendTo").equals(fUser) ) || 
-				(e.getProperty("friendTo").equals(sUser) && e.getProperty("user").equals(fUser) ) )
-				
-				{
-					object.put("Status", "Failed, they are already friends");
-					return object.toString();
-				}
-			}
-			//////////////
-			long id = 1;
-			if(l.size()>0)
-				id = l.get(l.size()-1).getKey().getId()+1 ;
-			Date d = new Date();
-			
-			Entity fRequest = new Entity("friendRequests", id);
-			fRequest.setProperty("sender", sUser);
-			fRequest.setProperty("receiver", fUser);
-			fRequest.setProperty("seen", false);
-			fRequest.setProperty("date", d);
-			fRequest.setProperty("id", id);
-			
-			
-			datastore.put(fRequest);
-			object.put("Status", "OK");
-
+			if(FriendRequestEntity.saveRequest(sUser, fUser) == true)			
+				object.put("Status", "OK");
+			else
+				object.put("Status", "Failed, they are already friends or "
+						+ "request has been sent befor.");
 		}
 		
 		return object.toString();
@@ -207,7 +166,7 @@ public class Service {
 	@Path("/CancelFriendRequestService")
 	public String deleteFriendRequest(@FormParam("senderUser")String sUser,
 			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
-		JSONObject object = new JSONObject();
+		JSONObject object  = new JSONObject();
 		
 		// check access right of sender 
 		if(UserEntity.getUser(sUser, password) == null)
@@ -215,22 +174,12 @@ public class Service {
 			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		Query gaeQuery = new Query("friendRequests");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
 		
-		object.put("Status", "Failed, no request is sent");
-		for(Entity e : pq.asIterable())
-		{
-			if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
-			{
-				datastore.delete(e.getKey());
-				object.put("Status", "OK");
-				break;
-			}	
-		}
+		if (FriendRequestEntity.deleteRequest(sUser, fUser))
+			object.put("Status", "OK");
+		else
+			object.put("Status", "Failed, no request is sent");
+		
 		return object.toString();
 
 	}
@@ -246,7 +195,8 @@ public class Service {
 	@POST
 	@Path("/AddFriendService")
 	public String addFriend(@FormParam("senderUser")String sUser,
-		@FormParam("friendUser") String fUser, @FormParam("receiverPassword")String password) {
+		@FormParam("friendUser") String fUser,
+		@FormParam("receiverPassword")String password) {
 		
 		JSONObject object = new JSONObject();
 		
@@ -256,53 +206,11 @@ public class Service {
 			return object.toString();
 			
 		}
-		
-		// try to delete sent friend request from friendRequests table
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
 
-		Query gaeQuery = new Query("friendRequests");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		
-		boolean t = false;
-		Key deletedE = null;
-		for(Entity e : pq.asIterable())
-		{
-			if(e.getProperty("sender").equals(sUser) && e.getProperty("receiver").equals(fUser) )
-			{
-				deletedE = e.getKey();
-				t = true;
-				break;
-			}	
-		}
-		
-		if(!t)
-		{
+		if(UserEntity.addFriend(sUser, fUser))
+			object.put("Status", "OK");
+		else
 			object.put("Status", "Failed, there is no sent friendrequest ");
-			return object.toString();
-		}
-		
-		// add friend request in Friends entity
-		
-
-		Query gaeQuery2 = new Query("Friends");
-		PreparedQuery pq2 = datastore.prepare(gaeQuery2);
-		List<Entity> l = pq2.asList(FetchOptions.Builder.withDefaults());
-		
-		long id = 1;
-		if(l.size()>0)
-			id = l.get(l.size()-1).getKey().getId()+1 ;
-		
-		Entity friend = new Entity("Friends", id);
-		
-		friend.setProperty("user", sUser);
-		friend.setProperty("friendTo", fUser);
-		datastore.put(friend);
-		
-		datastore.delete(deletedE);
-		object.put("Status", "OK");
-		
 
 		return object.toString();
 	}
@@ -321,37 +229,17 @@ public class Service {
 	public String getFriends(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 		
-		JSONArray object = new JSONArray();
+		JSONArray object;
 		System.out.println("test");
 		if(UserEntity.getUser(uName, password) == null)
 		{
+			object = new JSONArray();
 			object.add( "Failed, wrong username or password");
 			return object.toJSONString();			
 		}
 		
-		object.add( "OK");
-		System.out.println("user exists");
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		Query gaeQuery = new Query("Friends");
-		PreparedQuery pq = datastore.prepare(gaeQuery);	
-		System.out.println("before search");
-		List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
-		System.out.println("size" + l.size());
-		for(int i=0;i<l.size();i++)
-		{
-			Entity e = l.get(i).clone();
-			System.out.println("entity" + e + " get user " +e.getProperty("user") );
-			if(e.getProperty("user").equals(uName)  )
-			{
-				object.add(e.getProperty("friendTo"));
-			}	
-			else if(e.getProperty("friendTo").equals(uName) )
-			{
-				object.add(e.getProperty("user") );
-			}
-		}
+		object = UserEntity.getFriends(uName);
+		
 		System.out.println("obj" + object);
 		return object.toJSONString();
 	}
@@ -366,67 +254,20 @@ public class Service {
 	public String getFriendRequests(@FormParam("uName")String uName, 
 			@FormParam("password")String password) {
 	//	System.out.println("F R S username_"+ uName + "_pass "+ password);
-		JSONArray object = new JSONArray();
+		JSONArray object; 
 		
 		if(UserEntity.getUser(uName, password) == null)
 		{
+			object = new JSONArray();
 			object.add( "Failed");
 			return object.toJSONString();
 		}
 		
-		object.add( "OK");
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		Query gaeQuery = new Query("friendRequests");
-		PreparedQuery pq = datastore.prepare(gaeQuery);	
-		
-		for(Entity e : pq.asIterable())
-		{
-			if(e.getProperty("receiver").equals(uName)  )
-			{
-				object.add(e.getProperty("sender"));
-				e.setProperty("seen", "true");
-				datastore.put(e);
-			}	
-			
-		}
-
+		object = FriendRequestEntity.getRequests(uName);
 		return object.toJSONString();
 	}
 	
 	///////////////////////////////////////////////////////////////////////
 	
-	@GET
-	@Path("/TestConversation")
-	public String createTable()
-	{
-		JSONObject o = new JSONObject();
-		o.put("users", "OK");
-		
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		Query gaeQuery = new Query("Conversation");
-		PreparedQuery pq = datastore.prepare(gaeQuery);	
-		List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
-
-		long id = 1;
-		if(l.size()>0)
-			id = l.get(l.size()-1).getKey().getId()+1 ;
-			
-		Entity conv = new Entity("Conversation", id);
-		conv.setProperty("ID", id);
-		Vector<String>users = new Vector<String>();
-		users.add("u1");
-		users.add("u2");
-		users.add("u3");
-		
-		conv.setProperty("users", users);
-		datastore.put(conv);
-		
-		return o.toJSONString();
-	}
+	
 }
