@@ -46,5 +46,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-api-stubs.jar"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-tools-sdk-1.4.0.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

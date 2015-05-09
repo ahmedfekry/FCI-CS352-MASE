@@ -125,7 +125,12 @@ public class UserEntity {
 	 * 
 	 * @return boolean if user is saved correctly or not
 	 */
-	public Boolean saveUser() {
+	public boolean saveUser() {
+		boolean exist = isExist(name);
+		
+		System.out.println(name + " " + exist);
+		if(exist)
+			return false;
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Query gaeQuery = new Query("users");
@@ -135,7 +140,7 @@ public class UserEntity {
 		if(list.size()!=0)
 			id =list.get(list.size()-1).getKey().getId()+ 1;
 		Entity employee = new Entity("users", id);
-
+		
 		employee.setProperty("name", this.name);
 		employee.setProperty("email", this.email);
 		employee.setProperty("password", this.password);

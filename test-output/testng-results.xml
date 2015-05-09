@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="8" passed="8">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="4637" started-at="2015-05-09T20:16:01Z" finished-at="2015-05-09T20:16:06Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="4637" started-at="2015-05-09T20:16:01Z" finished-at="2015-05-09T20:16:06Z">
+      <class name="com.FCI.SWE.Services.ServiceTest">
+        <test-method status="PASS" signature="addFriend()[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="addFriend" duration-ms="14" started-at="2015-05-09T23:16:01Z" finished-at="2015-05-09T23:16:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addFriend -->
+        <test-method status="PASS" signature="getFriendRequests()[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="getFriendRequests" duration-ms="1" started-at="2015-05-09T23:16:01Z" finished-at="2015-05-09T23:16:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getFriendRequests -->
+        <test-method status="PASS" signature="getFriends()[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="getFriends" duration-ms="1" started-at="2015-05-09T23:16:01Z" finished-at="2015-05-09T23:16:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getFriends -->
+        <test-method status="PASS" signature="registrationService(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="registrationService" duration-ms="4508" started-at="2015-05-09T23:16:01Z" data-provider="registerProvider" finished-at="2015-05-09T23:16:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[hadad.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[OK]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- registrationService -->
+        <test-method status="PASS" signature="registrationService(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="registrationService" duration-ms="21" started-at="2015-05-09T23:16:06Z" data-provider="registerProvider" finished-at="2015-05-09T23:16:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[hadad.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Failed]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- registrationService -->
+        <test-method status="PASS" signature="loginService(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="loginService" duration-ms="22" started-at="2015-05-09T23:16:06Z" data-provider="loginProvider" depends-on-methods="com.FCI.SWE.Services.ServiceTest.registrationService" finished-at="2015-05-09T23:16:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[OK]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginService -->
+        <test-method status="PASS" signature="loginService(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="loginService" duration-ms="19" started-at="2015-05-09T23:16:06Z" data-provider="loginProvider" depends-on-methods="com.FCI.SWE.Services.ServiceTest.registrationService" finished-at="2015-05-09T23:16:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[h]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Failed]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginService -->
+        <test-method status="PASS" signature="loginService(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.ServiceTest@4c5d7f90]" name="loginService" duration-ms="18" started-at="2015-05-09T23:16:06Z" data-provider="loginProvider" depends-on-methods="com.FCI.SWE.Services.ServiceTest.registrationService" finished-at="2015-05-09T23:16:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[12]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Failed]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- loginService -->
+      </class> <!-- com.FCI.SWE.Services.ServiceTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
