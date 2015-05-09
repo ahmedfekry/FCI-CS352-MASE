@@ -34,6 +34,7 @@ import org.json.simple.parser.ParseException;
 
 import sun.tools.jar.resources.jar;
 
+import com.FCI.SWE.Models.Post;
 import com.FCI.SWE.Models.User;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -75,10 +76,21 @@ public class UserController {
 		return Response.ok(new Viewable("/jsp/test")).build();
 	}
 	
-	@GET
+	@POST
 	@Path("/timeline")
-	public Response timeline() {
-		return Response.ok(new Viewable("/jsp/timeline")).build();
+	public Response timeline(@FormParam("username")String owner, @FormParam("password")String password) {
+		System.out.println("Timeline controller");
+		Map<String, Vector<Post> >map = new HashMap<String, Vector<Post> >();
+		
+		Vector<Post> posts = PostController.getUserPosts(owner, password);
+		System.out.println("number of posts " + posts.size());
+		for(Post p : posts)
+		{
+			System.out.println("p "+ p.getPost());
+		
+		}
+		map.put("Posts_", posts);
+		return Response.ok(new Viewable("/jsp/timeline",map)).build();
 	}
 
 	/**
@@ -129,7 +141,7 @@ public class UserController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String response(@FormParam("uname") String uname,
 			@FormParam("email") String email, @FormParam("password") String pass) {
-		String serviceUrl = "http://localhost:8888/rest/RegistrationService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/RegistrationService";
 		try {
 			URL url = new URL(serviceUrl);
 			String urlParameters = "uname=" + uname + "&email=" + email
@@ -292,7 +304,7 @@ public class UserController {
 			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
-		String serviceUrl = "http://localhost:8888/rest/FriendRequestService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/FriendRequestService";
 		
 		try {
 			URL url = new URL(serviceUrl);
@@ -366,7 +378,7 @@ public class UserController {
 			@FormParam("friendPassword")String password) {
 		JSONObject object ;
 		JSONObject returnObject = new JSONObject();
-		String serviceUrl = "http://localhost:8888/rest/AddFriendService";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/AddFriendService";
 		
 		try {
 			URL url = new URL(serviceUrl);
@@ -463,7 +475,7 @@ public class UserController {
 		JSONArray object = new JSONArray();
 		
 		
-		String serviceUrl = "http://localhost:8888/rest/GetFriends";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/GetFriends";
 		Map<String , Vector<String>>map = null;
 		try {
 			URL url = new URL(serviceUrl);
@@ -539,7 +551,7 @@ public class UserController {
 			@FormParam("password")String password) {
 		
 		JSONArray object = new JSONArray();
-		String serviceUrl = "http://localhost:8888/rest/GetFriendRequests";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/GetFriendRequests";
 		Map<String , Vector<String>>map = null;
 			
 		System.out.println("User " +uName + " pass " + password);

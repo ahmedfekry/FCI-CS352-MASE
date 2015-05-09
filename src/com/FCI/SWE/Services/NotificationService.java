@@ -9,10 +9,14 @@ import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.FCI.SWE.Models.Message;
+import com.FCI.SWE.ServicesModels.ConversationEntity;
+import com.FCI.SWE.ServicesModels.ConversationMessageEntity;
+import com.FCI.SWE.ServicesModels.FriendRequestEntity;
+import com.FCI.SWE.ServicesModels.MessageEntity;
 import com.FCI.SWE.ServicesModels.UserEntity;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -49,45 +53,25 @@ public class NotificationService {
 	public String createMessage(@FormParam("sender")String sender, @FormParam("password")String senderPassword,
 			@FormParam("receiver")String receiver, @FormParam("message")String message)
 	{
-		
+
 		JSONObject object = new JSONObject();
-		
+
 		if(UserEntity.getUser(sender, senderPassword) == null)
 		{
 			object.put("Status", "Failed, no acces to send message");
-			return object.toString();
 		}
-		
-		if(!UserEntity.isExist(receiver) )
+
+		else if(!UserEntity.isExist(receiver) )
 		{
 			object.put("Status", "Failed, no such user with this username");
-			return object.toString();
+
 		}
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-		
-		Query gaeQuery = new Query("Messages");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		
-		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-		long id =1;
-		if(list.size()!=0)
-			id =list.get(list.size()-1).getKey().getId()+ 1;
-		
-		Entity mes = new Entity("Messages", id);
-		
-		mes.setProperty("sender", sender);
-		mes.setProperty("receiver", receiver);
-		mes.setProperty("seen", false);
-		mes.setProperty("date", new Date());
-		mes.setProperty("message", message);
-		mes.setProperty("id", id);
-		
-		datastore.put(mes);
-		
-		object.put("Status", "OK");
-		
+
+		else if(MessageEntity.saveMessage(sender, receiver, message))
+			object.put("Status", "OK");
+		else
+			object.put("Status", "Failed");
+
 		return object.toString();
 	}
 
@@ -97,57 +81,28 @@ public class NotificationService {
 	 * @param password password of user
 	 * @return JSON array with all messages
 	 */
-	
+
 	@Path("/getAllMessages")
 	@Produces(MediaType.TEXT_PLAIN)
 	@POST
 	public String getAllMessages(@FormParam("username")String username, 
 			@FormParam("password")String password	)
 	{
-		JSONArray array = new JSONArray();
-		JSONObject ob = new JSONObject();
+		JSONArray array ;
+
 		if(UserEntity.getUser(username, password) == null)
 		{
+			array = new JSONArray();
+			JSONObject ob = new JSONObject();
 			ob.put("Status", "Failed, wrong username or password");
 			array.add(ob);
 			return array.toString();
 		}
-		ob.put("Status", "OK");
-		array.add(ob);
 
-		
-		DatastoreService dataStore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query geo = new Query("Messages");
-		PreparedQuery prepare = dataStore.prepare(geo);
-		
-		
-		for(Entity entity: prepare.asIterable()){
-			
-			String reciver = entity.getProperty("receiver").toString();
-			
-			if(reciver.equals(username) ){
-				boolean seen = (boolean)entity.getProperty("seen");
-				seen = true;
-				entity.setProperty("seen", seen);
-				
-				JSONObject obj = new JSONObject();
-				obj.put("sender",entity.getProperty("sender") );
-				obj.put("receiver",reciver );
-				obj.put("commandurl", "social/viewMessageByID");
-				obj.put("date", "date");
-				obj.put("seen",seen );
-				obj.put("id",entity.getProperty("id").toString() );
-				obj.put("message", entity.getProperty("message").toString());
-				
-				dataStore.put(entity);
-				array.add(obj);
-			}
-		}
-		
+		array = MessageEntity.getAllMessages(username);
 		return array.toString();
 	}
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @param username username of user wants to create conversation 
@@ -160,47 +115,90 @@ public class NotificationService {
 	public String getUnseenMessages(@FormParam("username")String username, 
 			@FormParam("password")String password	)
 	{
-		JSONArray array = new JSONArray();
-		JSONObject ob = new JSONObject();
+		JSONArray array ;
+
 		if(UserEntity.getUser(username, password) == null)
 		{
+			array = new JSONArray();
+			JSONObject ob = new JSONObject();
 			ob.put("Status", "Failed, wrong username or password");
 			array.add(ob);
 			return array.toString();
 		}
-		ob.put("Status", "OK");
-		array.add(ob);
-		
-		DatastoreService dataStore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query geo = new Query("Messages");
-		PreparedQuery prepare = dataStore.prepare(geo);
-		
-		
-		for(Entity entity: prepare.asIterable()){
-			
-			String reciver = entity.getProperty("receiver").toString();
-			boolean seen = (boolean)entity.getProperty("seen");
-			
-			if(reciver.equals(username) && !seen){
-				seen = true;
-				entity.setProperty("seen", seen);
-				
-				JSONObject obj = new JSONObject();
-				obj.put("sender",entity.getProperty("sender") );
-				obj.put("receiver",reciver );
-				obj.put("commandurl", "social//viewFriendRequestByID");
-				obj.put("date", "date");
-				obj.put("seen",seen );
-				obj.put("id",entity.getProperty("id").toString() );
-				obj.put("message", entity.getProperty("message").toString());
-				
-				dataStore.put(entity);
-				array.add(obj);
-			}
-		}
-		
+
+		array = MessageEntity.getUnseenMessages(username);
 		return array.toString();
+
+	}
+	//////////////////////////////////////////////////////////////////
+	/**
+	 * send friend request from user to another one using their username 
+	 * first it checks if they are different users and check access and
+	 *  the request doesn't sent before 
+	 * @param sUser username of the request sender user
+	 * @param fUser username of the request receiver user
+	 * @param password password of the request sender user to check access rights 
+	 * @return OK if request approved or Failed and reason of failure 
+	 */
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/FriendRequestService")
+	@POST
+	public String  sendFriendRequest (@FormParam("senderUser") String sUser, 
+			@FormParam("friendUser")String fUser, @FormParam("senderPassword")String password)
+	{
+		JSONObject object = new JSONObject();
+		if(fUser.equals(sUser))
+		{
+			object.put("Status", "Failed, two users are the same");
+			return object.toString();
+		}
+		boolean exists = UserEntity.isExist(fUser);
+
+		// check if friend is sent to exist user , check the access right of sender
+		if(!exists || UserEntity.getUser(sUser, password) == null)
+			object.put("Status", "Failed, incorrect data");
+		//m.put("Status", "Failed");
+		else
+		{
+			if(FriendRequestEntity.saveRequest(sUser, fUser) == true)			
+				object.put("Status", "OK");
+			else
+				object.put("Status", "Failed, they are already friends or "
+						+ "request has been sent befor.");
+		}
+
+		return object.toString();
+
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * cancel and delete sent friend request, search database for that request if found delete it  
+	 * @param sUser username of the request sender user
+	 * @param fUser username of the request receiver user
+	 * @param password password of the request sender user to check access rights 
+	 * @return OK if request approved or Failed and reason of failure 
+	 */
+	@POST
+	@Path("/CancelFriendRequestService")
+	public String deleteFriendRequest(@FormParam("senderUser")String sUser,
+			@FormParam("friendUser") String fUser, @FormParam("senderPassword")String password) {
+		JSONObject object  = new JSONObject();
+
+		// check access right of sender 
+		if(UserEntity.getUser(sUser, password) == null)
+		{
+			object.put("Status", "Failed, wrong username or password");
+			return object.toString();
+		}
+
+		if (FriendRequestEntity.deleteRequest(sUser, fUser))
+			object.put("Status", "OK");
+		else
+			object.put("Status", "Failed, no request is sent");
+
+		return object.toString();
+
 	}
 	//////////////////////////////////////
 	/**
@@ -214,48 +212,16 @@ public class NotificationService {
 	public String getUnseenFriendRequests(@FormParam("username")String username, 
 			@FormParam("password")String password	)
 	{
-		JSONArray array = new JSONArray();
-		JSONObject ob = new JSONObject();
+		JSONArray array;
 		if(UserEntity.getUser(username, password) == null)
 		{
+			array = new JSONArray();
+			JSONObject ob = new JSONObject();
 			ob.put("Status", "Failed, wrong username or password");
 			array.add(ob);
 			return array.toString();
 		}
-		ob.put("Status", "OK");
-		array.add(ob);
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		Query gaeQuery = new Query("friendRequests");
-		PreparedQuery pq = datastore.prepare(gaeQuery);	
-		
-		for(Entity entity : pq.asIterable())
-		{
-			boolean seen = (boolean) entity.getProperty("seen");
-			String reciver = (String) entity.getProperty("receiver");
-			
-			if(reciver.equals(username) && !seen )
-			{
-				seen = true;
-				entity.setProperty("seen",seen );
-				datastore.put(entity);
-				
-				JSONObject obj = new JSONObject();
-				
-				obj.put("sender",entity.getProperty("sender") );
-				obj.put("receiver",reciver );
-				obj.put("commandurl", "social/viewMessageByID");
-				obj.put("date", "date");
-				obj.put("seen",seen );
-				obj.put("id",entity.getProperty("id").toString() );				
-				
-				array.add(obj);
-				
-			}	
-			
-		}
+		array = FriendRequestEntity.getUnseenFriendRequests(username);
 		
 		return array .toJSONString();
 	}
@@ -272,43 +238,15 @@ public class NotificationService {
 	public String getMessagesByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		
-		JSONObject object = new JSONObject();
+
+		JSONObject object ;
 		if(UserEntity.getUser(username, password) == null)
 		{
+			object = new JSONObject();
 			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
-		object.put("Status", "OK");
-		
-		DatastoreService dataStore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query geo = new Query("Messages");
-		PreparedQuery prepare = dataStore.prepare(geo);
-		
-		
-		for(Entity entity: prepare.asIterable()){
-			
-			String ID = entity.getProperty("id").toString();
-			String reciver = entity.getProperty("receiver").toString();
-			String sender = entity.getProperty("sender").toString();
-			
-			if( (reciver.equals(username) || sender.equals(username) ) && ID.equals(id) ){
-			
-				boolean seen = true;
-				entity.setProperty("seen", seen);
-				
-				object.put("sender",entity.getProperty("sender") );
-				object.put("receiver",reciver );
-				object.put("commandurl", "social/getMessageByID");
-				object.put("date", "date");
-				object.put("seen",seen );
-				object.put("id",entity.getProperty("id").toString() );
-				object.put("message", entity.getProperty("message").toString());
-				
-				dataStore.put(entity);
-			}
-		}
+		object = MessageEntity.getMessagesByID(username, id);
 		
 		return object.toString();
 	}
@@ -326,46 +264,19 @@ public class NotificationService {
 	public String getFriendRequestByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		JSONObject object = new JSONObject();
+		JSONObject object;
 		if(UserEntity.getUser(username, password) == null)
 		{
+			object = new JSONObject();
 			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
-		object.put("Status", "OK");
 		
-		DatastoreService dataStore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query geo = new Query("friendRequests");
-		PreparedQuery prepare = dataStore.prepare(geo);
-		
-		
-		for(Entity entity: prepare.asIterable()){
-			
-			String ID = entity.getProperty("id").toString();
-			String reciver = entity.getProperty("receiver").toString();
-			
-			
-			if( (reciver.equals(username) ) && ID.equals(id) ){
-				String sender = entity.getProperty("sender").toString();
-				boolean seen = true;
-				entity.setProperty("seen", seen);
-				
-				object.put("sender",sender );
-				object.put("receiver",reciver );
-				object.put("commandurl", "social/getFriendRequestByID");
-				object.put("date", "date");
-				object.put("seen",seen );
-				object.put("id",entity.getProperty("id").toString() );
-
-				
-				dataStore.put(entity);
-			}
-		}
+		object = FriendRequestEntity.getFriendRequestByID(username, id);
 		
 		return object.toString();
 	}
-	
+
 	/////////////////////////////////////////////////////////////
 	/**
 	 * 
@@ -381,42 +292,24 @@ public class NotificationService {
 			@FormParam("password")String password, @FormParam("name")String name	)
 	{
 		JSONObject object = new JSONObject();
-		
+
 		if(UserEntity.getUser(username, password) == null)
 		{
 			object.put("Status", "Failed, no acces to create conversation");
 			return object.toString();
 		}
-		
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-		
-		Query gaeQuery = new Query("Conversation");
-		PreparedQuery pq = datastore.prepare(gaeQuery);
-		
-		List<Entity> list = pq.asList(FetchOptions.Builder.withDefaults());
-		long id =1;
-		if(list.size()!=0)
-			id =list.get(list.size()-1).getKey().getId()+ 1;
-		
-		Entity conv = new Entity("Conversation", id);
-		
-		conv.setProperty("owner", username);
-		conv.setProperty("name", name);
-		conv.setProperty("date", new Date());
-		conv.setProperty("id", id);
-		Vector<String>members = new Vector<String>();
-		members.add(username);
-		conv.setProperty("members", members);
-		
-		datastore.put(conv);
-		
-		object.put("Status", "OK");
-		object.put("id", id);
+
+		long id = ConversationEntity.createConversation(username, name);
+		if(id!= -1){
+			object.put("Status", "OK");
+			object.put("id", id);
+		}
+		else
+			object.put("Status", "Failed");
 		
 		return object.toString();
 	}
-	
+
 	/////////////////////////////////////////////////////////////
 	/**
 	 * 
@@ -433,44 +326,110 @@ public class NotificationService {
 			@FormParam("password")String password, @FormParam("id")String id, @FormParam("friend")String friend	)
 	{
 		JSONObject object = new JSONObject();
-		if(UserEntity.getUser(owner, password) == null || UserEntity.isExist(friend))
+		if(UserEntity.getUser(owner, password) == null )
 		{
 			object.put("Status", "Failed, wrong username or password");
 			return object.toString();
 		}
-		
-		// if(! UserEntity.areFriends(String owner, String friend)
-//		{
-//			object.put("Status", "Failed, You are not friends");
-//			return object.toString();
-//		}
-		object.put("Status", "OK");
-		
-		DatastoreService dataStore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query geo = new Query("Conversation");
-		PreparedQuery prepare = dataStore.prepare(geo);
-		
-		
-		for(Entity entity: prepare.asIterable()){
-			
-			String ID = entity.getProperty("id").toString();
-			String ownerUser = entity.getProperty("owner").toString();
-			Vector<String>members = (Vector<String>)entity.getProperty("members");
-			
-			
-			if( (members.contains(ownerUser) ) && ID.equals(id) ){
-				members.add(friend);
-				entity.setProperty("members", members);
-				
-				dataStore.put(entity);
-				
-				object.put("Status", "OK");
-				return object.toString();
-			}
+		if( ! UserEntity.isExist(friend))
+		{
+			object.put("Status", "Failed, wrong friend username");
+			return object.toString();
 		}
-		object.put("Status", "Failed, no conversation with this id");
+		
+		String Status = ConversationEntity.addToConversation(owner, id, friend);
+		
+		object.put("Status", Status);
+
 		return object.toString();
 	}
 	/////////////////////////////////////////////////////////////
+	@Path("/SendConversationMessage")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String SendConversationMessage(@FormParam("sender")String sender, @FormParam("password")String password,
+			@FormParam("message")String message,@FormParam("conversationID")int conversationID){
+		JSONObject object = new JSONObject();
+		
+		if(UserEntity.getUser(sender, password) == null)
+		{
+			object.put("Status", "Failed, no such user");
+		}
+		
+		else if(ConversationMessageEntity.SendConversationMessage(sender, message, conversationID))
+		{
+			object.put("Status", "OK");
+			object.put("id", conversationID);
+		}
+		else
+			object.put("Status", "Failed, No conversation with this ID");
+		
+		return object.toString();
+	}
+	//////////////////////////////////////////////////////////
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @param conversationID
+	 * @return
+	 */
+	@Path("/getConversationMessages")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String getConversationMessages(@FormParam("username")String username, 
+			@FormParam("password")String password,@FormParam("id")String conversationID	)
+	{
+		JSONArray array;
+		JSONObject ob = new JSONObject();
+		if(UserEntity.getUser(username, password) == null )
+		{
+			array = new JSONArray();
+					
+			ob.put("Status", "Failed, wrong username or password");
+			array.add(ob);
+			return array.toString();
+		}
+		
+		if(conversationID == null)
+		{
+			array = new JSONArray();
+			ob.put("Status", "Failed,no conversation message exists");
+			array.add(ob);
+			return array.toString();
+		}
+		array = ConversationMessageEntity.getConversationMessages(username, conversationID);
+
+		return array.toString();
+	}
+	////////////////////////////////////////////////////////
+
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	@Path("/getUnseenConversationMessages")
+	@Produces(MediaType.TEXT_PLAIN)
+	@POST
+	public String getUnseenConversationMessages(@FormParam("username")String username, 
+			@FormParam("password")String password	)
+	{
+		JSONArray array;
+		
+		if(UserEntity.getUser(username, password) == null)
+		{
+			array = new JSONArray();
+			JSONObject ob = new JSONObject();
+			ob.put("Status", "Failed, wrong username or password");
+			array.add(ob);
+			return array.toString();
+		}
+		
+		array = ConversationMessageEntity.getUnseenConversationMessages(username);
+
+		return array.toString();
+	}
+	/////////////////////////////////////////////////////////
 }

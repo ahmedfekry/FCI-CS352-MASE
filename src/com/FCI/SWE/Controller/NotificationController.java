@@ -33,9 +33,11 @@ import org.json.simple.parser.ParseException;
 
 
 
-import com.FCI.SWE.Models.FriendRequest;
-import com.FCI.SWE.Models.Message;
+
+
 import com.FCI.SWE.Models.Notification;
+import com.FCI.SWE.ServicesModels.FriendRequestEntity;
+import com.FCI.SWE.ServicesModels.MessageEntity;
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 
 
@@ -64,7 +66,7 @@ public class NotificationController {
 
 		Map<String, String> map = new HashMap<String, String>();
 		
-		String serviceUrl = "http://localhost:8888/rest/createMessage";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/createMessage";
 		String urlParameters = "sender=" + sender + "&password=" + senderPassword
 				+ "&receiver=" + receiver + "&message=" + message;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -96,10 +98,10 @@ public class NotificationController {
 	public Response getAllMessages(@FormParam("username")String username, 
 			@FormParam("password")String password	)
 	{
-		Vector<Message>messages = new Vector<Message>();
-		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		Vector<MessageEntity>messages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getAllMessages";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getAllMessages";
 		String urlParameters = "username=" + username + "&password=" + password;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -117,7 +119,7 @@ public class NotificationController {
 			//	System.out.println("i " + i);
 				JSONObject o = (JSONObject)array.get(i);
 			//	System.out.println(o);
-				messages.add(Message.parseMessage(o.toJSONString()));
+				messages.add(MessageEntity.parseMessage(o.toJSONString()));
 			}
 			
 		} catch (ParseException e) {
@@ -137,10 +139,10 @@ public class NotificationController {
 	public Response getMessagesByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		Vector<Message>messages = new Vector<Message>();
-		Map<String, Vector<Message> >map = new HashMap<String, Vector<Message> >();
+		Vector<MessageEntity>messages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getMessagesByID";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getMessagesByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -153,7 +155,7 @@ public class NotificationController {
 			//System.out.println(retJson);
 			object= (JSONObject)parser.parse(retJson);
 			
-			messages.add(Message.parseMessage(object.toJSONString()));
+			messages.add(MessageEntity.parseMessage(object.toJSONString()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,10 +178,10 @@ public class NotificationController {
 	public Response getFriendRequestByID(@FormParam("username")String username, 
 			@FormParam("password")String password, @FormParam("id")String id	)
 	{
-		Vector<FriendRequest>requsts = new Vector<FriendRequest>();
-		Map<String, Vector<FriendRequest> >map = new HashMap<String, Vector<FriendRequest> >();
+		Vector<FriendRequestEntity>requsts = new Vector<FriendRequestEntity>();
+		Map<String, Vector<FriendRequestEntity> >map = new HashMap<String, Vector<FriendRequestEntity> >();
 		
-		String serviceUrl = "http://localhost:8888/rest/getFriendRequestByID";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getFriendRequestByID";
 		String urlParameters = "username=" + username + "&password=" + password+ "&id=" + id;
 				
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
@@ -192,7 +194,7 @@ public class NotificationController {
 			//System.out.println(retJson);
 			object= (JSONObject)parser.parse(retJson);
 			
-			requsts.add(FriendRequest.parseFriendRequest(object.toJSONString()));
+			requsts.add(FriendRequestEntity.parseFriendRequest(object.toJSONString()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -207,7 +209,7 @@ public class NotificationController {
 	@POST
 	@Path("/getAllNotifications")
 	public Response viewAllNotification(@FormParam("username")String username,@FormParam("password") String password) throws JSONException{
-		String serviceUrl = "http://localhost:8888/rest/getUnseenMessages";
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUnseenMessages";
 		String urlParameters = "username=" + username + "&password=" + password;
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -218,14 +220,14 @@ public class NotificationController {
 			JSONArray array = (JSONArray)parser.parse(retJson);
 			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
-				notifications.add(Message.parseMessage(obj.toJSONString()));
+				notifications.add(MessageEntity.parseMessage(obj.toJSONString()));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		serviceUrl = "http://localhost:8888/rest/getUnseenFriendRequests";
+		serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUnseenFriendRequests";
 		retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		parser = new JSONParser();
@@ -233,7 +235,7 @@ public class NotificationController {
 			JSONArray array = (JSONArray)parser.parse(retJson);
 			for (int i = 1; i < array.size(); i++) {
 				JSONObject obj = (JSONObject)array.get(i);
-				notifications.add(FriendRequest.parseFriendRequest(obj.toJSONString()));
+				notifications.add(FriendRequestEntity.parseFriendRequest(obj.toJSONString()));
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -303,6 +305,7 @@ public class NotificationController {
 		String serviceUrl = "http://localhost:8888/rest/addToConversation";
 		String urlParameters = "username=" + owner + "&password=" + password +
 				"&id=" + id + "&friend=" + friend;
+		System.out.println("conv controller: username= "+owner + "   password= "+password);
 		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		
@@ -328,6 +331,93 @@ public class NotificationController {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////
+	@Path("/SendConversationMessage")
+
+	@POST
+	public Response sendConversationMessage( @FormParam("sender")String sender, @FormParam("password")String password,
+			 @FormParam("message")String message,@FormParam("conversationID")int conversationID,
+			 @FormParam("conversationName")String conversationName)
+	{
+			
+
+		String serviceUrl = "http://localhost:8888/rest/SendConversationMessage";
+		String urlParameters = "sender=" + sender + "&password=" + password +
+				"&message=" + message + "&conversationID=" + conversationID ;
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		System.out.println("message in controller = "+message);
+		JSONParser parser = new JSONParser();
+		Map<String, String > result = new HashMap<String, String>();
+		
+		try {
+			JSONObject object = (JSONObject)parser.parse(retJson);
+			
+			result.put("Status", object.get("Status").toString());
+			
+			if(!object.get("Status").toString().equals("OK"))
+				return Response.ok(new Viewable("/jsp/Error" ,result) ).build();
+			
+			System.out.println("conv name= "+conversationName);
+			
+			result.put("id", object.get("id").toString());
+			result.put("name", conversationName);
+			result.put("Status", "Message has been sent correctly");
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.ok(new Viewable("/jsp/conversation" ,result) ).build();
+	}
+///////////////////////////////////////////////////////////////////////////////
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @param conversationID
+	 * @return
+	 */
+	@Path("/getCoversationMessages")
+	@POST
+	public Response getCoversationMessages(@FormParam("username")String username, 
+			@FormParam("password")String password, @FormParam("id")String conversationID	)
+	{
+		Vector<MessageEntity>conversarionMssages = new Vector<MessageEntity>();
+		Map<String, Vector<MessageEntity> >map = new HashMap<String, Vector<MessageEntity> >();
+		
+		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getCoversationMessages";
+		String urlParameters = "username=" + username + "&password=" + password + "&id=" + conversationID;
+				
+		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		JSONArray array = new JSONArray();
+		JSONParser parser = new JSONParser();
+		
+		try {
+			//System.out.println(retJson);
+			array= (JSONArray)parser.parse(retJson);
+			
+			
+			for (int i = 1; i < array.size(); i++) {
+			//	System.out.println("i " + i);
+				JSONObject o = (JSONObject)array.get(i);
+			//	System.out.println(o);
+				conversarionMssages.add(MessageEntity.parseMessage(o.toJSONString()));
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		map.put("messages", conversarionMssages);
+		return Response.ok(new Viewable("/jsp/conversationMessages",map)).build();
+	}
 	
+
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////
 }

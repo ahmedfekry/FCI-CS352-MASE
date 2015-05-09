@@ -63,6 +63,14 @@
 </fieldset>
 
 <fieldset>
+<form action="/social/getAllNotifications" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="View All Notifications">
+</form>
+</fieldset>
+
+<fieldset>
 	<form action="/social/ReceivedFriendRequests" method = "POST">
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "uName" >
 	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
@@ -70,6 +78,53 @@
 </form>
 
 </fieldset>
-	<a href="/social/viewMessagePage">Send Message</a>
+
+<fieldset>
+	<a href="/social/viewMessagePage">Send Message</a><br>
+</fieldset>	
+
+<fieldset>
+	<form action="/social/timeline" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="Timeline"><br>
+
+	
+	</form>
+
+</fieldset>
+
+<fieldset>
+CreateConversation
+	<form action="/social/CreateConversation" method = "POST">
+	<input type="hidden" name="username"  value = "<%= request.getSession(true).getAttribute("name")%>" >
+	<input type="hidden" name="password"  value = "<%= request.getSession(true).getAttribute("password")%>" >
+ 	
+	Conversation Name : <input type="text" name="name" >
+	<input type="submit" value="Create">
+	</form>
+</fieldset>	
+
+
+<fieldset>
+	<form action="/social/getAllMessages" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "username" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	<input type ="submit" value="View All Messages">
+</form>
+
+</fieldset>
+
+<fieldset>
+	<form action="/social/createPage" method = "POST">
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("name")%>" name = "ownerName" >
+	<input type = "hidden"  value="<%= request.getSession(true).getAttribute("password")%>" name = "password" >
+	Page Name <input type = "text" name="pageName">
+	<input type ="submit" value="Create Page">
+</form>
+
+</fieldset>
+
+	
 </body>
 </html>

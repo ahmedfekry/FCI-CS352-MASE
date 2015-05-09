@@ -12,10 +12,13 @@
 </head>
 <body>
 
-<c:forEach items="${it.Message}" var="messages">
-<p>sender name  <c:out value="${ messages.sender }"><br></c:out>			</p>
-<p>message		<c:out value="${ messages.message }"><br></c:out> 		</p>
-<p>at date		<c:out value="${ messages.date }"><br></c:out> 			</p>
+<c:forEach items="${it.messages}" var="message">
+<fieldset>
+<p> <c:out value="${ message.sender }"> </c:out>	has sent you <br></p>
+<p>	<c:out value="${ message.message }"><br></c:out> 		</p>
+<p>at <c:out value="${ message.date }"><br></c:out> 	<br><br></p>
+</fieldset>
 </c:forEach>
+
 </body>
 </html>

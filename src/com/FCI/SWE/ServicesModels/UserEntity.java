@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,6 +15,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
@@ -110,11 +112,11 @@ public class UserEntity {
 				User returnedUser = new User(entity.getProperty(
 						"name").toString(), entity.getProperty("email")
 						.toString(), entity.getProperty("password").toString());
-				
+
 				return returnedUser;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -123,7 +125,12 @@ public class UserEntity {
 	 * 
 	 * @return boolean if user is saved correctly or not
 	 */
-	public Boolean saveUser() {
+	public boolean saveUser() {
+		boolean exist = isExist(name);
+		
+		System.out.println(name + " " + exist);
+		if(exist)
+			return false;
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Query gaeQuery = new Query("users");
@@ -133,7 +140,7 @@ public class UserEntity {
 		if(list.size()!=0)
 			id =list.get(list.size()-1).getKey().getId()+ 1;
 		Entity employee = new Entity("users", id);
-
+		
 		employee.setProperty("name", this.name);
 		employee.setProperty("email", this.email);
 		employee.setProperty("password", this.password);
@@ -149,18 +156,85 @@ public class UserEntity {
 				.getDatastoreService();
 		Query gaeQuery = new Query("users");
 		PreparedQuery pq = datastore.prepare(gaeQuery);
-		
+
 		for (Entity user: pq.asIterable()) {
 			if(user.getProperty("name").equals(userName))
 				return true;
 		}
-		
+
 		return false;
 	}
 	///////////////////////////////////////////////
 	public static void addPostToUsers(Vector<String>IDs)
 	{
-		
+
 	}
-	
+	///////////////////////////////////////////////////////////
+
+	public static boolean addFriend (String sUser, String fUser)
+	{
+
+		// try to delete sent friend request from friendRequests table
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+
+		boolean t = FriendRequestEntity.deleteRequest(sUser, fUser);
+		if(!t)
+		{				
+			return false;
+		}
+
+		// add friend request in Friends entity
+
+
+		Query gaeQuery2 = new Query("Friends");
+		PreparedQuery pq2 = datastore.prepare(gaeQuery2);
+		List<Entity> l = pq2.asList(FetchOptions.Builder.withDefaults());
+
+		long id = 1;
+		if(l.size()>0)
+			id = l.get(l.size()-1).getKey().getId()+1 ;
+
+		Entity friend = new Entity("Friends", id);
+
+		friend.setProperty("user", sUser);
+		friend.setProperty("friendTo", fUser);
+		datastore.put(friend);
+
+
+
+		return true;
+	}
+	/////////////////////////////////////////////////////////
+	public static JSONArray getFriends(String uName)
+	{
+		JSONArray object = new JSONArray();
+		
+		object.add( "OK");
+		System.out.println("user exists");
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		Query gaeQuery = new Query("Friends");
+		PreparedQuery pq = datastore.prepare(gaeQuery);	
+
+		List<Entity> l = pq.asList(FetchOptions.Builder.withDefaults());
+		for(int i=0;i<l.size();i++)
+		{
+			Entity e = l.get(i).clone();
+
+			if(e.getProperty("user").equals(uName)  )
+			{
+				object.add(e.getProperty("friendTo"));
+			}	
+			else if(e.getProperty("friendTo").equals(uName) )
+			{
+				object.add(e.getProperty("user") );
+			}
+		}
+		
+		return object;
+	}
+
 }
