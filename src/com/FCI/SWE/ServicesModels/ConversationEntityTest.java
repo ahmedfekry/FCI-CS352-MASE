@@ -45,7 +45,7 @@ public class ConversationEntityTest {
   public void createConversation() {
 		UserEntity user = new UserEntity("test1", "test1@test.com", "123456");
 		user.saveUser();
-
+//
 	  Assert.assertNotEquals(-1, ConversationEntity.createConversation(user.getName(), "test"));
 //    throw new RuntimeException("Test not implemented");
   }

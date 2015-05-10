@@ -3,12 +3,11 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.FCI.SWE.ServicesModels.ConversationEntityTest">
+      <class name="com.FCI.SWE.Services.NotificationServiceTest">
         <methods>
-          <include name="tearDown"/>
-          <include name="createConversation"/>
+          <include name="createMessage" invocation-numbers="0"/>
         </methods>
-      </class> <!-- com.FCI.SWE.ServicesModels.ConversationEntityTest -->
+      </class> <!-- com.FCI.SWE.Services.NotificationServiceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
