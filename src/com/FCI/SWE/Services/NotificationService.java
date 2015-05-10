@@ -147,6 +147,11 @@ public class NotificationService {
 			@FormParam("friendUser")String fUser, @FormParam("senderPassword")String password)
 	{
 		JSONObject object = new JSONObject();
+		if(UserEntity.getUser(sUser, password) == null)
+		{
+			object.put("Status", "Failed, wrong username or password");
+			return object.toString();
+		}	
 		if(fUser.equals(sUser))
 		{
 			object.put("Status", "Failed, two users are the same");

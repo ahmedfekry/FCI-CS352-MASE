@@ -3,12 +3,15 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.FCI.SWE.Services.ServiceTest">
+      <class name="com.FCI.SWE.ServicesModels.UserEntityTest">
         <methods>
-          <include name="registrationService" invocation-numbers="1"/>
-          <include name="loginService"/>
+          <include name="saveUser"/>
+          <include name="getUser" invocation-numbers="0"/>
+          <include name="isExist" invocation-numbers="0"/>
+          <include name="tearDown"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- com.FCI.SWE.Services.ServiceTest -->
+      </class> <!-- com.FCI.SWE.ServicesModels.UserEntityTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

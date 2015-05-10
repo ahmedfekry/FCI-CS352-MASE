@@ -43,9 +43,8 @@ public class UserEntityTest {
 	@DataProvider(name = "saveProvider")
 	public static Object [][]saveProvider(){
 		return new Object[][]{
-				{"hadad","hadad.com" , "123", false},	
-				{"hadad2","hadad2.com" ,"123" ,true }
-
+				{"hadad","hadad.com" , "123", true},
+				{"hadad","hadad.com" , "123", false}
 		};
 	}
 
@@ -62,30 +61,39 @@ public class UserEntityTest {
 	public static Object [][]getUserProvider(){
 		return new Object[][]{
 				{"hadad", "123", "hadad", "123"},	
-				{"hadad", "1234", null , null},
-				{"hhh", "123", null , null}
+				{"hadad", "1234", null, null},
+				{"hhh", "123", null, null}
 		};
 	}
 	////////////////////////////////////////////
 	@Test(dataProvider = "saveProvider")
 	public void saveUser(String name, String email, String password, boolean expected) {
-
+		
 		UserEntity user = new UserEntity(name, email, password);
 		Assert.assertEquals(user.saveUser(), expected);
 
 	}
 
-	@Test(dataProvider ="existProvider")
+	@Test(dataProvider ="existProvider" , dependsOnMethods = {"saveUser"})
 	public void isExist(String name, boolean expected) {
 		Assert.assertEquals(UserEntity.isExist(name), expected);
 	}
 
-	@Test(dataProvider ="getUserProvider")
+	@Test(dataProvider ="getUserProvider", dependsOnMethods = {"saveUser"})
 	public void getUser(String name, String password, String username, String pass) {
 		User u = UserEntity.getUser(name, password);
-		Assert.assertEquals(u.getName(), username);
-		Assert.assertEquals(u.getPass(), pass);
-
+		String uName = null;
+		String uPassword = null;
+		
+		if (u!=null)
+		{
+			uName = u.getName();
+			uPassword = u.getPass();
+		}
+		Assert.assertEquals(uName, username);
+		Assert.assertEquals(uPassword, pass);
+		
+		
 	}
 
 	@Test

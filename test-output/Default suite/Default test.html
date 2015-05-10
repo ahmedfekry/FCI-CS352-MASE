@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>8/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>7/2/0</td>
 </tr><tr>
-<td>Started on:</td><td>Sat May 09 23:16:01 EEST 2015</td>
+<td>Started on:</td><td>Sun May 10 20:07:51 EEST 2015</td>
 </tr>
-<tr><td>Total time:</td><td>4 seconds (4637 ms)</td>
+<tr><td>Total time:</td><td>0 seconds (753 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,150 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.getUser()'><b>getUser</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hadad, 123, hadad, 123</td>
+<td><div><pre>java.lang.AssertionError: expected [hadad[ but found ]null]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at com.FCI.SWE.ServicesModels.UserEntityTest.getUser(UserEntityTest.java:93)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+</pre></div><a href='#' onClick='toggleBox("stack-trace280251140", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace280251140'><pre>java.lang.AssertionError: expected [hadad[ but found ]null]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at com.FCI.SWE.ServicesModels.UserEntityTest.getUser(UserEntityTest.java:93)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+</pre></div></td>
+<td>0</td>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
+<tr>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.isExist()'><b>isExist</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hadad, true</td>
+<td><div><pre>java.lang.AssertionError: expected [true[ but found ]false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:286)
+	at org.testng.Assert.assertEquals(Assert.java:296)
+	at com.FCI.SWE.ServicesModels.UserEntityTest.isExist(UserEntityTest.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1189597033", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1189597033'><pre>java.lang.AssertionError: expected [true[ but found ]false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:286)
+	at org.testng.Assert.assertEquals(Assert.java:296)
+	at com.FCI.SWE.ServicesModels.UserEntityTest.isExist(UserEntityTest.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
+	at org.testng.TestNG.run(TestNG.java:1030)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+</pre></div></td>
+<td>0</td>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -75,45 +219,40 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.addFriend()'><b>addFriend</b><br>Test class: com.FCI.SWE.Services.ServiceTest</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.addFriend()'><b>addFriend</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.getFriendRequests()'><b>getFriendRequests</b><br>Test class: com.FCI.SWE.Services.ServiceTest</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.getFriends()'><b>getFriends</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.getFriends()'><b>getFriends</b><br>Test class: com.FCI.SWE.Services.ServiceTest</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.getUser()'><b>getUser</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hadad, 1234, null, null</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.loginService()'><b>loginService</b><br>Test class: com.FCI.SWE.Services.ServiceTest<br>Parameters: hadad, 123, OK</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.getUser()'><b>getUser</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hhh, 123, null, null</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.loginService()'><b>loginService</b><br>Test class: com.FCI.SWE.Services.ServiceTest<br>Parameters: h, 123, Failed</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.isExist()'><b>isExist</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hhh, false</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.loginService()'><b>loginService</b><br>Test class: com.FCI.SWE.Services.ServiceTest<br>Parameters: hadad, 12, Failed</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.saveUser()'><b>saveUser</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hadad, hadad.com, 123, true</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 <tr>
-<td title='com.FCI.SWE.Services.ServiceTest.registrationService()'><b>registrationService</b><br>Test class: com.FCI.SWE.Services.ServiceTest<br>Parameters: hadad, hadad.com, 123, OK</td>
-<td></td>
-<td>4</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
-<tr>
-<td title='com.FCI.SWE.Services.ServiceTest.registrationService()'><b>registrationService</b><br>Test class: com.FCI.SWE.Services.ServiceTest<br>Parameters: hadad, hadad.com, 123, Failed</td>
+<td title='com.FCI.SWE.ServicesModels.UserEntityTest.saveUser()'><b>saveUser</b><br>Test class: com.FCI.SWE.ServicesModels.UserEntityTest<br>Parameters: hadad2, hadad.com, 123, true</td>
 <td></td>
 <td>0</td>
-<td>com.FCI.SWE.Services.ServiceTest@4c5d7f90</td></tr>
+<td>com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef</td></tr>
 </table><p>
 </body>
 </html>

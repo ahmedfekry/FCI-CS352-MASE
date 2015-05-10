@@ -46,9 +46,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-api-stubs.jar"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="D:/Repositories/FCI-CS352-MASE/war/WEB-INF/lib/appengine-tools-sdk-1.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/MAHMOUD/Programs/New folder/eclipse-jee-luna-R-win32-x86_64/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.18/appengine-java-sdk-1.9.18/lib/testing/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="D:/MAHMOUD/Programs/New folder/eclipse-jee-luna-R-win32-x86_64/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.18/appengine-java-sdk-1.9.18/lib/appengine-tools-api.jar"/>
+	<classpathentry kind="lib" path="D:/MAHMOUD/Programs/New folder/eclipse-jee-luna-R-win32-x86_64/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.9.18/appengine-java-sdk-1.9.18/lib/impl/appengine-api-stubs.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
