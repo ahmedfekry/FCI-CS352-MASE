@@ -1,0 +1,302 @@
+[33mcommit 792b5732fd887837a8910ac181e6e4b79b03fa7e[m
+Author: ahmedfekry <ahmedfikry78@gmail.com>
+Date:   Sun May 10 19:39:20 2015 +0200
+
+    testing createMessage Service
+
+[33mcommit f6bd47e028c1c0a7e6109bbd638adeaf35d776e3[m
+Author: ahmedfekry <ahmedfikry78@gmail.com>
+Date:   Sun May 10 17:38:43 2015 +0200
+
+    adding testNG
+
+[33mcommit 18e72a33fe3f1d78ff8f86a62d9e72b6cc6ebf2a[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat May 9 14:18:01 2015 +0200
+
+    After refactoring ConversationMessageEntity and ConversationEntity
+
+[33mcommit 83fd72f0c13f6236e932daa7b368dc0e3652d2e6[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat May 9 00:07:47 2015 +0200
+
+    Classes UserEntity, MessageEntity and FriendRequestEntity are refactored
+
+[33mcommit e9ccaeca0d84b142089682cddcfe5323f33c6fdf[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri May 8 22:39:35 2015 +0200
+
+    Refactor the services class
+
+[33mcommit 3653643ecd35dd341b7b37f9acab90a9decc6fa2[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Apr 28 13:18:17 2015 +0200
+
+    Page merged
+
+[33mcommit 131070200b4441c90acf95161cfff3144bdf342d[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Apr 28 12:43:20 2015 +0200
+
+    After deploying v2 on GAE
+
+[33mcommit a4cccc4d7b085803b63feb16c571b7a72e715074[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Wed Apr 22 00:58:45 2015 +0200
+
+    Timeline service, controller and jsp page finished and tested
+
+[33mcommit 0afadca981acbe9b7792af773fc3d205c59fa6c9[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Apr 21 13:55:17 2015 +0200
+
+    Before merging get all conversation service and controller
+
+[33mcommit 63bfc0c1a3641be694dff8228ec1a3b8c7d73fa0[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Apr 18 21:34:32 2015 +0200
+
+    create post has been created and tested
+
+[33mcommit 78c8e6a8026eedc7ca6b6d0e29a0e0349eb0a003[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Apr 18 17:27:26 2015 +0200
+
+    more updates on design  ( conversation and user classes )
+
+[33mcommit 40e344fb016537bef569c4ee19b92c5f78af71be[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Apr 17 14:44:05 2015 +0200
+
+    create conversation and add member services finished
+
+[33mcommit b8c7bb1c4b9d7f1791b2db1ca89ac44532657d29[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Thu Apr 16 00:42:23 2015 +0200
+
+    design edited
+
+[33mcommit 0030e0083b5f7b033eb23b96bbd75e185a4cdf68[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Wed Apr 8 21:58:48 2015 +0200
+
+    after merging notification
+
+[33mcommit fedb4bf8b9718cf683f3b1282e41e3145cc19eb4[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Wed Apr 8 21:37:59 2015 +0200
+
+    befor merging
+
+[33mcommit e81537b5449fda08858eee671c73705bc0b3a05b[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Wed Apr 8 02:04:08 2015 +0200
+
+    get message by id added
+
+[33mcommit 760d5cb9af2dbec989ee87f6b847b42fc75f87aa[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Wed Apr 8 01:02:14 2015 +0200
+
+    version updated
+
+[33mcommit af78c315cc354505e24ccdb92bf7f82e90043e68[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Apr 7 22:18:02 2015 +0200
+
+    getUnseen Messages & Friend Requests done and tested , get all friend requests done and tested
+
+[33mcommit 83667a2acf21b00684226bd6156b59077d747ffa[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sun Apr 5 17:50:36 2015 +0200
+
+    Send Message service & controller done
+
+[33mcommit c34450ae7be0ea1380e67ad9fdb37cb6cc4d4b08[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sun Apr 5 12:44:43 2015 +0200
+
+    Notification service & controller added
+
+[33mcommit 73b00d4e230fbaf66ad0d21b9132acb9663a748c[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Apr 3 23:56:46 2015 +0200
+
+    Design is edited, Notification, Message and FriendRequest classes are added
+
+[33mcommit 62d5b93323b4fa14dcbfa8f355575a9d49f395ab[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Apr 3 20:23:08 2015 +0200
+
+    before design update
+
+[33mcommit 146136e5192014e1527341b008acee51e0eb0073[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Mar 17 23:15:08 2015 +0200
+
+    s
+
+[33mcommit fc9a7f8c18e59e95408ef7ac3b5dd27959b9a47d[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Mon Mar 16 14:29:11 2015 +0200
+
+    Before deployment
+
+[33mcommit 8d7dfb2ffed8232fa5f78ec731f5fed4d063ee6d[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Mon Mar 16 13:02:16 2015 +0200
+
+    merge jsp pages
+
+[33mcommit 2c972cc316c99457cc05585f6e95726c3dc17ee9[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 14 14:42:22 2015 +0200
+
+    after first  merging
+
+[33mcommit fae7273f851ee86185ba751025166cad77688b07[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 14 10:57:08 2015 +0200
+
+    services are documented , before merging
+
+[33mcommit 5390e33d8a4cdcc8ef179e4183e44e33451ec424[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 14 10:44:03 2015 +0200
+
+    signout is added
+
+[33mcommit 6b01ea9db3c4d6a07a908b8e8afeee8ecc482972[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Mar 13 19:28:14 2015 +0200
+
+    my friends and get friend requests services added
+
+[33mcommit fd33d72100bbe4a63b469900f1bbb26440bc7b98[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Thu Mar 12 20:41:14 2015 +0200
+
+    MyFriends and received friend requests prototype
+
+[33mcommit c29a236f820b0ea5ae8bcacd247d4c2071a6382e[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Thu Mar 12 01:30:03 2015 +0200
+
+    edite and retest send friend request, sends user info using session in login
+
+[33mcommit 89597267cffd9b70c9cbe54f8cb268b095e16c79[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Mar 10 11:58:04 2015 +0200
+
+    phase b edited
+
+[33mcommit d1b2eeb5c14bc49bdfafee846fd2ab97c0b38fa2[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Mar 10 11:11:31 2015 +0200
+
+    Phase1 b
+
+[33mcommit 8ab42bf5a93a2c046930dae9cc3378b1313768fa[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sun Mar 8 22:19:48 2015 +0200
+
+    friend request , add friend and cancel request   services  are edited and added to controller
+
+[33mcommit 29e4d56dc0cd65c3529094428e0d036734332f80[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sun Mar 8 20:38:48 2015 +0200
+
+    Edit regestration service to work correctly, add friend request , delete FR and send FR is done as services in Service Package
+
+[33mcommit 169c1ff708884585eb240a751402bff4b582b00f[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 7 16:57:38 2015 +0200
+
+    path modified
+
+[33mcommit e45afa20e96be426fe4013d79706e0bcc95c2942[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 7 16:52:54 2015 +0200
+
+    add modified project
+
+[33mcommit 9bae74ca661f1885507d51b4948533a9ccaf5ee3[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Sat Mar 7 14:56:35 2015 +0200
+
+    before editing
+
+[33mcommit e9d4d40c33af60add2aa159cd714208ea55098d9[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Feb 27 16:30:15 2015 +0200
+
+    update after changing Rep name
+
+[33mcommit 0134b102e682942c51e2304d0c756390dc005245[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Fri Feb 27 14:24:02 2015 +0200
+
+    update test
+
+[33mcommit d5352e8a1e82af474e37fb5defdb266dfac0be99[m
+Author: Mahmoud Hadad <hooda_fci@yahoo.com>
+Date:   Fri Feb 27 14:10:39 2015 +0200
+
+    Update Team Members.txt
+
+[33mcommit cbe649dc478ff9d98e5ab58b7d9536b8ff2a718b[m
+Author: Sherif Farouk <sfarouk513@gmail.com>
+Date:   Tue Feb 24 12:52:35 2015 +0200
+
+    sherif test
+
+[33mcommit 0edf985c1632a912ba02735475f7843347596532[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Feb 24 09:45:42 2015 +0200
+
+    initial
+
+[33mcommit 8e2f1e651fa191c4c75d5867fb0d57a2471c15da[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Tue Feb 24 09:43:08 2015 +0200
+
+    test
+
+[33mcommit 3c565432e204a7a0fcbafc9a5c5fb308d8fd1928[m
+Author: Mahmoud Hadad <hooda_fci@yahoo.com>
+Date:   Mon Feb 23 23:33:29 2015 +0200
+
+    Delete firstfile.txt
+
+[33mcommit 835d5970806094accd8afa4410ce96ceb2a2fd09[m
+Author: hooda hadad <hooda_fci@yahoo.com>
+Date:   Mon Feb 23 22:47:02 2015 +0200
+
+    Test 2
+
+[33mcommit 9cace850dcfd5fdd54c93a6fb67049d45a71d121[m
+Author: Mahmoud Hadad <hooda_fci@yahoo.com>
+Date:   Mon Feb 23 22:39:37 2015 +0200
+
+    Create README.md
+
+[33mcommit 3fa8e55d7f4994d77402081329bacac2440d7489[m
+Merge: 2858e19 47cecea
+Author: ahmedfekry <ahmedfikry78@gmail.com>
+Date:   Mon Feb 16 20:49:50 2015 +0200
+
+    Merge pull request #1 from ahmedfekry/Fekry
+    
+    fekry
+
+[33mcommit 47cecea7ed1e558fef89b29b01d63c202a881c0a[m
+Author: ahmedfekry <ahmedfikry78@gmail.com>
+Date:   Mon Feb 16 20:38:51 2015 +0200
+
+    fekry
+
+[33mcommit 2858e19fa0226c93560e9bb5936c5204f4bf2b4c[m
+Author: ahmedfekry <ahmedfikry78@gmail.com>
+Date:   Mon Feb 16 20:34:13 2015 +0200
+
+    first commit

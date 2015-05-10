@@ -1,7 +1,9 @@
 package com.FCI.SWE.ServicesModels;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -10,8 +12,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
 import org.junit.After;
 import org.junit.Before;
+
 import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import static org.junit.Assert.assertEquals;
 
@@ -23,18 +27,17 @@ public class ConversationEntityTest {
 //    throw new RuntimeException("Test not implemented");
   }
   private final LocalServiceTestHelper helper =
-	      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+			new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
-	  @Before
-	  public void setUp() {
-	    helper.setUp();
-	  }
+	@BeforeMethod
+	public void setUp() {
+		helper.setUp();
+	}
 
-	  @After
-	  public void tearDown() {
-	    helper.tearDown();
-	  }
-
+	@AfterMethod
+	public void tearDown() {
+		helper.tearDown();
+	}
   public void addToConversation() {
 //	  UserEntity user = new UserEntity("test1", "test1@test.com", "123456");
 //	  user.saveUser();

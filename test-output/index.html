@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,7 +37,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-Default_suite">
-              <span class="suite-name border-failed">Default suite</span>
+              <span class="suite-name border-skipped">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -90,21 +90,41 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">13 methods, 1 failed,   12 passed</span>
+                    <span class="method-stats">6 methods,  5 skipped,  1 passed</span>
                   </li>
                   <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
-                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods skipped suite-Default_suite"> (hide)</a> <!-- hide-methods skipped suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods skipped suite-Default_suite"> (show)</a> <!-- show-methods skipped suite-Default_suite -->
                     </span>
-                    <div class="method-list-content failed suite-Default_suite">
+                    <div class="method-list-content skipped suite-Default_suite">
                       <span>
-                        <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="createMessage(fekry, 123, hadad, hello, OK)">createMessage(fekry, 123, hadad, hello, OK)</a> <!-- method navigator-link -->
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="getFriends">getFriends</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-Default_suite -->
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="getUser">getUser</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="isExist">isExist</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="saveUser(hadad, hadad.com, 123, false)">saveUser(hadad, hadad.com, 123, false)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="saveUser(hadad, hadad.com, 123, true)">saveUser(hadad, hadad.com, 123, true)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content skipped suite-Default_suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -115,62 +135,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="SendConversationMessage">SendConversationMessage</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="addToConversation">addToConversation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="createConversation">createConversation</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="deleteFriendRequest">deleteFriendRequest</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getAllMessages">getAllMessages</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getConversationMessages">getConversationMessages</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getFriendRequestByID">getFriendRequestByID</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getMessagesByID">getMessagesByID</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getUnseenConversationMessages">getUnseenConversationMessages</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getUnseenFriendRequests">getUnseenFriendRequests</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="getUnseenMessages">getUnseenMessages</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.Services.NotificationServiceTest" hash-for-method="sendFriendRequest">sendFriendRequest</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.FCI.SWE.ServicesModels.UserEntityTest" hash-for-method="addFriend">addFriend</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -185,32 +150,26 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
-          <div class="suite-Default_suite-class-failed">
+          <div class="suite-Default_suite-class-skipped">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">com.FCI.SWE.Services.NotificationServiceTest</span>
+              <img src="skipped.png"/>
+              <span class="class-name">com.FCI.SWE.ServicesModels.UserEntityTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="createMessage(fekry, 123, hadad, hello, OK)">
-                  </a> <!-- createMessage(fekry, 123, hadad, hello, OK) -->
-                  <span class="method-name">createMessage</span>
-                  <span class="parameters">(fekry, 123, hadad, hello, OK)</span>
-                  <div class="stack-trace">java.lang.AssertionError: expected [OK] but found [Failed]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:165)
-	at com.FCI.SWE.Services.NotificationServiceTest.createMessage(NotificationServiceTest.java:55)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:85)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:659)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:845)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1153)
+                  <a name="getFriends">
+                  </a> <!-- getFriends -->
+                  <span class="method-name">getFriends</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="getUser">
+                  </a> <!-- getUser -->
+                  <span class="method-name">getUser</span>
+                  <div class="stack-trace">java.lang.Throwable: Method UserEntityTest.getUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@6e180a5c] depends on not successfully finished methods
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1063)
 	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
 	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
 	at org.testng.TestRunner.privateRun(TestRunner.java:771)
@@ -231,96 +190,62 @@
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="isExist">
+                  </a> <!-- isExist -->
+                  <span class="method-name">isExist</span>
+                  <div class="stack-trace">java.lang.Throwable: Method UserEntityTest.isExist(java.lang.String, boolean)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@6e180a5c] depends on not successfully finished methods
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1063)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:124)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:108)
+	at org.testng.TestRunner.privateRun(TestRunner.java:771)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:352)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:347)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:305)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:254)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1199)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1124)
+	at org.testng.TestNG.run(TestNG.java:1032)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="saveUser(hadad, hadad.com, 123, false)">
+                  </a> <!-- saveUser(hadad, hadad.com, 123, false) -->
+                  <span class="method-name">saveUser</span>
+                  <span class="parameters">(hadad, hadad.com, 123, false)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="saveUser(hadad, hadad.com, 123, true)">
+                  </a> <!-- saveUser(hadad, hadad.com, 123, true) -->
+                  <span class="method-name">saveUser</span>
+                  <span class="parameters">(hadad, hadad.com, 123, true)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Default_suite-class-failed -->
+          </div> <!-- suite-Default_suite-class-skipped -->
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.FCI.SWE.Services.NotificationServiceTest</span>
+              <span class="class-name">com.FCI.SWE.ServicesModels.UserEntityTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="SendConversationMessage">
-                  </a> <!-- SendConversationMessage -->
-                  <span class="method-name">SendConversationMessage</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="addToConversation">
-                  </a> <!-- addToConversation -->
-                  <span class="method-name">addToConversation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="createConversation">
-                  </a> <!-- createConversation -->
-                  <span class="method-name">createConversation</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="deleteFriendRequest">
-                  </a> <!-- deleteFriendRequest -->
-                  <span class="method-name">deleteFriendRequest</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getAllMessages">
-                  </a> <!-- getAllMessages -->
-                  <span class="method-name">getAllMessages</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getConversationMessages">
-                  </a> <!-- getConversationMessages -->
-                  <span class="method-name">getConversationMessages</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getFriendRequestByID">
-                  </a> <!-- getFriendRequestByID -->
-                  <span class="method-name">getFriendRequestByID</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getMessagesByID">
-                  </a> <!-- getMessagesByID -->
-                  <span class="method-name">getMessagesByID</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getUnseenConversationMessages">
-                  </a> <!-- getUnseenConversationMessages -->
-                  <span class="method-name">getUnseenConversationMessages</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getUnseenFriendRequests">
-                  </a> <!-- getUnseenFriendRequests -->
-                  <span class="method-name">getUnseenFriendRequests</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="getUnseenMessages">
-                  </a> <!-- getUnseenMessages -->
-                  <span class="method-name">getUnseenMessages</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="sendFriendRequest">
-                  </a> <!-- sendFriendRequest -->
-                  <span class="method-name">sendFriendRequest</span>
+                  <a name="addFriend">
+                  </a> <!-- addFriend -->
+                  <span class="method-name">addFriend</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -328,7 +253,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-1007688617/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse--1312716381/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -337,7 +262,7 @@
 &lt;suite name=&quot;Default suite&quot;&gt;
   &lt;test verbose=&quot;2&quot; name=&quot;Default test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.FCI.SWE.Services.NotificationServiceTest&quot;/&gt;
+      &lt;class name=&quot;com.FCI.SWE.ServicesModels.UserEntityTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -377,64 +302,36 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(13);
+data.addRows(6);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'createMessage')
-data.setCell(0, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(0, 3, 12156);
+data.setCell(0, 1, 'addFriend')
+data.setCell(0, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(0, 3, 15);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'SendConversationMessage')
-data.setCell(1, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(1, 3, 63);
+data.setCell(1, 1, 'saveUser')
+data.setCell(1, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(1, 3, 10);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'getMessagesByID')
-data.setCell(2, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(2, 3, 18);
+data.setCell(2, 1, 'getFriends')
+data.setCell(2, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(2, 3, 1);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'deleteFriendRequest')
-data.setCell(3, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(3, 3, 2);
+data.setCell(3, 1, 'saveUser')
+data.setCell(3, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(3, 3, 1);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'getUnseenConversationMessages')
-data.setCell(4, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(4, 3, 2);
+data.setCell(4, 1, 'isExist')
+data.setCell(4, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(4, 3, 0);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'getFriendRequestByID')
-data.setCell(5, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(5, 3, 2);
-data.setCell(6, 0, 6)
-data.setCell(6, 1, 'addToConversation')
-data.setCell(6, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(6, 3, 2);
-data.setCell(7, 0, 7)
-data.setCell(7, 1, 'getConversationMessages')
-data.setCell(7, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(7, 3, 2);
-data.setCell(8, 0, 8)
-data.setCell(8, 1, 'getAllMessages')
-data.setCell(8, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(8, 3, 2);
-data.setCell(9, 0, 9)
-data.setCell(9, 1, 'getUnseenFriendRequests')
-data.setCell(9, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(9, 3, 2);
-data.setCell(10, 0, 10)
-data.setCell(10, 1, 'sendFriendRequest')
-data.setCell(10, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(10, 3, 1);
-data.setCell(11, 0, 11)
-data.setCell(11, 1, 'createConversation')
-data.setCell(11, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(11, 3, 1);
-data.setCell(12, 0, 12)
-data.setCell(12, 1, 'getUnseenMessages')
-data.setCell(12, 2, 'com.FCI.SWE.Services.NotificationServiceTest')
-data.setCell(12, 3, 1);
+data.setCell(5, 1, 'getUser')
+data.setCell(5, 2, 'com.FCI.SWE.ServicesModels.UserEntityTest')
+data.setCell(5, 3, 0);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 12 seconds</span>
+              <span class="suite-total-time">Total running time: 27 ms</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -460,60 +357,32 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.FCI.SWE.Services.NotificationServiceTest</div> <!-- chronological-class-name -->
-              <div class="test-method">
-                <span class="method-name">SendConversationMessage</span>
+              <div class="chronological-class-name">com.FCI.SWE.ServicesModels.UserEntityTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
                 <span class="method-start">0 ms</span>
-              </div> <!-- test-method -->
+              </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">addToConversation</span>
-                <span class="method-start">69 ms</span>
+                <span class="method-name">addFriend</span>
+                <span class="method-start">108 ms</span>
               </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">createConversation</span>
-                <span class="method-start">76 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
+              <div class="configuration-method after">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">createMessage(fekry, 123, hadad, hello, OK)</span>
-                <span class="method-start">92 ms</span>
+                <span class="method-name">tearDown</span>
+                <span class="method-start">126 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="test-method">
+                <span class="method-name">getFriends</span>
+                <span class="method-start">597 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">deleteFriendRequest</span>
-                <span class="method-start">12266 ms</span>
+                <span class="method-name">saveUser(hadad, hadad.com, 123, true)</span>
+                <span class="method-start">615 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">getAllMessages</span>
-                <span class="method-start">12274 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getConversationMessages</span>
-                <span class="method-start">12282 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getFriendRequestByID</span>
-                <span class="method-start">12290 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getMessagesByID</span>
-                <span class="method-start">12299 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getUnseenConversationMessages</span>
-                <span class="method-start">12326 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getUnseenFriendRequests</span>
-                <span class="method-start">12334 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">getUnseenMessages</span>
-                <span class="method-start">12341 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">sendFriendRequest</span>
-                <span class="method-start">12349 ms</span>
+                <span class="method-name">saveUser(hadad, hadad.com, 123, false)</span>
+                <span class="method-start">623 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
