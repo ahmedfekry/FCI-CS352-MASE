@@ -1,41 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="2" total="9" passed="7">
+<testng-results skipped="0" failed="0" total="20" passed="20">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="753" started-at="2015-05-10T17:07:51Z" finished-at="2015-05-10T17:07:51Z">
+  <suite name="Default suite" duration-ms="355" started-at="2015-05-10T21:00:16Z" finished-at="2015-05-10T21:00:16Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="753" started-at="2015-05-10T17:07:51Z" finished-at="2015-05-10T17:07:51Z">
-      <class name="com.FCI.SWE.ServicesModels.UserEntityTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="45" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
+    <test name="Default test" duration-ms="355" started-at="2015-05-10T21:00:16Z" finished-at="2015-05-10T21:00:16Z">
+      <class name="com.FCI.SWE.Services.NotificationServiceTest">
+        <test-method status="PASS" signature="SendConversationMessage()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="SendConversationMessage" duration-ms="15" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="addFriend()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="addFriend" duration-ms="5" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- addFriend -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="232" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="getFriends()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="getFriends" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getFriends -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="4" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="saveUser(java.lang.String, java.lang.String, java.lang.String, boolean)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="saveUser" duration-ms="352" started-at="2015-05-10T20:07:51Z" data-provider="saveProvider" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- SendConversationMessage -->
+        <test-method status="PASS" signature="sendFriendRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="sendFriendRequest" duration-ms="61" started-at="2015-05-11T00:00:16Z" data-provider="sendFriendRequestProvider" finished-at="2015-05-11T00:00:16Z">
           <params>
             <param index="0">
               <value>
@@ -44,7 +20,7 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[hadad.com]]>
+                <![CDATA[m]]>
               </value>
             </param>
             <param index="2">
@@ -54,31 +30,23 @@
             </param>
             <param index="3">
               <value>
-                <![CDATA[true]]>
+                <![CDATA[OK]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- saveUser -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="saveUser(java.lang.String, java.lang.String, java.lang.String, boolean)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="saveUser" duration-ms="9" started-at="2015-05-10T20:07:51Z" data-provider="saveProvider" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- sendFriendRequest -->
+        <test-method status="PASS" signature="sendFriendRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="sendFriendRequest" duration-ms="23" started-at="2015-05-11T00:00:16Z" data-provider="sendFriendRequestProvider" finished-at="2015-05-11T00:00:16Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[hadad2]]>
+                <![CDATA[hadad]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[hadad.com]]>
+                <![CDATA[hadad]]>
               </value>
             </param>
             <param index="2">
@@ -88,22 +56,157 @@
             </param>
             <param index="3">
               <value>
-                <![CDATA[true]]>
+                <![CDATA[Failed, two users are the same]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- saveUser -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- sendFriendRequest -->
+        <test-method status="PASS" signature="sendFriendRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="sendFriendRequest" duration-ms="24" started-at="2015-05-11T00:00:16Z" data-provider="sendFriendRequestProvider" finished-at="2015-05-11T00:00:16Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[hh]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Failed, incorrect data]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- sendFriendRequest -->
+        <test-method status="PASS" signature="sendFriendRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="sendFriendRequest" duration-ms="22" started-at="2015-05-11T00:00:16Z" data-provider="sendFriendRequestProvider" finished-at="2015-05-11T00:00:16Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[m]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[12]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Failed, wrong username or password]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="FAIL" signature="getUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="getUser" duration-ms="9" started-at="2015-05-10T20:07:51Z" data-provider="getUserProvider" depends-on-methods="com.FCI.SWE.ServicesModels.UserEntityTest.saveUser" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- sendFriendRequest -->
+        <test-method status="PASS" signature="sendFriendRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="sendFriendRequest" duration-ms="26" started-at="2015-05-11T00:00:16Z" data-provider="sendFriendRequestProvider" finished-at="2015-05-11T00:00:16Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hadad]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[m]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Failed, they are already friends or request has been sent befor.]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sendFriendRequest -->
+        <test-method status="PASS" signature="addToConversation()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="addToConversation" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- addToConversation -->
+        <test-method status="PASS" signature="getAllMessages()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getAllMessages" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getAllMessages -->
+        <test-method status="PASS" signature="getUnseenConversationMessages()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getUnseenConversationMessages" duration-ms="2" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getUnseenConversationMessages -->
+        <test-method status="PASS" signature="deleteFriendRequest()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="deleteFriendRequest" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteFriendRequest -->
+        <test-method status="PASS" signature="createConversation()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="createConversation" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createConversation -->
+        <test-method status="PASS" signature="getMessagesByID()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getMessagesByID" duration-ms="2" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getMessagesByID -->
+        <test-method status="PASS" signature="getConversationMessages()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getConversationMessages" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getConversationMessages -->
+        <test-method status="PASS" signature="getFriendRequestByID()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getFriendRequestByID" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getFriendRequestByID -->
+        <test-method status="PASS" signature="getUnseenMessages()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getUnseenMessages" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getUnseenMessages -->
+        <test-method status="PASS" signature="createMessage()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="createMessage" duration-ms="2" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createMessage -->
+        <test-method status="PASS" signature="getUnseenFriendRequests()[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getUnseenFriendRequests" duration-ms="1" started-at="2015-05-11T00:00:16Z" finished-at="2015-05-11T00:00:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getUnseenFriendRequests -->
+        <test-method status="PASS" signature="getFriendRequests(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getFriendRequests" duration-ms="31" started-at="2015-05-11T00:00:16Z" data-provider="getFriendRequestsProvider" depends-on-methods="com.FCI.SWE.Services.NotificationServiceTest.sendFriendRequest" finished-at="2015-05-11T00:00:16Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[m]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[["OK","hadad"]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getFriendRequests -->
+        <test-method status="PASS" signature="getFriendRequests(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getFriendRequests" duration-ms="51" started-at="2015-05-11T00:00:16Z" data-provider="getFriendRequestsProvider" depends-on-methods="com.FCI.SWE.Services.NotificationServiceTest.sendFriendRequest" finished-at="2015-05-11T00:00:16Z">
           <params>
             <param index="0">
               <value>
@@ -117,66 +220,14 @@
             </param>
             <param index="2">
               <value>
-                <![CDATA[hadad]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[123]]>
+                <![CDATA[["OK"]]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[expected [hadad[ but found ]null]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: expected [hadad[ but found ]null]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:176)
-	at org.testng.Assert.assertEquals(Assert.java:186)
-	at com.FCI.SWE.ServicesModels.UserEntityTest.getUser(UserEntityTest.java:93)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
-	at org.testng.TestNG.run(TestNG.java:1030)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- getUser -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="getUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="getUser" duration-ms="9" started-at="2015-05-10T20:07:51Z" data-provider="getUserProvider" depends-on-methods="com.FCI.SWE.ServicesModels.UserEntityTest.saveUser" finished-at="2015-05-10T20:07:51Z">
+        </test-method> <!-- getFriendRequests -->
+        <test-method status="PASS" signature="getFriendRequests(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.Services.NotificationServiceTest@7caba647]" name="getFriendRequests" duration-ms="23" started-at="2015-05-11T00:00:16Z" data-provider="getFriendRequestsProvider" depends-on-methods="com.FCI.SWE.Services.NotificationServiceTest.sendFriendRequest" finished-at="2015-05-11T00:00:16Z">
           <params>
             <param index="0">
               <value>
@@ -185,141 +236,19 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[1234]]>
+                <![CDATA[120]]>
               </value>
             </param>
             <param index="2">
-              <value is-null="true"/>
-            </param>
-            <param index="3">
-              <value is-null="true"/>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getUser -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="getUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="getUser" duration-ms="8" started-at="2015-05-10T20:07:51Z" data-provider="getUserProvider" depends-on-methods="com.FCI.SWE.ServicesModels.UserEntityTest.saveUser" finished-at="2015-05-10T20:07:51Z">
-          <params>
-            <param index="0">
               <value>
-                <![CDATA[hhh]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value is-null="true"/>
-            </param>
-            <param index="3">
-              <value is-null="true"/>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getUser -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="2" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="FAIL" signature="isExist(java.lang.String, boolean)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="isExist" duration-ms="7" started-at="2015-05-10T20:07:51Z" data-provider="existProvider" depends-on-methods="com.FCI.SWE.ServicesModels.UserEntityTest.saveUser" finished-at="2015-05-10T20:07:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[hadad]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[true]]>
-              </value>
-            </param>
-          </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[expected [true[ but found ]false]]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: expected [true[ but found ]false]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:286)
-	at org.testng.Assert.assertEquals(Assert.java:296)
-	at com.FCI.SWE.ServicesModels.UserEntityTest.isExist(UserEntityTest.java:79)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1197)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1122)
-	at org.testng.TestNG.run(TestNG.java:1030)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- isExist -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="setUp" is-config="true" duration-ms="1" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="isExist(java.lang.String, boolean)[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="isExist" duration-ms="8" started-at="2015-05-10T20:07:51Z" data-provider="existProvider" depends-on-methods="com.FCI.SWE.ServicesModels.UserEntityTest.saveUser" finished-at="2015-05-10T20:07:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[hhh]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[false]]>
+                <![CDATA[["Failed"]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- isExist -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.FCI.SWE.ServicesModels.UserEntityTest@62fdfcef]" name="tearDown" is-config="true" duration-ms="0" started-at="2015-05-10T20:07:51Z" finished-at="2015-05-10T20:07:51Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.FCI.SWE.ServicesModels.UserEntityTest -->
+        </test-method> <!-- getFriendRequests -->
+      </class> <!-- com.FCI.SWE.Services.NotificationServiceTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

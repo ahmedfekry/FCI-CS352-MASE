@@ -31,103 +31,112 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">9</td><td class="numi">7</td><td class="numi">0</td><td class="numi_attn">5</td><td class="numi">0.8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">20</td><td class="numi">20</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0.4 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
-<tr><th colspan="4">Default test &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="5">com.FCI.SWE.ServicesModels.UserEntityTest</td><td><a href="#m1"><b>getUser</b>  </a></td><td class="numi">1</td><td>1431277671804</td><td class="numi">9</td></tr><tr class="failedodd"><td><a href="#m2"><b>getUser</b>  </a></td><td class="numi">1</td><td>1431277671804</td><td class="numi">9</td></tr><tr class="failedodd"><td><a href="#m3"><b>getUser</b>  </a></td><td class="numi">1</td><td>1431277671804</td><td class="numi">9</td></tr><tr class="failedodd"><td><a href="#m4"><b>isExist</b>  </a></td><td class="numi">1</td><td>1431277671851</td><td class="numi">7</td></tr><tr class="failedodd"><td><a href="#m5"><b>isExist</b>  </a></td><td class="numi">1</td><td>1431277671851</td><td class="numi">7</td></tr>
 <tr><th colspan="4">Default test &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="9">com.FCI.SWE.ServicesModels.UserEntityTest</td><td><a href="#m6"><b>addFriend</b>  </a></td><td class="numi">1</td><td>1431277671183</td><td class="numi">5</td></tr><tr class="passedodd"><td><a href="#m7"><b>getFriends</b>  </a></td><td class="numi">1</td><td>1431277671424</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m8"><b>saveUser</b>  </a></td><td class="numi">2</td><td>1431277671433</td><td class="numi">363</td></tr><tr class="passedodd"><td><a href="#m9"><b>saveUser</b>  </a></td><td class="numi">2</td><td>1431277671433</td><td class="numi">363</td></tr><tr class="passedodd"><td><a href="#m10"><b>getUser</b>  </a></td><td class="numi">2</td><td>1431277671820</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m11"><b>getUser</b>  </a></td><td class="numi">2</td><td>1431277671820</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m12"><b>getUser</b>  </a></td><td class="numi">2</td><td>1431277671820</td><td class="numi">20</td></tr><tr class="passedodd"><td><a href="#m13"><b>isExist</b>  </a></td><td class="numi">1</td><td>1431277671864</td><td class="numi">8</td></tr><tr class="passedodd"><td><a href="#m14"><b>isExist</b>  </a></td><td class="numi">1</td><td>1431277671864</td><td class="numi">8</td></tr>
+<tr class="passedodd"><td rowspan="20">com.FCI.SWE.Services.NotificationServiceTest</td><td><a href="#m1"><b>SendConversationMessage</b>  </a></td><td class="numi">1</td><td>1431291616617</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m2"><b>sendFriendRequest</b>  </a></td><td class="numi">5</td><td>1431291616638</td><td class="numi">160</td></tr><tr class="passedodd"><td><a href="#m3"><b>sendFriendRequest</b>  </a></td><td class="numi">5</td><td>1431291616638</td><td class="numi">160</td></tr><tr class="passedodd"><td><a href="#m4"><b>sendFriendRequest</b>  </a></td><td class="numi">5</td><td>1431291616638</td><td class="numi">160</td></tr><tr class="passedodd"><td><a href="#m5"><b>sendFriendRequest</b>  </a></td><td class="numi">5</td><td>1431291616638</td><td class="numi">160</td></tr><tr class="passedodd"><td><a href="#m6"><b>sendFriendRequest</b>  </a></td><td class="numi">5</td><td>1431291616638</td><td class="numi">160</td></tr><tr class="passedodd"><td><a href="#m7"><b>addToConversation</b>  </a></td><td class="numi">1</td><td>1431291616801</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m8"><b>getAllMessages</b>  </a></td><td class="numi">1</td><td>1431291616804</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m9"><b>getUnseenConversationMessages</b>  </a></td><td class="numi">1</td><td>1431291616807</td><td class="numi">2</td></tr><tr class="passedodd"><td><a href="#m10"><b>deleteFriendRequest</b>  </a></td><td class="numi">1</td><td>1431291616811</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m11"><b>createConversation</b>  </a></td><td class="numi">1</td><td>1431291616815</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m12"><b>getMessagesByID</b>  </a></td><td class="numi">1</td><td>1431291616819</td><td class="numi">2</td></tr><tr class="passedodd"><td><a href="#m13"><b>getConversationMessages</b>  </a></td><td class="numi">1</td><td>1431291616825</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m14"><b>getFriendRequestByID</b>  </a></td><td class="numi">1</td><td>1431291616828</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m15"><b>getUnseenMessages</b>  </a></td><td class="numi">1</td><td>1431291616831</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m16"><b>createMessage</b>  </a></td><td class="numi">1</td><td>1431291616834</td><td class="numi">2</td></tr><tr class="passedodd"><td><a href="#m17"><b>getUnseenFriendRequests</b>  </a></td><td class="numi">1</td><td>1431291616837</td><td class="numi">1</td></tr><tr class="passedodd"><td><a href="#m18"><b>getFriendRequests</b>  </a></td><td class="numi">3</td><td>1431291616845</td><td class="numi">107</td></tr><tr class="passedodd"><td><a href="#m19"><b>getFriendRequests</b>  </a></td><td class="numi">3</td><td>1431291616845</td><td class="numi">107</td></tr><tr class="passedodd"><td><a href="#m20"><b>getFriendRequests</b>  </a></td><td class="numi">3</td><td>1431291616845</td><td class="numi">107</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">com.FCI.SWE.ServicesModels.UserEntityTest:getUser</h2>
+<h2 id="m1">com.FCI.SWE.Services.NotificationServiceTest:getFriendRequests</h2>
+<table cellspacing="0" cellpadding="0" class="result">
+<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr>
+<tr class="param stripe"><td>m</td>
+<td>123</td>
+<td>[&quot;OK&quot;,&quot;hadad&quot;]</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m2">com.FCI.SWE.Services.NotificationServiceTest:getUnseenConversationMessages</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m3">com.FCI.SWE.Services.NotificationServiceTest:SendConversationMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m4">com.FCI.SWE.Services.NotificationServiceTest:deleteFriendRequest</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m5">com.FCI.SWE.Services.NotificationServiceTest:getUnseenFriendRequests</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m6">com.FCI.SWE.Services.NotificationServiceTest:getFriendRequests</h2>
+<table cellspacing="0" cellpadding="0" class="result">
+<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr>
+<tr class="param stripe"><td>hadad</td>
+<td>120</td>
+<td>[&quot;Failed&quot;]</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m7">com.FCI.SWE.Services.NotificationServiceTest:createConversation</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m8">com.FCI.SWE.Services.NotificationServiceTest:sendFriendRequest</h2>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
 <tr class="param stripe"><td>hadad</td>
+<td>hh</td>
 <td>123</td>
+<td>Failed, incorrect data</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m9">com.FCI.SWE.Services.NotificationServiceTest:sendFriendRequest</h2>
+<table cellspacing="0" cellpadding="0" class="result">
+<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
+<tr class="param stripe"><td>hadad</td>
+<td>m</td>
+<td>123</td>
+<td>OK</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m10">com.FCI.SWE.Services.NotificationServiceTest:addToConversation</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m11">com.FCI.SWE.Services.NotificationServiceTest:getConversationMessages</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m12">com.FCI.SWE.Services.NotificationServiceTest:getAllMessages</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m13">com.FCI.SWE.Services.NotificationServiceTest:createMessage</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m14">com.FCI.SWE.Services.NotificationServiceTest:getFriendRequests</h2>
+<table cellspacing="0" cellpadding="0" class="result">
+<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th></tr>
+<tr class="param stripe"><td>hadad</td>
+<td>123</td>
+<td>[&quot;OK&quot;]</td>
+</tr>
+</table>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m15">com.FCI.SWE.Services.NotificationServiceTest:getUnseenMessages</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m16">com.FCI.SWE.Services.NotificationServiceTest:sendFriendRequest</h2>
+<table cellspacing="0" cellpadding="0" class="result">
+<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
+<tr class="param stripe"><td>hadad</td>
 <td>hadad</td>
 <td>123</td>
-</tr>
-<tr><td style="padding-left:3em" colspan="4">
-<p>expected [hadad[ but found ]null]</p>
-org.testng.Assert.fail(Assert.java:94)
-<br/>at org.testng.Assert.failNotEquals(Assert.java:494)
-<br/>at org.testng.Assert.assertEquals(Assert.java:123)
-<br/>at org.testng.Assert.assertEquals(Assert.java:176)
-<br/>at org.testng.Assert.assertEquals(Assert.java:186)
-<br/>at com.FCI.SWE.ServicesModels.UserEntityTest.getUser(UserEntityTest.java:93)
-<br/>25 lines not shown
-</td></tr>
-</table>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m2">com.FCI.SWE.ServicesModels.UserEntityTest:isExist</h2>
-<table cellspacing="0" cellpadding="0" class="result">
-<tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr>
-<tr class="param stripe"><td>hadad</td>
-<td>true</td>
-</tr>
-<tr><td style="padding-left:3em" colspan="2">
-<p>expected [true[ but found ]false]</p>
-org.testng.Assert.fail(Assert.java:94)
-<br/>at org.testng.Assert.failNotEquals(Assert.java:494)
-<br/>at org.testng.Assert.assertEquals(Assert.java:123)
-<br/>at org.testng.Assert.assertEquals(Assert.java:286)
-<br/>at org.testng.Assert.assertEquals(Assert.java:296)
-<br/>at com.FCI.SWE.ServicesModels.UserEntityTest.isExist(UserEntityTest.java:79)
-<br/>25 lines not shown
-</td></tr>
-</table>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m3">com.FCI.SWE.ServicesModels.UserEntityTest:saveUser</h2>
-<table cellspacing="0" cellpadding="0" class="result">
-<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
-<tr class="param stripe"><td>hadad2</td>
-<td>hadad.com</td>
-<td>123</td>
-<td>true</td>
+<td>Failed, two users are the same</td>
 </tr>
 </table>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m4">com.FCI.SWE.ServicesModels.UserEntityTest:isExist</h2>
-<table cellspacing="0" cellpadding="0" class="result">
-<tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr>
-<tr class="param stripe"><td>hhh</td>
-<td>false</td>
-</tr>
-</table>
+<h2 id="m17">com.FCI.SWE.Services.NotificationServiceTest:getFriendRequestByID</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m5">com.FCI.SWE.ServicesModels.UserEntityTest:saveUser</h2>
+<h2 id="m18">com.FCI.SWE.Services.NotificationServiceTest:sendFriendRequest</h2>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
 <tr class="param stripe"><td>hadad</td>
-<td>hadad.com</td>
-<td>123</td>
-<td>true</td>
+<td>m</td>
+<td>12</td>
+<td>Failed, wrong username or password</td>
 </tr>
 </table>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m6">com.FCI.SWE.ServicesModels.UserEntityTest:getUser</h2>
-<table cellspacing="0" cellpadding="0" class="result">
-<tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
-<tr class="param stripe"><td>hhh</td>
-<td>123</td>
-<td>null</td>
-<td>null</td>
-</tr>
-</table>
+<h2 id="m19">com.FCI.SWE.Services.NotificationServiceTest:getMessagesByID</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m7">com.FCI.SWE.ServicesModels.UserEntityTest:addFriend</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m8">com.FCI.SWE.ServicesModels.UserEntityTest:getFriends</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m9">com.FCI.SWE.ServicesModels.UserEntityTest:getUser</h2>
+<h2 id="m20">com.FCI.SWE.Services.NotificationServiceTest:sendFriendRequest</h2>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr>
 <tr class="param stripe"><td>hadad</td>
-<td>1234</td>
-<td>null</td>
-<td>null</td>
+<td>m</td>
+<td>123</td>
+<td>Failed, they are already friends or request has been sent befor.</td>
 </tr>
 </table>
 <p class="totop"><a href="#summary">back to summary</a></p>

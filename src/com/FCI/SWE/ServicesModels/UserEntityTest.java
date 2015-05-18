@@ -5,6 +5,12 @@ import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
+
+import static org.testng.AssertJUnit.assertEquals;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,24 +20,58 @@ import com.FCI.SWE.Models.User;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.dev.HighRepJobPolicy;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
+import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 import static com.google.appengine.api.datastore.FetchOptions.Builder.withLimit;
 
 
 public class UserEntityTest {
 
+	private static final class CustomHighRepJobPolicy implements HighRepJobPolicy {
+	    static int newJobCounter = 0;
+	    static int existingJobCounter = 0;
 
-	private final LocalServiceTestHelper helper =
-			new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	    public boolean shouldApplyNewJob1(Key entityGroup) {
+	      // every other new job fails to apply
+	      return newJobCounter++ % 2 == 0;
+	    }
 
+	    public boolean shouldRollForwardExistingJob1(Key entityGroup) {
+	      // every other existing job fails to apply
+	      return existingJobCounter++ % 2 == 0;
+	    }
+
+		@Override
+		public boolean shouldApplyNewJob(Key arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean shouldRollForwardExistingJob(Key arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	  }
+
+	
+	  private final LocalServiceTestHelper helper =
+		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig()
+		          .setAlternateHighRepJobPolicyClass(CustomHighRepJobPolicy.class));
+
+
+	
 	@BeforeMethod
 	public void setUp() {
 		helper.setUp();
 	}
 
+	
 	@AfterMethod
 	public void tearDown() {
 		helper.tearDown();

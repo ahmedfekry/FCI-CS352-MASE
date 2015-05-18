@@ -146,6 +146,8 @@ public class NotificationService {
 	public String  sendFriendRequest (@FormParam("senderUser") String sUser, 
 			@FormParam("friendUser")String fUser, @FormParam("senderPassword")String password)
 	{
+		System.out.println("in service");
+		System.out.println("sUser = " + sUser + " pass " + password);
 		JSONObject object = new JSONObject();
 		if(UserEntity.getUser(sUser, password) == null)
 		{
@@ -437,4 +439,26 @@ public class NotificationService {
 		return array.toString();
 	}
 	/////////////////////////////////////////////////////////
+	/**
+	 * Get all received friend requests for a user 
+	 * @param uName  username of a user
+	 * @param password user account password
+	 * */
+	@POST
+	@Path("/GetFriendRequests")
+	public String getFriendRequests(@FormParam("uName")String uName, 
+			@FormParam("password")String password) {
+	//	System.out.println("F R S username_"+ uName + "_pass "+ password);
+		JSONArray object; 
+		
+		if(UserEntity.getUser(uName, password) == null)
+		{
+			object = new JSONArray();
+			object.add( "Failed");
+			return object.toJSONString();
+		}
+		
+		object = FriendRequestEntity.getRequests(uName);
+		return object.toJSONString();
+	}
 }

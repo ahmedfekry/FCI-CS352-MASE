@@ -8,6 +8,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.FCI.SWE.Controller.Connection;
+import com.FCI.SWE.Services.NotificationServiceTest;
+
 
 public class ServiceTest {
 	
@@ -17,6 +19,7 @@ public class ServiceTest {
 	{
 		return new Object[][]{
 				{"hadad","hadad.com" , "123", "OK"},
+				{"m","m.com" , "123", "OK"},
 				{"hadad","hadad.com" , "123", "Failed"}	
 				
 		};
@@ -26,7 +29,8 @@ public class ServiceTest {
 	public static Object[][] loginProvider()
 	{
 		return new Object[][]{
-				{"hadad" , "123", "OK"},	
+				{"hadad" , "123", "OK"},
+				{"m" , "123", "OK"},
 				{"h","123" ,"Failed" },
 				{"hadad","12" ,"Failed" }
 				
@@ -38,10 +42,7 @@ public class ServiceTest {
     
   }
 
-  @Test
-  public void getFriendRequests() {
-    
-  }
+ 
 
   @Test
   public void getFriends() {

@@ -179,28 +179,7 @@ public class Service {
 		return object.toJSONString();
 	}
 	//////////////////////////////////////////////////////////////////
-	/**
-	 * Get all received friend requests for a user 
-	 * @param uName  username of a user
-	 * @param password user account password
-	 * */
-	@POST
-	@Path("/GetFriendRequests")
-	public String getFriendRequests(@FormParam("uName")String uName, 
-			@FormParam("password")String password) {
-	//	System.out.println("F R S username_"+ uName + "_pass "+ password);
-		JSONArray object; 
-		
-		if(UserEntity.getUser(uName, password) == null)
-		{
-			object = new JSONArray();
-			object.add( "Failed");
-			return object.toJSONString();
-		}
-		
-		object = FriendRequestEntity.getRequests(uName);
-		return object.toJSONString();
-	}
+	
 	
 	///////////////////////////////////////////////////////////////////////
 	
