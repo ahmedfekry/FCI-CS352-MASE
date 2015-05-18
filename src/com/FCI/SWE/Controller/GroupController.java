@@ -37,8 +37,8 @@ public class GroupController {
 		String urlParameters =  "name=" + name + "&desc=" + desc + "&privacy=" + privacy;
 		// "user_id=" + User.getCurrentActiveUser().getId() +
 		
-		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		String retJson = Request.sendRequest(serviceUrl,urlParameters);
+
 		JSONParser parser = new JSONParser();
 		Object obj;
 		try {

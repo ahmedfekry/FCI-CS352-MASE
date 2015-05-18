@@ -28,8 +28,8 @@ public class PageController {
 		String urlParameters = "ownerName=" + ownerName + "&password=" + password +
 				"&pageName=" + pageName;
 		
-		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		String retJson = Request.sendRequest(serviceUrl,urlParameters,"POST");
+
 		
 		JSONParser parser = new JSONParser();
 		Map<String, String > result = new HashMap<String, String>();

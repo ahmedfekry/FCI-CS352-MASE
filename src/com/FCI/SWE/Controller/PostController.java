@@ -46,8 +46,7 @@ public class PostController {
 		String urlParameters = "owner=" + owner + "&password=" + password +
 				"&post=" + post  + "&privacy=" + privacy + "&feeling=" + feeling;
 		
-		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		String retJson = Request.sendRequest(serviceUrl,urlParameters);
 		
 		JSONParser parser = new JSONParser();
 		Map<String, String > result = new HashMap<String, String>();
@@ -85,8 +84,8 @@ public class PostController {
 		String serviceUrl = "http://2-dot-socialnetwork-mase.appspot.com/rest/getUserPosts";
 		String urlParameters = "owner=" + owner + "&password=" + password ;
 		
-		String retJson = Connection.connect(serviceUrl, urlParameters, "POST",
-				"application/x-www-form-urlencoded;charset=UTF-8");
+		
+		String retJson = Request.sendRequest(serviceUrl,urlParameters);
 		
 		JSONParser parser = new JSONParser();
 		Vector<Post> posts = null;
